@@ -1,0 +1,16 @@
+/*@media (min-width: 1025px){*/
+/*    .kt-aside--minimize .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link > .kt-menu__link-icon {*/
+/*        color: #3f3f42;*/
+/*    }*/
+
+/*    .kt-menu__link-icon flaticon2-group {*/
+/*        color: #3f3f42;*/
+/*    }*/
+/*}*/
+
+@media print {
+
+    .page-content{
+        font-size: 26px;
+    }
+}

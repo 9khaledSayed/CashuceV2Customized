@@ -1,0 +1,310 @@
+@media (min-width: 1025px){
+    .kt-header-menu .kt-menu__nav > .kt-menu__item:hover > .kt-menu__link > .kt-menu__link-text, .kt-header-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--active > .kt-menu__link > .kt-menu__link-text, .kt-header-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--here > .kt-menu__link > .kt-menu__link-text, .kt-header-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--hover > .kt-menu__link > .kt-menu__link-text {
+        color: #22b9ff;
+        font-weight: bold;
+        font-size: 17px;
+        font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+    }
+    .kt-header .kt-header__title {
+        font-weight: 500;
+        font-size: 2rem;
+    }
+}
+.kt-badge.kt-badge--pill {
+    border-radius: 2rem;
+    font-weight: bold;
+}
+.kt-widget24 .kt-widget24__details .kt-widget24__info .kt-widget24__title {
+    font-weight: 900;
+    font-family: 'DroidKufi Regular', "Myriad Pro Regular", serif !important;
+}
+
+.kt-invoice__brand, .kt-invoice__brand h2 {
+    font-weight: 900;
+    font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+}
+
+.kt-widget24 .kt-widget24__details .kt-widget24__info .kt-widget24__desc {
+    font-weight: 900;
+    font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+}
+
+.kt-portlet .kt-portlet__head .kt-portlet__head-label .kt-portlet__head-title {
+    font-size: 1.2rem;
+    font-weight: 900;
+    font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+}
+
+.kt-widget11 .table thead > tr > td {
+    font-weight: 900;
+    font-size: 14px;
+    color: #000;
+    font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+}
+.kt-subheader .kt-subheader__main .kt-subheader__title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+}
+.kt-widget11 .table tbody > tr {
+    border-bottom: 1px dashed #ebedf2;
+    font-weight: 500;
+    font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+
+}
+.border-bottom {
+    border-bottom: 3px solid #dee2e6 !important;
+    font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+
+}
+
+.kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__heading .kt-menu__link-text, .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link .kt-menu__link-text {
+    font-weight: 900;
+    font-size: 1rem;
+    text-transform: initial;
+    font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+
+}
+
+.menu__heading .kt-menu__link-icon, .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link .kt-menu__link-icon {
+    font-size: 1.5rem;
+
+}
+
+.kt-datatable.kt-datatable--default > .kt-datatable__table > .kt-datatable__head .kt-datatable__row > .kt-datatable__cell > span, .kt-datatable.kt-datatable--default > .kt-datatable__table > .kt-datatable__foot .kt-datatable__row > .kt-datatable__cell > span {
+    font-weight: 900;
+    font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+}
+
+.kt-datatable.kt-datatable--default > .kt-datatable__table > .kt-datatable__head .kt-datatable__row > .kt-datatable__cell, .kt-datatable.kt-datatable--default > .kt-datatable__table > .kt-datatable__body .kt-datatable__row > .kt-datatable__cell, .kt-datatable.kt-datatable--default > .kt-datatable__table > .kt-datatable__foot .kt-datatable__row > .kt-datatable__cell {
+    vertical-align: middle;
+    padding: 10px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+
+}
+
+.table thead th, .table thead td {
+    font-weight: 900;
+font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+}
+
+.table th, .table td {
+    font-weight: 500;
+font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+}
+
+.kt-login.kt-login--v3 .kt-login__wrapper .kt-login__container .kt-login__head .kt-login__title {
+    font-size: 1.8rem;
+    font-weight: 900;
+font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+}
+
+.kt-login.kt-login--v3 .kt-login__wrapper .kt-login__container .kt-form .kt-login__extra .kt-checkbox {
+    font-size: 1.2rem;
+font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+}
+
+.btn {
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+}
+
+.kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item > .kt-menu__heading .kt-menu__link-text, .kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item > .kt-menu__link .kt-menu__link-text {
+    color: #9899ac;
+    font-weight: 600;
+    font-size: 1rem;
+    font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+}
+
+.kt-widget24 .kt-widget24__details .kt-widget24__stats {
+    font-weight: 900;
+}
+
+.kt-widget12 .kt-widget12__content .kt-widget12__item .kt-widget12__info .kt-widget12__desc {
+    font-size: 1.5rem;
+    color: #74788d;
+    padding-bottom: 0.5rem;
+    font-weight: 900;
+    display: block;
+    font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+}
+.alert.alert-success, .alert.alert-danger {
+    font-size: 16px;
+    font-weight: 900;
+    font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+}
+.kt-pricing-4 .kt-pricing-4__bottom .kt-pricing-4__bottok-container.kt-pricing-4__bottok-container--fixed .kt-pricing-4__bottom-items .kt-pricing-4__bottom-item:first-child {
+    text-align: center;
+    font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+}
+
+.total_box {
+    font-size: 1.25rem;
+    padding: 20px;
+    border: 1px solid #000;
+}
+
+.kt-radio-list .kt-radio {
+    display: inline-flex;
+    margin: 5px;
+}
+
+.kt-wizard-v1 .kt-wizard-v1__wrapper .kt-form {
+    width: 100%;
+    padding: 0 0 5px;
+}
+
+.form-group label {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.kt-widget.kt-widget--user-profile-2 .kt-widget__body .kt-widget__item {
+    padding: 2.5rem 0;
+}
+.droid_font{
+    font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+}
+
+.kt-section .kt-section__heading, .kt-section .kt-section__title {
+    font-weight: 600;
+}
+
+.kt-wizard-v1 .kt-wizard-v1__nav .kt-wizard-v1__nav-items .kt-wizard-v1__nav-item .kt-wizard-v1__nav-body .kt-wizard-v1__nav-label {
+    font-weight: 600;
+}
+
+.kt-radio-list .kt-radio {
+    display: inline-flex;
+    margin: 10px;
+}
+
+/*.kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__submenu .kt-menu__subnav > .kt-menu__item > .kt-menu__link {*/
+/*    padding: 5px 30px;*/
+/*}*/
+/*.kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link {*/
+/*    padding: 5px 30px;*/
+/*}*/
+body .fc {
+    font-size: 1em;
+    font-weight: 900;
+    width: 85%;
+    margin: auto;
+    font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+}
+
+.fc-unthemed .fc-event .fc-title, .fc-unthemed .fc-event-dot .fc-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.kt-datatable.kt-datatable--default.kt-datatable--loaded > .kt-datatable__table > .kt-datatable__head, .kt-datatable.kt-datatable--default.kt-datatable--loaded > .kt-datatable__table > .kt-datatable__body, .kt-datatable.kt-datatable--default.kt-datatable--loaded > .kt-datatable__table > .kt-datatable__foot {
+    text-align: center;
+}
+
+.kt-user-card-v2 .kt-user-card-v2__pic .kt-badge {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.kt-section .kt-section__content.kt-section__content--border {
+    margin: 15px;
+}
+
+@media (min-width: 1024px){
+    .modal-lg, .modal-xl {
+        max-width: 900px;
+        max-height: 900px;
+    }
+}
+
+.kt-widget1 .kt-widget1__item .kt-widget1__info .kt-widget1__title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #595d6e;
+}
+
+.kt-subheader .kt-subheader__main .kt-subheader__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.width-65{
+    width:65%;
+}
+
+.kt-invoice-2 .kt-invoice__head .kt-invoice__items .kt-invoice__item .kt-invoice__subtitle {
+    font-weight: 600;
+}
+
+.persons {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.kt-invoice-2 .kt-invoice__head .kt-invoice__items {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-top: 50px;
+    width: 100%;
+    border: 3px solid #000;
+    padding: 15px;
+    border-radius: 20px;
+}
+.kt-portlet .kt-portlet__foot {
+    margin-top: 4%;
+}
+.kt-invoice-2 .kt-invoice__head .kt-invoice__items .kt-invoice__item .kt-invoice__subtitle {
+    font-weight: 500;
+    padding-bottom: 1rem;
+}
+@media (max-width: 1024px){
+    .kt-header-menu-mobile .kt-menu__nav > .kt-menu__item > .kt-menu__heading .kt-menu__link-text, .kt-header-menu-mobile .kt-menu__nav > .kt-menu__item > .kt-menu__link .kt-menu__link-text {
+        font-weight: 600;
+        font-size: 1.5rem;
+        text-transform: initial;
+    }
+}
+html, body {
+    font-family: 'DroidKufi Regular',"Myriad Pro Regular", serif  !important;
+}
+
+.table th, .table td {
+    width: 0;
+}
+
+.kt-avatar .kt-avatar__holder {
+    width: 200px;
+    height: 200px;
+    border-radius: 3px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.swal-text {
+    text-align: center;
+}
+.was-validated .form-control:invalid, .form-control.is-invalid {
+    border-color: #d2061e;
+    padding-left: 0;
+    background-image: initial;
+}
+
+#bellCounter{
+    background:red;
+    color:white;
+    font-weight:bold;
+    padding-right:8px;
+    padding-left:8px;
+    margin-bottom:20px;
+    border-radius:25px;
+    display: none;
+}

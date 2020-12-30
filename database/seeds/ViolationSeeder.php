@@ -1,0 +1,45 @@
+<?php
+
+use Illuminate\Database\Seeder;
+
+class ViolationSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        \Illuminate\Support\Facades\DB::statement("INSERT INTO `violations` (`id`, `reason_in_arabic`, `reason_in_english`, `panel1`, `panel2`, `panel3`, `panel4`, `addition_to`, `created_at`, `updated_at`) VALUES
+(17, 'التأخر عن مواعيد الحضور للعمل لغاية (15) دقيقة دون إذن، أو عذر مقبول: إذا لم يترتب عليه تعطيل عمال آخرين', 'Attendance delay for (15) minutes without permission or acceptable reason if it was not resulted in other workers delay', 'إنذار كتابي', '5', '10', '20', NULL, '2020-10-14 00:19:20', '2020-12-02 12:40:18'),
+(18, 'التأخر عن مواعيد الحضور للعمل لغاية (15) دقيقة دون إذن، أو عذر مقبول: إذا ترتب عليه تعطيل عمال آخرين', 'Attendance delay for (15) minutes without permission or acceptable reason if it was resulted in other workers delay', 'إنذار كتابي', '15', '25', '50', NULL, '2020-10-14 00:20:20', '2020-12-02 13:04:07'),
+(19, 'التأخر عن مواعيد الحضور للعمل لغاية (15) دقيقة لغاية (30) دقيقة دون إذن، أو عذر مقبول:  إذا لم يترتب عليه تعطيل عمال آخرين', 'Attendance delay for more than (15) minutes to (30) minutes without permission or acceptable reason if it was not resulted in other workers delay', '10', '15', '25', '50', NULL, '2020-10-14 00:20:57', '2020-12-02 13:04:40'),
+(20, 'التأخر عن مواعيد الحضور للعمل لغاية (15) دقيقة لغاية (30) دقيقة دون إذن، أو عذر مقبول:  إذا ترتب عليه تعطيل عمال آخرين', 'Attendance delay for more than (15) minutes to (30) minutes without permission or acceptable reason if it was resulted in other workers delay', '25', '50', '75', '100', NULL, '2020-10-14 00:22:55', '2020-12-02 13:04:55'),
+(21, 'التأخر عن مواعيد الحضور للعمل أكثر من (30) دقيقة لغاية (60) دقيقة دون إذن، أو عذر مقبول:  إذا لم يترتب عليه تعطيل عمال آخرين', 'Attendance delay for more than (30) minutes to (60) minutes without permission or acceptable reason if it was not resulted in other workers delay', '25', '50', '75', '100', NULL, '2020-10-14 00:26:10', '2020-12-02 13:05:20'),
+(22, 'التأخر عن مواعيد الحضور للعمل أكثر من (30) دقيقة لغاية (60) دقيقة دون إذن، أو عذر مقبول:  إذا ترتب عليه تعطيل عمال آخرين', 'Attendance delay for more than (30) minutes to (60) minutes without permission or acceptable reason if it was resulted in other workers delay', '30', '50', '100', '200', 'minutes_deduc', '2020-10-14 00:31:07', '2020-12-02 13:05:48'),
+(23, 'التأخر عن مواعيد الحضور للعمل لمدة تزيد عن ساعة دون إذن، أو عذر مقبول: سواء ترتب ، أو لم يترتب على ذلك تعطيل عمال آخرين', 'Attendance delay for more than one hour without permission or acceptable reason whether resulted in other workers delay or not', 'إنذار كتابي', '100', '200', '300', 'hours_deduc', '2020-10-14 00:32:23', '2020-12-02 13:06:03'),
+(24, 'ترك العمل، أو الإنصراف قبل الميعاد دون إذن ، أو عذر مقبول بما لا يتجاوز (15) دقيقة.', 'Leaving of work or departure without permission or written excuse for less than (15) minutes', 'إنذار كتابي', '10', '25', '100', 'leave_days', '2020-10-14 00:33:36', '2020-12-02 13:06:22'),
+(25, 'ترك العمل، أو الإنصراف قبل الميعاد دون إذن ، أو عذر مقبول بما يتجاوز (15) دقيقة.', 'Leaving of work or departure without permission or written excuse for more than (15) minutes', '10', '25', '50', '100', 'leave_days', '2020-10-14 00:34:21', '2020-12-02 13:06:38'),
+(26, 'البقاء في أماكن العمل ، أو العودة إليها بعد إنتهاء مواعيد العمل دون إذن مسبق.', 'Stay in workplace or return to it after the end of work time without prior permission', 'إنذار كتابي', '10', '25', '100', NULL, '2020-10-14 00:35:26', '2020-12-02 13:07:02'),
+(27, 'الغياب دون إذن كتابي ، أو عذر مقبول لمدة يوم ، خلال السنة العقدية الواحدة.', 'Absence without written permission or acceptable reason for one day within one contractual year', '200', '300', '400', 'الحرمان من الترقيات أو العلاوات لمرة واحدة', 'leave_days', '2020-10-14 00:37:31', '2020-12-02 13:07:23'),
+(28, 'الغياب المتصل دون إذن كتابي ، أو عذر مقبول من يومين إلى ستة أيام خلال السنة العقدية الواحدة', 'Continuous absence without written permission, or acceptable reason from two to six days within one contractual year', '200', '300', '400', 'الحرمان من الترقيات أو العلاوات لمرة واحدة', NULL, '2020-10-14 00:38:34', '2020-12-02 13:09:38'),
+(29, 'الغياب المتصل دون إذن كتابي ، أو عذر مقبول من سبعة أيام إلى عشرة أيام ، خالال السنة العقدية الواحدة.', 'Continuous absence without written permission, or acceptable reason from seven to ten days within one contractual year', '400', '500', 'الحرمان من الترقيات والعلاوات لمرة واحدة', 'فصل من الخدمة مع المكافأة : إذا لم يتجاوز مجموع الغياب', 'leave_days', '2020-10-14 00:39:40', '2020-12-02 13:09:56'),
+(30, 'الغياب المتصل دون إذن كتابي ، أو عذر مقبول من أحد عشر يوماً إلى أربعة عشر يوماً ، خالال السنة العقدية الواحدة.', 'Continuous absence without written permission, or acceptable reason from ten to fourteen days within one contractual year', '500', 'الحرمان من الترقيات ، والعلاوات لمرة واحدة، مع توجيه إنذار بالفصل طبقاً للمادة (الثمانون) من نظام العمل', 'فصل من الخدمة طبقاً للمادة (الثمانون) من نظام العمل', NULL, 'leave_days', '2020-10-14 00:51:47', '2020-12-02 13:10:16'),
+(31, 'الإنقطاع عن العمل دون سبب مشروع مدة تزيد على خمسة عشر يوماً متصلة، خلال السنة العقدية الواحدة', 'Absence without legitimate reason for more than fifteen consecutive days within one contractual year', 'الفصل دون مكافئة أو تعويض على أن يسبقه إنذار كتابي بعد الغياب مدة عشرة أيام ، في نطاق حكم المادة (الثمانون) من نظام العمل', NULL, NULL, NULL, NULL, '2020-10-14 00:52:33', '2020-12-02 13:10:34'),
+(32, 'الغياب المتقطع دون سبب مشروع مدداً تزيد في مجموعها على ثلاثين يوم خلال السنة العقدية الواحدة.', 'Intermittent absence without legitimate reason that shall exceed thirty days within one contractual year', 'الفصل دون مكافئة أو تعويض على أن يسبقه إنذار كتابي بعد الغياب مدةعشرين يوماً ، في نطاق حكم المادة (الثمانون) من نظام العمل', NULL, NULL, NULL, NULL, '2020-10-14 00:53:07', '2020-12-02 13:10:52'),
+(33, 'التواجد دون مبرر في غير مكان العمل المخصص للعامل أثناء وقت الدوام', 'Presence, without excuse, in  a place not for working during business hours', '10', '25', '50', '100', NULL, '2020-10-14 00:53:51', '2020-12-02 13:11:14'),
+(34, 'إستقبال زائرين في غير أمور عمل المنشأة في أماكن العمل ، دون إذن الإدارة.', 'Receive visitors for matters not related to establishment works in worksite without permission from management', 'إنذار كتابي', '10', '15', '25', NULL, '2020-10-14 00:54:33', '2020-12-02 13:12:17'),
+(35, 'إستعمال آلات ، ومعدات ، وأدوات المنشأة: لأغراض خاصة دون إذن.', 'Use establishment machines, tools and equipment for special purposes without permission', 'إنذار كتابي', '10', '25', '50', NULL, '2020-10-14 00:55:19', '2020-12-02 13:12:31'),
+(36, 'تدخل العامل، دون وجه حق في أي عمل ليس في إختصاصه ، أو لم يعهد به إليه.', 'Workers interference, without any right in  working not related or assigned to him', '50', '100', '200', '300', NULL, '2020-10-14 00:56:10', '2020-12-02 13:12:46'),
+(37, 'الخروج ، أو الدخول من غير المكان المخصص لذلك.', 'Exit and entry to places other than assigned one to him', 'إنذار كتابي', '10', '15', '25', NULL, '2020-10-14 00:56:45', '2020-12-02 13:14:14'),
+(38, 'الإهمال في تنظيف الآلات وصيانتها ، أو عدم العناية بها ، أو عدم التبليغ عن ما بها من خلل', 'Negligence in cleaning the machines and maintain them and not to care or notify any faults', '50', '100', '200', '300', NULL, '2020-10-14 00:58:07', '2020-12-02 13:15:23'),
+(39, 'عدم وضع أدوات الإصلاح ، والصيانة ، واللوازم الأخرى في الأماكن المخصصة لها ، بعد الإنتهاء من العمل.', 'Not to place fixation and maintenance tools and other accessories in its allocated places after finishing work', 'إنذار كتابي', '25', '50', '100', NULL, '2020-10-14 00:58:54', '2020-12-02 13:15:41'),
+(40, 'تمزيق ، أو إتلاف إعلانات ، أو بلاغات إدارة المنشأة', 'Tear off, damage ads, or notification from establishment management', '200', '300', '500', 'فصل مع المكافأة', NULL, '2020-10-14 01:00:20', '2020-12-02 13:16:13'),
+(41, 'الإهمال في العهد التي بحوزته ، مثال: (سيارات، آلات ، أجهزة، معدات ، أدوات، ....... الخ).', 'Custody negligence such as (cars, machines, equipment, tools, … etc)', '200', '300', '500', 'فصل مع المكافأة', NULL, '2020-10-14 01:02:18', '2020-12-02 13:16:27'),
+(42, 'الأكل في مكان العمل، أو غير المكان المعد له ، أو في غير أوقات الراحة.', 'Eating in worksite or in other places not allocated to such purpose or in times not allocated for break', 'إنذار كتابي', '10', '15', '25', NULL, '2020-10-14 01:02:59', '2020-12-02 13:16:51'),
+(43, 'النوم أثناء العمل', 'Sleeping during work', 'إنذار كتابي', '10', '25', '50', NULL, '2020-10-14 01:03:37', '2020-12-02 13:17:11'),
+(44, 'النوم في الحالات التي تستدعي يقظة مستمرة', 'Sleeping in cases that require waking up', '50', '100', '200', '300', NULL, '2020-10-14 01:04:25', '2020-12-02 13:17:25'),
+(45, 'التسكع، أو وجود العامل في غير مكان عمله، أثناء ساعات العمل.', 'Wandering or presence in places not for his work, during business hours', '10', '25', '50', '100', NULL, '2020-10-14 01:04:58', '2020-12-02 13:17:53');");
+    }
+}
