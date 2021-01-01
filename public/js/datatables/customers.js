@@ -138,7 +138,7 @@ var KTDatatableLocalSortDemo = function() {
                     title: locator.__('Full Name'),
                     textAlign: 'center',
                     template:function (row){
-                        return  (appLang === 'ar') ? row.name_in_arabic:row.name_in_english;
+                        return  employeeName(row);
                     }
                 }, {
                     field: 'email',

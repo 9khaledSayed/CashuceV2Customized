@@ -34,48 +34,79 @@
             @csrf
             @method('put')
             <div class="kt-portlet__body">
-
-                <div class="form-group row ">
-                    <label for="name_in_arabic" class="col-form-label col-lg-3 col-sm-12">{{__('Name In Arabic')}}</label>
-                    <div class="col-lg-6 col-md-9 col-sm-12">
-                        <input
-                            class="form-control @error('name_in_arabic') is-invalid @enderror"
-                            type="text"
-                            name="name_in_arabic"
-                            id="name_in_arabic"
-{{--                            placeholder="{{__('Enter name')}}"--}}
-                            value="{{old('name_in_arabic') ?? $customer->name_in_arabic}}">
+                <div class="form-group row">
+                    <div class="col-lg-4 col-md-9 col-sm-12">
+                        <label >{{__('First Name Arabic')}} *</label>
+                        <input name="fname_ar"
+                               class="form-control"
+                               value="{{old('fname_ar') ?? $customer->fname_ar}}"
+                               type="text">
+                    </div>
+                    <div class="col-lg-4 col-md-9 col-sm-12">
+                        <label >{{__('Middle Name Arabic')}}</label>
+                        <input name="mname_ar"
+                               class="form-control"
+                               value="{{old('mname_ar') ?? $customer->mname_ar}}"
+                               type="text">
+                    </div>
+                    <div class="col-lg-4 col-md-9 col-sm-12">
+                        <label >{{__('Last Name Arabic')}} *</label>
+                        <input name="lname_ar"
+                               value="{{old('lname_ar') ?? $customer->lname_ar}}"
+                               class="form-control"
+                               type="text">
                     </div>
                 </div>
-                <div class="form-group row ">
-                    <label for="name_in_english" class="col-form-label col-lg-3 col-sm-12">{{__('Name In English')}}</label>
-                    <div class="col-lg-6 col-md-9 col-sm-12">
-                        <input
-                            class="form-control @error('name_in_english') is-invalid @enderror"
-                            type="text"
-                            name="name_in_english"
-                            id="name_in_english"
-{{--                            placeholder="{{__('Enter name')}}"--}}
-                            value="{{old('name_in_english') ?? $customer->name_in_english}}">
+                <div class="form-group row">
+                    <div class="col-lg-4 col-md-9 col-sm-12">
+                        <label>{{__('First Name English')}} *</label>
+                        <input name="fname_en"
+                               class="form-control"
+                               value="{{old('fname_en') ?? $customer->fname_en}}"
+                               type="text">
+                    </div>
+                    <div class="col-lg-4 col-md-9 col-sm-12">
+                        <label>{{__('Middle Name English')}}</label>
+                        <input name="mname_en"
+                               class="form-control"
+                               value="{{old('mname_en') ?? $customer->mname_en}}"
+                               type="text">
+                    </div>
+                    <div class="col-lg-4 col-md-9 col-sm-12">
+                        <label>{{__('Last Name English')}} *</label>
+                        <input name="lname_en"
+                               class="form-control"
+                               value="{{old('lname_en') ?? $customer->lname_en}}"
+                               type="text">
                     </div>
                 </div>
-
-                <div class="form-group row ">
-                    <label for="email" class="col-form-label col-lg-3 col-sm-12">{{__('Email')}}</label>
-                    <div class="col-lg-6 col-md-9 col-sm-12">
-                        <input
-                            class="form-control @error('email') is-invalid @enderror"
-                            type="email"
-                            name="email"
-                            id="email"
-{{--                            placeholder="{{__('Enter email')}}"--}}
-                            value="{{old('email')  ?? $customer->email}}"
-                            required autocomplete="email">
+                <div class="form-group row">
+                    <div class="col-lg-4">
+                        <label for="email">{{__('Birthdate')}}</label>
+                        <div class="input-group date">
+                            <input name="birthdate"
+                                   type="text"
+                                   value="{{old('birthdate') ?? $customer->birthdate}}"
+                                   class="form-control datepicker" readonly/>
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="la la-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row ">
-                    <label for="role_id" class="col-form-label col-lg-3 col-sm-12">{{__('Role')}}</label>
-                    <div class="col-lg-6 col-md-9 col-sm-12">
+                    <div class="col-lg-4">
+                        <label for="email">{{__('Email')}}</label>
+                        <input
+                                class="form-control @error('email') is-invalid @enderror"
+                                type="email"
+                                name="email"
+                                id="email"
+                                value="{{old('email') ?? $customer->email}}"
+                                required autocomplete="email">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="role_id">{{__('Role')}}</label>
                         <select class="form-control @error('role_id') is-invalid @enderror kt-selectpicker"
                                 id="role_id"
                                 data-size="7"
@@ -83,8 +114,8 @@
                                 data-show-subtext="true" name="role_id" title="{{__('Select')}}">
                             @forelse($roles as $role)
                                 <option
-                                    value="{{$role->id}}"
-                                    @if($customer->roles->first()->id == $role->id) selected @endif
+                                        value="{{$role->id}}"
+                                        @if($role->id == (old('role_id') ?? $customer->roles->first()->id)) selected @endif
                                 >{{$role->name()}}</option>
                             @empty
                                 <option disabled>{{__('There is no roles')}}</option>
@@ -92,33 +123,27 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="form-group row">
-                    <label for="password" class="col-form-label col-lg-3 col-sm-12">{{__('Password')}}</label>
-                    <div class="col-lg-6 col-md-9 col-sm-12">
+                    <div class="col-lg-6">
+                        <label for="password">{{__('Password')}}</label>
                         <input
-                            class="form-control @error('password')is-invalid @enderror"
-                            type="password"
-                            name="password"
-                            id="password"
-{{--                            placeholder="{{__('Enter password')}}"--}}
-                            value=""
-                            autocomplete="new-password">
+                                class="form-control @error('password')is-invalid @enderror"
+                                type="password"
+                                name="password"
+                                id="password"
+                                value=""
+                                autocomplete="new-password">
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="role_id">{{__('Confirm Password')}}</label>
+                        <input
+                                class="form-control @error('password_confirmation') is-invalid @enderror"
+                                type="password"
+                                name="password_confirmation"
+                                id="password_confirmation"
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label for="password_confirmation" class="col-form-label col-lg-3 col-sm-12">{{__('Confirm Password')}}</label>
-                    <div class="col-lg-6 col-md-9 col-sm-12">
-                        <input
-                            class="form-control @error('password_confirmation') is-invalid @enderror"
-                            type="password"
-                            name="password_confirmation"
-                            id="password_confirmation"
-{{--                            placeholder="{{__('Enter password')}}"--}}
-                            value="{{old('password_confirmation')}}">
-                    </div>
-                </div>
 
             </div>
             <div class="kt-portlet__foot" style="text-align: center">

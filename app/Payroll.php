@@ -29,7 +29,7 @@ class Payroll extends Model
             $monthHolidays = 4;
             foreach ($employees as $employee) {
                 $workDays = $employee->workDays($payroll->date->month);
-                $salaryBeforeDeductions = $workDays * ($employee->salary/(30 - $monthHolidays));
+                $salaryBeforeDeductions = $workDays * ($employee->salary()/(30 - $monthHolidays));
                 $deductions = $employee->deductions();
                 $netSalary = $salaryBeforeDeductions  - $deductions;
 

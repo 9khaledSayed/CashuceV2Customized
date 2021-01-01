@@ -19,25 +19,70 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'password', 'remember_token',
     ];
 
-    public static $rules = [
-        'name_in_arabic' => 'required|string|max:191',
-        'name_in_english' => 'required|string|max:191',
+//    public static $rules = [
+//        'name_in_arabic' => 'required|string|max:191',
+//        'name_in_english' => 'required|string|max:191',
+//        'email' => 'sometimes|required|email|unique:employees',
+//        'salary' => 'required|numeric',
+//        'supervisor_id' => 'nullable|numeric|exists:employees,id',
+//        'job_number' => ['required'],
+//        'password' => ['required', 'string', 'min:8', 'confirmed']
+//    ];
+    public static $managerRules = [
+        'fname_ar' => ['required', 'string'],
+        'mname_ar' => ['nullable', 'string'],
+        'lname_ar' => ['required', 'string'],
+        'fname_en' => ['required', 'string'],
+        'mname_en' => ['nullable', 'string'],
+        'lname_en' => ['required', 'string'],
         'email' => 'sometimes|required|email|unique:employees',
-        'salary' => 'required|numeric',
-        'supervisor_id' => 'nullable|numeric|exists:employees,id',
-        'job_number' => ['required'],
+        'job_number' => 'required|numeric',
+        'birthdate' => ['required', 'date'],
+        'joined_date' => ['required'],
+        'nationality_id' => 'required|numeric',
+        'id_num' => ['required_if:identity_type,0'],
+        'contract_type' => ['required'],
+        'contract_start_date' => ['required'],
+        'contract_period' => 'nullable',
+        'phone' => ['required'],
         'password' => ['required', 'string', 'min:8', 'confirmed']
     ];
-    public static $managerRules = [
-        'name_in_arabic' => 'required|string|max:191',
-        'name_in_english' => 'required|string|max:191',
-        'email' => 'sometimes|required|email:dns|unique:employees',
-        'job_number' => 'required|numeric',
-        'password' => ['required', 'string', 'min:8', 'confirmed']
+    public static $rules = [
+        'fname_ar' => ['required', 'string'],
+        'mname_ar' => ['nullable', 'string'],
+        'lname_ar' => ['required', 'string'],
+        'fname_en' => ['required', 'string'],
+        'mname_en' => ['nullable', 'string'],
+        'lname_en' => ['required', 'string'],
+        'email' => 'sometimes|required|email|unique:employees',
+        'supervisor_id' => 'nullable|numeric|exists:employees,id',
+        'birthdate' => ['required', 'date'],
+        'nationality_id' => 'required|numeric',
+        'marital_status' => ['nullable'],
+        'gender' => ['required'],
+        'identity_type' => ['required'],
+        'id_num' => ['required_if:identity_type,0'],
+        'id_issue_date' => ['required_if:identity_type,0'],
+        'id_expire_date' => ['required_if:identity_type,0'],
+        'passport_num' => ['nullable'],
+        'passport_issue_date' => ['nullable'],
+        'passport_expire_date' => ['nullable'],
+        'issue_place' => ['nullable'],
+        'job_number' =>['required'],
+        'joined_date' => ['required'],
+        'work_shift' => ['required'],
+        'contract_type' => ['required'],
+        'contract_start_date' => ['required'],
+        'contract_period' => 'nullable',
+        'salary' => ['required', 'numeric'],
+        'phone' => ['required'],
+        'password' => ['required', 'string', 'min:8', 'confirmed'],
+
     ];
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'contract_start_date' => 'datetime',
         'created_at'  => 'date:D M d Y',
     ];
     public static function booted()
@@ -72,7 +117,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
 
     public function name()
     {
-        return app()->isLocale('ar')? $this->name_in_arabic: $this->name_in_english;
+        return $this->{'fname_' . app()->getLocale()} . ' ' . $this->{'lname_' . app()->getLocale()};
     }
 
     public function roles()
@@ -87,6 +132,12 @@ class Employee extends Authenticatable implements MustVerifyEmail
         }
         return $this->roles()->sync($role, false);
     }
+
+    public function allowances()
+    {
+        return $this->belongsToMany(Allowance::class);
+    }
+
 
     public function abilities()
     {
@@ -140,7 +191,28 @@ class Employee extends Authenticatable implements MustVerifyEmail
         $work_days = Attendance::where('employee_id', $this->id)->whereNotNull(['time_in', 'time_out'])->whereMonth('created_at', $month)->count();
         return $work_days;
     }
-
+    public function salary()
+    {
+        $add = 0;
+        $deduc = 0;
+        foreach ($this->allowances as $allowance) {
+            if($allowance->type == 1){
+                if(isset($allowance->percentage)){
+                    $add += $this->salary * ($allowance->percentage/100);
+                }else{
+                    $add += $allowance->value;
+                }
+            }
+            if($allowance->type == 0){
+                if(isset($allowance->percentage)){
+                    $deduc += $this->salary * ($allowance->percentage/100);
+                }else{
+                    $deduc += $allowance->value;
+                }
+            }
+        }
+        return $this->salary + $add - $deduc;
+    }
     public function generateDefaultRoles()
     {
         $categories = [

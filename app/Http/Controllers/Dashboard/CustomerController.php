@@ -92,11 +92,24 @@ class CustomerController extends Controller
         while (Employee::pluck('job_number')->contains($request['job_number'])){
             $request['job_number'] = rand(1000,9999);
         }
-        $rules = Employee::$managerRules;
+        $managerRules = Employee::$managerRules;
         if($id){
-            $rules['email'] = ($rules['email'] . ',email,' . $id);
+            $managerRules['email'] = ($managerRules['email'] . ',email,' . $id);
         }
-        return $request->validate($rules);
+        $jobNumber = rand(1000,9999);
+        while (Employee::pluck('job_number')->contains($jobNumber)){
+            $jobNumber = rand(1000,9999);
+        }
+
+        $request['job_number'] = $jobNumber;
+        $request['joined_date'] = '2020-08-01';
+        $request['nationality_id'] = '1';
+        $request['id_num'] = '54566546544';
+        $request['contract_type'] = '1';
+        $request['contract_start_date'] = '1';
+        $request['contract_period'] = '12';
+        $request['phone'] = '0000000000';
+        return $request->validate($managerRules);
     }
 
 

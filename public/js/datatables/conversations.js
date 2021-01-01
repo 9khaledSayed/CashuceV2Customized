@@ -134,14 +134,14 @@ var KTDatatableLocalSortDemo = function() {
                     title: locator.__('Hr'),
                     textAlign: 'center',
                     template:function (row){
-                        return  (appLang === 'ar') ? row.hr.name_in_arabic:row.hr.name_in_english;
+                        return  employeeName(row.hr);
                     }
                 }, {
                     field: 'employee.name_in_arabic',
                     title: locator.__('Employee'),
                     textAlign: 'center',
                     template:function (row){
-                       return  (appLang === 'ar') ? row.employee.name_in_arabic:row.employee.name_in_english;
+                       return  employeeName(row.employee);
                     }
                 },{
                     field: 'created_at',

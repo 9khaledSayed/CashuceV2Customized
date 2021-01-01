@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes(['verify' => true]);
+Auth::routes(['verify' => false]);
 
 Route::redirect('/', 'login');
 
@@ -26,7 +26,7 @@ Route::namespace('Dashboard')
     ->prefix('dashboard')
     ->name('dashboard.')
     ->middleware('auth')
-    ->middleware('verified')
+//    ->middleware('verified')
     ->group(function(){
         Route::get('/', 'DashboardController@index')->name('index');
         Route::get('/abilities', 'AbilityController@index');
@@ -70,6 +70,10 @@ Route::namespace('Dashboard')
         'attendance_forgottens' => 'AttendanceForgottenController',
         'requests' => 'RequestController',
         'payrolls' => 'PayrollController',
+        'nationalities' => 'NationalityController',
+        'allowances' => 'AllowanceController',
+        'work_shifts' => 'WorkShiftController',
+        'vacation_types' => 'VacationTypeController',
     ]);
 
 });

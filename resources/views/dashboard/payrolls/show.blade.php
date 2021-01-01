@@ -208,7 +208,7 @@
                 <div class="kt-portlet__head-toolbar">
                     <div class="kt-portlet__head-actions">
                         @can('proceed_payrolls')
-                            @if($payroll->status != 1)
+{{--                            @if($payroll->status != 1)--}}
                             <a class="btn btn-warning btn-sm btn-loading" href="{{route('dashboard.payrolls.reissue', $payroll->id)}}">
                                 <i class="fa fa-redo"></i>
                                 {{__('Reissue')}}
@@ -221,7 +221,7 @@
                                 <i class="fa fa-times"></i>
                                 {{__('Reject')}}
                             </a>
-                            @endif
+{{--                            @endif--}}
                         @endcan
                     </div>
                 </div>

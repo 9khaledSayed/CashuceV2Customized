@@ -96,10 +96,9 @@ class PayrollController extends Controller
             'employees_no'       => $employees->count(),
             'total_deductions'   => $totalDeductions,
         ]);
-
         foreach ($employees as $employee) {
             $workDays = $employee->workDays($payroll->date->month);
-            $salaryBeforeDeductions = $workDays * ($employee->salary/(30 - $monthHolidays));
+            $salaryBeforeDeductions = $workDays * ($employee->salary()/(30 - $monthHolidays));
             $deductions = $employee->deductions();
             $netSalary = $salaryBeforeDeductions  - $deductions;
 
@@ -113,6 +112,9 @@ class PayrollController extends Controller
             ]);
 
         }
+        $payroll->update([
+            'total_net_salary' => $payroll->salaries->pluck('net_salary')->sum(),
+        ]);
 
         return redirect()->back()->with('reissue', 1);
     }

@@ -50,8 +50,14 @@ class RegisterController extends Controller
     {
 
         return Validator::make($data, [
-            'name_in_arabic' => ['required', 'string', 'max:255'],
-            'name_in_english' => ['required', 'string', 'max:255'],
+            /**/
+            'fname_ar' => ['required', 'string'],
+            'mname_ar' => ['nullable', 'string'],
+            'lname_ar' => ['required', 'string'],
+            'fname_en' => ['required', 'string'],
+            'mname_en' => ['nullable', 'string'],
+            'lname_en' => ['required', 'string'],
+            'birthdate' => ['required', 'date'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:employees'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -76,14 +82,26 @@ class RegisterController extends Controller
             $barcode = str_pad($barcode, 12, "0", STR_PAD_LEFT);
         }
         $employee = Employee::create([
-            'name_in_arabic' => $data['name_in_arabic'],
-            'name_in_english' => $data['name_in_english'],
-            'email' => $data['email'],
+            'fname_ar' => $data['fname_ar'],
+            'mname_ar' => $data['mname_ar'],
+            'lname_ar' => $data['lname_ar'],
+            'fname_en' => $data['fname_en'],
+            'mname_en' => $data['mname_en'],
+            'lname_en' => $data['lname_en'],
+            'email'    => $data['email'],
             'job_number' => $jobNumber,
             'is_manager' => true,
             'vacations_balance' => 30,
             'barcode' => $barcode,
             'password' => $data['password'],
+            'birthdate'      => $data['birthdate'],
+            'joined_date'      => '2020-08-01',
+            'nationality_id'      => '1',
+            'id_num'      => '54566546544',
+            'contract_type'      => '1',
+            'contract_start_date'      => '2020-08-01',
+            'contract_period'      => '12',
+            'phone'      => '0000000000',
         ]);
         $employee->assignRole("User");
         $employee->generateDefaultRoles();

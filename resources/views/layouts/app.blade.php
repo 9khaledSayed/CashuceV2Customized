@@ -92,6 +92,11 @@
             text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
         }
 
+        .kt-login.kt-login--v1 .kt-login__wrapper .kt-login__body .kt-login__form {
+            width: 100%;
+            max-width: 541px;
+        }
+
     </style>
 </head>
 
@@ -178,6 +183,7 @@
 
 <!--begin::Page Scripts(used by this page) -->
 <script src="{{asset('assets/js/pages/custom/login/login-1.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/pages/globalScripts.js')}}" type="text/javascript"></script>
 
 <!--end::Page Scripts -->
 </body>

@@ -77,7 +77,7 @@ var KTUserListDatatable = function() {
                     ];
                     var state = states[stateNo];
                     let employee = data.employee
-                    let name =   (appLang === 'ar') ? employee.name_in_arabic:employee.name_in_english;
+                    let name = employeeName(employee);
                     output = '<div class="kt-user-card-v2" style="width: fit-content; margin: auto">\
 								<div class="kt-user-card-v2__pic">\
 									<div class="kt-badge kt-badge--xl kt-badge--' + state + '">' + name.substring(0, 2) + '</div>\

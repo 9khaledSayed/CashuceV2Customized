@@ -19,12 +19,12 @@ class Role extends Model
     ];
     public static function booted()
     {
-//        static::creating(function ($model){
-//            $employee = auth()->user();
-//            // Get the id of the company manager
-//            $managerId = ($employee->is_manager)? $employee->id:$employee->manager->id;
-//            $model->manager_id = $managerId; // for Ceo
-//        });
+        static::creating(function ($model){
+            $employee = auth()->user();
+            // Get the id of the company manager
+            $managerId = ($employee->is_manager)? $employee->id:$employee->manager->id;
+            $model->manager_id = $managerId; // for Ceo
+        });
         static::addGlobalScope(new ParentScope());
     }
     public function abilities()

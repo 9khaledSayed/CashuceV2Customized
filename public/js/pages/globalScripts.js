@@ -24,3 +24,7 @@ $(function (){
         templates: arrows,
     });
 });
+
+function employeeName(employee) {
+    return (appLang === 'ar') ? employee.fname_ar + ' ' + employee.lname_ar: employee.fname_en + ' ' + employee.lname_en;
+}

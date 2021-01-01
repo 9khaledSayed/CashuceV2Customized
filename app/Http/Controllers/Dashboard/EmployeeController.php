@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Allowance;
 use App\Employee;
 use App\Http\Controllers\Controller;
+use App\Nationality;
 use App\Role;
 use App\Rules\UniqueJopNumber;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
+    public $contract_type = [
+        'limited',
+        'unlimited',
+    ];
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -25,54 +32,87 @@ class EmployeeController extends Controller
         return view('dashboard.employees.index');
     }
 
+
     public function create()
     {
         $this->authorize('create_employees');
+        $allowances = Allowance::all();
+        $nationalities = Nationality::all();
         $roles = Role::whereNotIn('label', ['User', 'Super Admin'])->get();
         $supervisors = Employee::whereNull('supervisor_id')->whereNotNull('manager_id')->get();
-        return view('dashboard.employees.create', compact('roles', 'supervisors'));
+
+        return view('dashboard.employees.create', [
+            'nationalities' => $nationalities,
+            'roles' => $roles,
+            'contract_type' => $this->contract_type,
+            'allowances' =>$allowances,
+            'supervisors' =>$supervisors,
+        ]);
     }
+
 
     public function store(Request $request)
     {
         $this->authorize('create_employees');
-        $employee = Employee::create($this->validator($request));
-        $this->setRole($request, $employee);
-        return redirect(route('dashboard.employees.index'));
+        if($request->ajax()){
+
+            $employee = Employee::create($this->validator($request));
+            $this->setRole($request, $employee);
+            $employee->allowance()->attach($request->allowance);
+
+            return response()->json([
+                'status' => true,
+            ]);
+
+        }
+        return 0;
     }
 
-    public function edit(Employee $employee)
-    {
-        $this->authorize('update_employees');
-        $roles = Role::whereNotIn('label', ['User', 'Super Admin'])->get();
-        $supervisors = Employee::whereNull('supervisor_id')->whereNotNull('manager_id')->get();
-        return view('dashboard.employees.edit', compact('employee', 'roles', 'supervisors'));
-    }
-
-    public function update(Employee $employee, Request $request)
-    {
-        $this->authorize('update_employees');
-        $employee->update($this->validator($request, $employee->id));
-        $this->setRole($request, $employee);
-        return redirect(route('dashboard.employees.index'));
-    }
 
     public function show(Employee $employee)
     {
         return view('dashboard.employees.show', compact('employee'));
     }
 
-    public function destroy(Employee $employee, Request $request)
+
+    public function edit(Employee $employee)
     {
-        $this->authorize('delete_employees');
+        $this->authorize('update_employees');
+        $allowances = Allowance::all();
+        $nationalities = Nationality::all();
+        $roles = Role::whereNotIn('label', ['User', 'Super Admin'])->get();
+        $supervisors = Employee::whereNull('supervisor_id')->whereNotNull('manager_id')->get();
+        return view('dashboard.employees.edit', [
+            'employee' => $employee,
+            'nationalities' => $nationalities,
+            'roles' => $roles,
+            'contract_type' => $this->contract_type,
+            'allowances' =>$allowances,
+            'supervisors' =>$supervisors,
+        ]);
+    }
+
+
+    public function update(Request $request, Employee $employee)
+    {
+        $this->authorize('update_employees');
         if($request->ajax()){
-            $employee->delete();
+            $employee->update($this->validator($request, $employee->id));
+            $this->setRole($request, $employee);
+            $employee->allowances()->detach($request->allowance);
+            $employee->allowances()->attach($request->allowance);
             return response()->json([
                 'status' => true,
-                'message' => 'Item Deleted Successfully'
             ]);
         }
-        return redirect(route('dashboard.employees.index'));
+        return 0;
+    }
+
+
+
+    public function destroy(Employee $employee)
+    {
+        //
     }
 
     public function setRole(Request $request, $employee)
@@ -93,11 +133,4 @@ class EmployeeController extends Controller
         return $request->validate($rules);
     }
 
-    public function lateEmployees($notificationId)
-    {
-        $notification = auth()->user()->notifications->where('id', $notificationId)->first();
-        $notification->markAsRead();
-        $lateEmployees = Employee::whereIn('id', $notification->data['lateEmployeesIDs'])->get();
-        return view('dashboard.employees.late_employees', compact('lateEmployees'));
-    }
 }

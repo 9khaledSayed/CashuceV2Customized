@@ -136,7 +136,7 @@ var KTDatatableLocalSortDemo = function() {
                     title: locator.__('Employee'),
                     textAlign: 'center',
                     template:function (row){
-                        return  (appLang === 'ar') ? row.employee.name_in_arabic:row.employee.name_in_english;
+                        return  employeeName(employee);
                     }
                 },
                 {
@@ -144,7 +144,7 @@ var KTDatatableLocalSortDemo = function() {
                     title: locator.__('Manager'),
                     textAlign: 'center',
                     template:function (row){
-                        return  (appLang === 'ar') ? row.supervisor.name_in_arabic:row.supervisor.name_in_english;
+                        return employeeName(supervisor);
                     }
                 }, {
                     field: 'description',

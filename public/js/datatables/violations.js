@@ -12,7 +12,6 @@ var KTDatatableLocalSortDemo = function() {
             'Fourth Panel': "جزاء رابع مرة",
             "Addition To": "الحسم اﻹضافي",
             "Actions": "الاجراءات",
-            "إنذار كتابي": "Written notice",
             'Are you sure to delete this item?': "هل انت متأكد أنك تريد مسح هذا العنصر؟",
             'Item Deleted Successfully': "تم مسح العنصر بنجاح",
             'Yes, Delete!': "نعم امسح!",

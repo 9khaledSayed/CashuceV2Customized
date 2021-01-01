@@ -177,7 +177,7 @@ var KTDatatableLocalSortDemo = function() {
                     title: locator.__('Full Name'),
                     textAlign: 'center',
                     template:function (row){
-                        return  (appLang === 'ar') ? row.name_in_arabic:row.name_in_english;
+                        return  employeeName(row);
                     }
                 }, {
                     field: 'email',
@@ -238,7 +238,6 @@ var KTDatatableLocalSortDemo = function() {
 		                      <div class="dropdown-menu dropdown-menu-right">\
 		                          <a class="dropdown-item" href="/dashboard/employees/' + row.id + '/edit"><i class="la la-pencil-square-o"></i>' + locator.__('Edit Info') + '</a>\
 		                          <a class="dropdown-item" href="/dashboard/employees/' + row.id + '"><i class="la la-eye"></i>' + locator.__('Show Info') + '</a>\
-		                          <a class="dropdown-item delete-item" href="#"><i class="la la-trash"></i>' + locator.__('Delete') + '</a>\
 		                      </div>\
 		                  </div>\
                         ';
