@@ -26,19 +26,20 @@ class Payroll extends Model
         static::created(function ($payroll){
             $payroll->salaries()->delete();
             $employees = Employee::get();
-            $monthHolidays = 4;
+            $monthHolidays = 0;
             foreach ($employees as $employee) {
-                $workDays = $employee->workDays($payroll->date->month);
-                $salaryBeforeDeductions = $workDays * ($employee->salary()/(30 - $monthHolidays));
-                $deductions = $employee->deductions();
-                $netSalary = $salaryBeforeDeductions  - $deductions;
+//                $workDays = $employee->workDays($payroll->date->month);
+                $workDays = setting('work_days') ?? 0;
+                $totalPackage = $workDays * ($employee->totalPackage()/(30 - $monthHolidays));
+                $deductions = $employee->deductions() + $employee->gosiDeduction();
+                $netPay = $totalPackage  - $deductions;
 
                 Salary::create([
                     'employee_id' => $employee->id,
                     'payroll_id' => $payroll->id,
-                    'salary' => $salaryBeforeDeductions,
+                    'salary' => $totalPackage,
                     'deductions' => $deductions,
-                    'net_salary' => $netSalary,
+                    'net_salary' => $netPay,
                     'work_days' => $workDays,
                 ]);
 

@@ -58,7 +58,7 @@ class EmployeeController extends Controller
 
             $employee = Employee::create($this->validator($request));
             $this->setRole($request, $employee);
-            $employee->allowance()->attach($request->allowance);
+            $employee->allowances()->attach($request->allowance);
 
             return response()->json([
                 'status' => true,
@@ -108,7 +108,13 @@ class EmployeeController extends Controller
         return 0;
     }
 
+    public function lateEmployees($notificationId)
+    {
+        $notification = auth()->user()->notifications->where('id', $notificationId)->first();
+        $lateEmployees = Employee::whereIn('id', $notification->data['lateEmployeesIDs'])->get();
 
+        return view('dashboard.employees.late_employees', compact('lateEmployees'));
+    }
 
     public function destroy(Employee $employee)
     {

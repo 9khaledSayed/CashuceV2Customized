@@ -55,7 +55,7 @@
                     <p style="margin: 10px 0"><strong> {{__('Date')}}: </strong>{{ $employeeViolation->date->locale(app()->getLocale())->isoFormat('LL') }}</p>
 
                     <p style="margin: 10px 0"><strong>{{__('Violations Penalties')}} : </strong>
-                        {{__($employeeViolation->deduction)}}
+                        {{__($deduction)}}
                     </p>
                     @if($employeeViolation->addition_to > 0)
                         <p style="margin: 10px 0"><strong>{{__('Addition Penalties')}} : </strong>

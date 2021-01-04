@@ -48,7 +48,8 @@ class EmployeeViolationController extends Controller
     public function show($id)
     {
         $employeeViolation = EmployeeViolation::find($id);
-        return view('dashboard.employees_violations.show', compact('employeeViolation'));
+        $deduction = is_numeric($employeeViolation->deduction)? $employeeViolation->deduction . __(" S.R") : $employeeViolation->deduction;
+        return view('dashboard.employees_violations.show', compact('employeeViolation', 'deduction'));
     }
 
 
@@ -86,7 +87,7 @@ class EmployeeViolationController extends Controller
     public function calculateDeduction($dailySalary, $panelValue)
     {
         if (@number_format($panelValue) != null)
-            return number_format($dailySalary * ($panelValue/100), 2) . __(' S.R');
+            return number_format($dailySalary * ($panelValue/100), 2);
         return $panelValue;
     }
 

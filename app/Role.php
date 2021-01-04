@@ -17,6 +17,14 @@ class Role extends Model
     protected $casts = [
         'created_at'  => 'date:D M d Y',
     ];
+
+    public function saveWithoutEvents(array $options=[])
+    {
+        return static::withoutEvents(function() use ($options) {
+            return $this->save($options);
+        });
+    }
+
     public static function booted()
     {
         static::creating(function ($model){

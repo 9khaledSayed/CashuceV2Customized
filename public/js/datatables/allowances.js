@@ -96,34 +96,41 @@ var KTDatatableLocalSortDemo = function() {
                                     onOpen: function () {
                                         swal.showLoading();
                                     }
-                                });
-                                $.ajax({
-                                    method: 'DELETE',
-                                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                                    url: '/dashboard/stock/' + data.id,
-                                    error: function (err) {
-                                        if (err.hasOwnProperty('responseJSON')) {
-                                            if (err.responseJSON.hasOwnProperty('message')) {
-                                                swal.fire({
-                                                    title: locator.__('Error!'),
-                                                    text: locator.__(err.responseJSON.message),
-                                                    type: 'error'
-                                                });
-                                            }
-                                        }
-                                        console.log(err);
-                                    }
-                                }).done(function (res) {
+                                });if (data.is_basic) {
                                     swal.fire({
-                                        title: locator.__('Deleted!'),
-                                        text: locator.__(res.message),
-                                        type: 'success',
-                                        buttonsStyling: false,
-                                        confirmButtonText: locator.__("OK"),
-                                        confirmButtonClass: "btn btn-sm btn-bold btn-brand",
+                                        title: locator.__('Error Can\'t Delete Basic Allowance!'),
+                                        type: 'error',
                                     });
-                                    datatable.reload();
-                                });
+                                }else {
+                                    $.ajax({
+                                        method: 'DELETE',
+                                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                                        url: '/dashboard/allowances/' + data.id,
+                                        error: function (err) {
+                                            if (err.hasOwnProperty('responseJSON')) {
+                                                if (err.responseJSON.hasOwnProperty('message')) {
+                                                    swal.fire({
+                                                        title: locator.__('Error!'),
+                                                        text: locator.__(err.responseJSON.message),
+                                                        type: 'error'
+                                                    });
+                                                }
+                                            }
+                                            console.log(err);
+                                        }
+                                    }).done(function (res) {
+                                        swal.fire({
+                                            title: locator.__('Deleted!'),
+                                            text: locator.__(res.message),
+                                            type: 'success',
+                                            buttonsStyling: false,
+                                            confirmButtonText: locator.__("OK"),
+                                            confirmButtonClass: "btn btn-sm btn-bold btn-brand",
+                                        });
+                                        datatable.reload();
+                                    });
+                                }
+
                             }
                         });
                     });
@@ -156,29 +163,30 @@ var KTDatatableLocalSortDemo = function() {
                     textAlign: 'center',
 
                     template: function(data) {
-                        if (data.value)
-                        {
-                            return '' + data.value + ' ' + locator.__('Ryal') + '';
+                        if (data.value){
 
-                        }else
-                        {
+                            return '' + data.value + ' ' + locator.__(' S.R') + '';
+
+                        }else{
+
                             return '<h3>-</h3>';
-                        }
 
+                        }
 
                     },
                 },{
-                    field: 'value_perc',
+                    field: 'percentage',
                     title: locator.__('Value In Percentage'),
                     textAlign: 'center',
                     template: function(data) {
-                        if (data.value_perc)
+                        if (data.percentage)
                         {
-                            return '' + data.value_perc + ' %';
+                            return data.percentage + ' %';
 
-                        }else
-                        {
+                        }else{
+
                             return '<h3>-</h3>';
+
                         }
 
                     },
@@ -204,11 +212,19 @@ var KTDatatableLocalSortDemo = function() {
                     overflow: 'visible',
                     autoHide: false,
                     textAlign: 'center',
-                    template: function(data) {
+                    template:function (row){
                         return '\
-                            <a  href="/dashboard/hr/allowance_types/' + data.id + '/edit"   style="background:transparent;border:0px" class="show"><i class="fa fa-file-alt"></i><br>' + locator.__('edit') + '</a>\
+		                  <div class="dropdown">\
+		                      <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown">\
+		                          <i class="la la-ellipsis-h"></i>\
+		                      </a>\
+		                      <div class="dropdown-menu dropdown-menu-right">\
+                                  <a class="dropdown-item " href="/dashboard/allowances/' + row.id + '/edit"><i class="la la-pencil"></i>' + locator.__('Edit') + '</a>\
+		                          <a class="dropdown-item delete-item" href="#"><i class="la la-trash"></i>' + locator.__('Delete') + '</a>\
+		                      </div>\
+		                  </div>\
                         ';
-                    },
+                    }
                 }],
         });
 

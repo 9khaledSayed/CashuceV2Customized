@@ -54,6 +54,9 @@
                             <a href="{{route('dashboard.settings.payrolls')}}" class="kt-widget__item kt-widget__item--active">
                                 {{__('Payrolls')}}
                             </a>
+{{--                            <a href="{{route('dashboard.settings.basic_allowances')}}" class="kt-widget__item">--}}
+{{--                                {{__('Basic Allowances')}}--}}
+{{--                            </a>--}}
                             <a href="#" class="kt-widget__item">
                                 {{__('Vacation Types')}}
                             </a>
@@ -81,7 +84,7 @@
                             </div>
                         </div>
                         @include('layouts.dashboard.parts.errorSection')
-                        <form class="kt-form kt-form--label-right" action="{{route('dashboard.settings.attendance')}}" method="post">
+                        <form class="kt-form kt-form--label-right" action="{{route('dashboard.settings.payrolls')}}" method="post">
                             @csrf
                             <div class="kt-portlet__body">
                                 <div class="kt-section kt-section--first">
@@ -110,6 +113,15 @@
                                                        placeholder="" type="number"
                                                        name="payroll_day"
                                                        value="{{ old('payroll_day') ?? setting('payroll_day')}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label">{{__('Work Days')}}</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <input class="form-control @error('work_days') is-invalid @enderror"
+                                                       placeholder="work days" type="number"
+                                                       name="work_days"
+                                                       value="{{ old('work_days') ?? setting('work_days') ?? 0}}">
                                             </div>
                                         </div>
                                     </div>

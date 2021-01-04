@@ -33,7 +33,7 @@
                         <i class="la la-long-arrow-left"></i>
                         {{__('Back')}}
                     </a>
-                    <a href="#" class="btn btn-brand btn-icon-sm"  data-toggle="modal" data-target="#myModal">
+                    <a href="{{route('dashboard.allowances.create')}}" class="btn btn-brand btn-icon-sm">
                         <i class="flaticon2-plus"></i> {{__('Add New')}}
                     </a>
                 </div>

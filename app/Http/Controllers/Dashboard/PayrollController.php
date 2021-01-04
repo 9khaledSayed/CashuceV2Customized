@@ -73,8 +73,16 @@ class PayrollController extends Controller
     {
         $this->authorize('show_payrolls');
         if($request->ajax()){
-            $salaries = Salary::with(['employee', 'payroll', 'employee.roles'])
-                ->where('payroll_id', $payroll->id)->get();
+            $salaries = Salary::where('payroll_id', $payroll->id)->get()->map(function ($salary){
+                    return [
+                        'id' => $salary->id,
+                        'employee' => $salary->employee,
+                        'total_package' => $salary->employee->totalPackage(),
+                        'gosi_deduction' => $salary->employee->gosiDeduction(),
+                        'violations_deduction' => $salary->employee->deductions(),
+                        'net_pay' => $salary->net_salary,
+                    ];
+                });
             return response()->json($salaries);
         }
         return view('dashboard.payrolls.show', compact('payroll'));
@@ -86,7 +94,7 @@ class PayrollController extends Controller
         $this->authorize('proceed_payrolls');
         $payroll->salaries()->delete();
         $employees = Employee::get();
-        $monthHolidays = 4;
+        $monthHolidays = 0;
 
         $totalDeductions = $employees->map(function($employee){
             return $employee->deductions();
@@ -97,17 +105,19 @@ class PayrollController extends Controller
             'total_deductions'   => $totalDeductions,
         ]);
         foreach ($employees as $employee) {
-            $workDays = $employee->workDays($payroll->date->month);
-            $salaryBeforeDeductions = $workDays * ($employee->salary()/(30 - $monthHolidays));
-            $deductions = $employee->deductions();
-            $netSalary = $salaryBeforeDeductions  - $deductions;
+//            $workDays = $employee->workDays($payroll->date->month);
+
+            $workDays = setting('work_days') ?? 0;
+            $totalPackage = $workDays * ($employee->totalPackage()/(30 - $monthHolidays));
+            $deductions = $employee->deductions() + $employee->gosiDeduction();
+            $netPay = $totalPackage  - $deductions;
 
             Salary::create([
                 'employee_id' => $employee->id,
                 'payroll_id' => $payroll->id,
-                'salary' => $salaryBeforeDeductions,
+                'salary' => $totalPackage,
                 'deductions' => $deductions,
-                'net_salary' => $netSalary,
+                'net_salary' => $netPay,
                 'work_days' => $workDays,
             ]);
 

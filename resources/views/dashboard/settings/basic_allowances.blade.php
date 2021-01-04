@@ -48,15 +48,15 @@
                             </div>
                         </div>
                         <div class="kt-widget__body">
-                            <a href="{{route('dashboard.settings.attendance')}}" class="kt-widget__item kt-widget__item--active">
+                            <a href="{{route('dashboard.settings.attendance')}}" class="kt-widget__item">
                                 {{__('Attendance')}}
                             </a>
                             <a href="{{route('dashboard.settings.payrolls')}}" class="kt-widget__item">
                                 {{__('Payrolls')}}
                             </a>
-{{--                            <a href="{{route('dashboard.settings.basic_allowances')}}" class="kt-widget__item">--}}
-{{--                                {{__('Basic Allowances')}}--}}
-{{--                            </a>--}}
+                            <a href="{{route('dashboard.settings.basic_allowances')}}" class="kt-widget__item kt-widget__item--active">
+                                {{__('Basic Allowances')}}
+                            </a>
                             <a href="#" class="kt-widget__item">
                                 {{__('Vacation Types')}}
                             </a>
@@ -84,7 +84,7 @@
                             </div>
                         </div>
                         @include('layouts.dashboard.parts.errorSection')
-                        <form class="kt-form kt-form--label-right" action="{{route('dashboard.settings.attendance')}}" method="post">
+                        <form class="kt-form kt-form--label-right" action="{{route('dashboard.settings.basic_allowances')}}" method="post">
                             @csrf
                             <div class="kt-portlet__body">
                                 <div class="kt-section kt-section--first">
@@ -93,30 +93,23 @@
                                             @include('layouts.dashboard.parts.successSection')
                                         @endif
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label">{{__('Work Start Date')}}</label>
+                                            <label class="col-xl-3 col-lg-3 col-form-label">{{__('HRA ( % )')}}</label>
                                             <div class="col-lg-9 col-xl-6">
-                                                <input class="form-control start_time @error('work_start_date') is-invalid @enderror"
-                                                       readonly placeholder="Select time" type="text"
-                                                       name="work_start_date"
-                                                       value="{{ old('work_start_date') ?? setting('work_start_date')}}">
+                                                <input class="form-control @error('hra') is-invalid @enderror"
+                                                       placeholder="" type="number"
+                                                       name="hra"
+                                                       min="0"
+                                                       value="{{ old('hra') ?? setting('hra')}}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label">{{__('Work End Date')}}</label>
+                                            <label class="col-xl-3 col-lg-3 col-form-label">{{__('GOSI Deduction ( % )')}}</label>
                                             <div class="col-lg-9 col-xl-6">
-                                                <input class="form-control end_time @error('work_end_date') is-invalid @enderror"
-                                                       readonly placeholder="Select time" type="text"
-                                                       name="work_end_date"
-                                                       value="{{ old('work_end_date') ?? setting('work_end_date')}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label">{{__('Overtime')}}</label>
-                                            <div class="col-lg-9 col-xl-6">
-                                                <input class="form-control overtime @error('overtime') is-invalid @enderror"
-                                                       readonly placeholder="Select time" type="text"
-                                                       name="overtime"
-                                                       value="{{ old('overtime') ?? setting('overtime')}}">
+                                                <input class="form-control @error('gosi') is-invalid @enderror"
+                                                       placeholder="" type="number"
+                                                       name="gosi"
+                                                       min="0"
+                                                       value="{{ old('gosi') ?? setting('gosi')}}">
                                             </div>
                                         </div>
                                     </div>
@@ -153,27 +146,27 @@
 @endsection
 
 @push('scripts')
-<script>
-    $(function (){
-        $('.start_time').timepicker({
-            defaultTime: '9:30:00 AM',
-            minuteStep: 1,
-            showSeconds: false,
-            showMeridian: true,
+    <script>
+        $(function (){
+            $('.start_time').timepicker({
+                defaultTime: '9:30:00 AM',
+                minuteStep: 1,
+                showSeconds: false,
+                showMeridian: true,
+            });
+            $('.end_time').timepicker({
+                defaultTime: '6:30:00 AM',
+                minuteStep: 1,
+                showSeconds: false,
+                showMeridian: true,
+            });
+            $('.overtime').timepicker({
+                minuteStep: 1,
+                defaultTime: '0:00:00',
+                showSeconds: true,
+                showMeridian: false,
+                snapToStep: true
+            });
         });
-        $('.end_time').timepicker({
-            defaultTime: '6:30:00 AM',
-            minuteStep: 1,
-            showSeconds: false,
-            showMeridian: true,
-        });
-        $('.overtime').timepicker({
-            minuteStep: 1,
-            defaultTime: '0:00:00',
-            showSeconds: false,
-            showMeridian: false,
-            snapToStep: true
-        });
-    });
-</script>
+    </script>
 @endpush

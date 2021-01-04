@@ -15,11 +15,13 @@ class CreateAllowancesTable extends Migration
     {
         Schema::create('allowances', function (Blueprint $table) {
             $table->id();
-            $table->string('name_ar');
-            $table->string('name_en');
+            $table->string('name_ar')->unique();
+            $table->string('name_en')->unique();
             $table->decimal('value')->nullable();
             $table->decimal('percentage')->nullable();
             $table->integer('type');
+            $table->boolean('is_basic')->default(false);
+            $table->string('label')->nullable();
             $table->timestamps();
         });
 

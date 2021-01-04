@@ -116,6 +116,8 @@ return [
     'attendanceForgotten'    => 'لقد قمت بتسجيل الحضور اليوم بالفعل',
     'uniqueMonth'          => 'تم اصدار مسير رواتب لهذا الشهر',
     'current_password'    => 'كلمة المرور الحالية غير صحيحة.',
+    'required_if_null'    => 'يجب تحديد قيمة البدل.',
+    'present_alone'    => 'يجب تحديد قيمة واحدة فقط.',
     'exist_infraction' => [
         'required_id' => 'لا يمكن تكرار نفس المخالفة في نفس اليوم',
     ],

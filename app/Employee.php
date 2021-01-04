@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use anlutro\LaravelSettings\Facade as Setting;
 
 class Employee extends Authenticatable implements MustVerifyEmail
 {
@@ -181,8 +182,10 @@ class Employee extends Authenticatable implements MustVerifyEmail
 
     public function deductions()
     {
-        return $this->employee_violations->pluck('deduction')->map(function($deduction){
-            return is_numeric($deduction) ? $deduction : 0;
+        return $this->employee_violations->map(function($employee_violations){
+            $deduction =  is_numeric($employee_violations->deduction) ? $employee_violations->deduction : 0;
+            $additionTo =  is_numeric($employee_violations->addition_to) ? $employee_violations->addition_to : 0;
+            return $deduction + $additionTo;
         })->sum();
     }
 
@@ -193,17 +196,22 @@ class Employee extends Authenticatable implements MustVerifyEmail
     }
     public function salary()
     {
+        return $this->totalPackage() - $this->gosiDeduction();
+    }
+
+    public function totalPackage()
+    {
         $add = 0;
         $deduc = 0;
         foreach ($this->allowances as $allowance) {
-            if($allowance->type == 1){
+            if($allowance->type == 1){ // addition
                 if(isset($allowance->percentage)){
                     $add += $this->salary * ($allowance->percentage/100);
                 }else{
                     $add += $allowance->value;
                 }
             }
-            if($allowance->type == 0){
+            if($allowance->type == 0 && $allowance->label != 'gosi'){ // deduction
                 if(isset($allowance->percentage)){
                     $deduc += $this->salary * ($allowance->percentage/100);
                 }else{
@@ -213,6 +221,33 @@ class Employee extends Authenticatable implements MustVerifyEmail
         }
         return $this->salary + $add - $deduc;
     }
+
+
+    public function gosiDeduction()
+    {
+        $gosi = $this->allowances()->where('label', 'gosi')->first();
+        $hra = $this->allowances()->where('label', 'hra')->first();
+
+        if(isset($gosi) && isset($hra)){
+            $hraAddition = 0;
+            if(isset($hra->percentage)){
+                $hraAddition = $this->salary * ($hra->percentage/100);
+            }else{
+                $hraAddition = $hra->value;
+            }
+
+            if(isset($gosi->percentage)){
+                $gosiDeduction = ($this->salary + $hraAddition) * ($gosi->percentage /100);
+            }else{
+                $gosiDeduction = $gosi->value;
+            }
+
+            return $gosiDeduction;
+        }
+
+        return 0;
+    }
+
     public function generateDefaultRoles()
     {
         $categories = [
@@ -226,20 +261,23 @@ class Employee extends Authenticatable implements MustVerifyEmail
         ];
         $abilities = \App\Ability::get();
         if ($this->id == 1){
-            $superAdmin = \App\Role::create([
+            $superAdmin = new Role([
                 'name_english'  => 'Super Admin',
                 'name_arabic'  => 'المدير التنفيذي',
                 'label' => 'Super Admin',
                 'type' => 'System Role',
                 'manager_id' => $this->id
             ]);
-            $user = \App\Role::create([
+            $user = new Role([
                 'name_english'  => 'User',
                 'name_arabic'  => 'عميل',
                 'label' => 'User',
                 'type' => 'System Role',
                 'manager_id' => $this->id
             ]);
+
+            $superAdmin->saveWithoutEvents(['creating']);
+            $user->saveWithoutEvents(['creating']);
 
             foreach($abilities as $ability){
                 $superAdmin->allowTo($ability);
@@ -249,21 +287,21 @@ class Employee extends Authenticatable implements MustVerifyEmail
                 $user->allowTo($ability);
             }
         }
-        $Hr = \App\Role::create([
+        $Hr = new Role([
             'name_english'  => 'HR',
             'name_arabic'  => 'مدير الموارد البشرية',
             'label' => 'HR',
             'type' => 'System Role',
             'manager_id' => $this->id
         ]);
-        $supervisor = \App\Role::create([
+        $supervisor = new Role([
             'name_english'  => 'Supervisor',
             'name_arabic'  => 'المدير المباشر',
             'label' => 'Supervisor',
             'type' => 'System Role',
             'manager_id' => $this->id
         ]);
-        $employee = \App\Role::create([
+        $employee = new Role([
             'name_english'  => 'Employee',
             'name_arabic'  => 'موظف',
             'label' => 'Employee',
@@ -271,6 +309,10 @@ class Employee extends Authenticatable implements MustVerifyEmail
             'manager_id' => $this->id
         ]);
 
+
+        $supervisor->saveWithoutEvents(['creating']);
+        $Hr->saveWithoutEvents(['creating']);
+        $employee->saveWithoutEvents(['creating']);
 
         foreach($abilities->whereIn('category',['employees', 'employees_violations', 'reports', 'conversations']) as $ability){
             $Hr->allowTo($ability);

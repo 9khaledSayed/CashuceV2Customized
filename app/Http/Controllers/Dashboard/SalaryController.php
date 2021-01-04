@@ -17,8 +17,17 @@ class SalaryController extends Controller
     {
         $this->authorize('view_my_salaries');
         if($request->ajax()){
-            $my_salaries = Salary::with('payroll')
-                ->where('employee_id', auth()->user()->getAuthIdentifier())->get();
+            $my_salaries = Salary::where('employee_id', auth()->user()->getAuthIdentifier())->get()->map(function ($salary){
+                return [
+                    'id' => $salary->id,
+                    'date' => $salary->payroll->date->format('Y-m'),
+                    'total_package' => $salary->employee->totalPackage(),
+                    'gosi_deduction' => $salary->employee->gosiDeduction(),
+                    'violations_deduction' => $salary->employee->deductions(),
+                    'net_pay' => $salary->net_salary,
+                    'work_days' => $salary->work_days,
+                ];
+            });;
             return response()->json($my_salaries);
         }
         return view('dashboard.salaries.my_salaries');

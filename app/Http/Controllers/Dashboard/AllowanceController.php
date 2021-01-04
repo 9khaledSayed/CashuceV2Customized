@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Allowance;
 use App\Http\Controllers\Controller;
+use App\Rules\PresentedAlone;
+use App\Rules\RequiredIfNull;
 use Illuminate\Http\Request;
 
 class AllowanceController extends Controller
@@ -23,15 +25,17 @@ class AllowanceController extends Controller
         return view('dashboard.settings.allowances.index');
     }
 
+    public function create()
+    {
+        return view('dashboard.settings.allowances.create');
+    }
 
 
     public function store(Request $request)
     {
 //        $this->authorize('view_allowances_types');
-        if ( $request->ajax())
-        {
-            Allowance::create($this->validator($request));
-        }
+        Allowance::create($this->validator($request));
+        return redirect(route('dashboard.allowances.index'));
     }
 
     public function edit(Allowance $allowance)
@@ -42,20 +46,42 @@ class AllowanceController extends Controller
     public function update(Allowance $allowance , Request $request)
     {
 //        $this->authorize('view_allowances_types');
-        if ( $request->ajax())
-        {
-            $allowance->update($this->validator($request));
-        }
+        $allowance->update($this->validator($request, $allowance->id));
+        return redirect(route('dashboard.allowances.index'));
     }
 
-    public function validator(Request $request)
+
+    public function destroy( Request $request , Allowance $allowance)
     {
-        return $request->validate([
-            'name_ar'    => 'required | string',
-            'name_en'    => 'required | string',
-            'percentage' => 'nullable | numeric',
-            'value' => 'nullable | numeric',
-            'type' => 'required | integer'
-        ]);
+        $this->authorize('delete_roles');
+
+        if($request->ajax() && !$allowance->is_basic){
+            $allowance->delete();
+            return response()->json([
+                'status' => true,
+                'message' => 'Item Deleted Successfully'
+            ]);
+        }else{
+            return response()->json([
+                'status' => false,
+                'message' => 'Can\'t Delete Basic Allowance'
+            ]);
+        }
+
+    }
+
+    public function validator(Request $request, $id = null)
+    {
+
+        $rules = Allowance::$rules;
+
+        array_push($rules['percentage'], new PresentedAlone($request->value));
+        array_push($rules['value'], new RequiredIfNull($request));
+
+        if($id){
+            $rules['name_ar'] = ($rules['name_ar'] . ',name_ar,' . $id);
+            $rules['name_en'] = ($rules['name_en'] . ',name_en,' . $id);
+        }
+        return $request->validate($rules);
     }
 }

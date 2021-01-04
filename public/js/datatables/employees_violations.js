@@ -135,7 +135,7 @@ var KTDatatableLocalSortDemo = function() {
                     title: locator.__('Employee'),
                     textAlign: 'center',
                     template:function (row){
-                        return  employeeName(employee);;
+                        return  employeeName(row.employee);;
                     }
                 }, {
                     field: 'employee.job_number',

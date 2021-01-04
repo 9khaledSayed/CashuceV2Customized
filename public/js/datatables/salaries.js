@@ -8,7 +8,7 @@ var KTDatatableLocalSortDemo = function() {
             'Employee': "الموظف",
             "Total Deductions":"إجمالي الحسومات",
             "Net Salary":"صافي الراتب",
-            "Net Pay":"صافي المبلغ",
+            // "Net Pay":"صافي المبلغ",
             "Work Days":"ايام العمل",
             "Actions":"اجراءات",
 
@@ -136,26 +136,32 @@ var KTDatatableLocalSortDemo = function() {
 									<div class="kt-badge kt-badge--xl kt-badge--' + state + '">' + name.substring(0, 2) + '</div>\
 								</div>\
 								<div class="kt-user-card-v2__details">\
-									<a href="/dashboard/employees/' + data.employee_id + '" class="kt-user-card-v2__name">' + name + '</a>\
+									<a href="/dashboard/employees/' + employee.id + '" class="kt-user-card-v2__name">' + name + '</a>\
 								</div>\
 							</div>';
 
                         return output;
                     }
                 }, {
-                    field: 'salary',
-                    title: locator.__('Net Salary'),
+                    field: 'total_package',
+                    title: locator.__('Total Package'),
                 }, {
-                    field: 'deductions',
-                    title: locator.__('Total Deductions'),
+                    field: 'gosi_deduction',
+                    title: locator.__('GOSI Deduction'),
                     template:function(row){
-                        return '<span class="kt-font-danger">' + row.deductions + '</span>';
+                        return '<span class="kt-font-danger">' + row.gosi_deduction + '</span>';
                     }
                 }, {
-                    field: 'net_salary',
+                    field: 'violations_deduction',
+                    title: locator.__('Violations Deduction'),
+                    template:function(row){
+                        return '<span class="kt-font-danger">' + row.violations_deduction + '</span>';
+                    }
+                }, {
+                    field: 'net_pay',
                     title: locator.__('Net Pay'),
                     template:function(row){
-                        return '<span class="kt-font-primary">' + row.net_salary + '</span>';
+                        return '<span class="kt-font-primary">' + row.net_pay + '</span>';
                     }
                 }, {
                     field: 'work_days',

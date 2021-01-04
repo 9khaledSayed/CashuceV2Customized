@@ -21,7 +21,7 @@ class CreateEmployeeViolationsTable extends Migration
             $table->unsignedBigInteger('manager_id');
             $table->integer('repeats');
             $table->string('deduction');
-            $table->integer('addition_to')->nullable();
+            $table->decimal('addition_to')->default(0);
             $table->date('date');
             $table->integer('minutes_late')->nullable();
             $table->integer('absence_days')->nullable();

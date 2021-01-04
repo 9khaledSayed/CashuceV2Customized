@@ -1,5 +1,6 @@
 <?php
 
+use App\Scopes\ParentScope;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes(['verify' => false]);
+Auth::routes(['verify' => true]);
 
 Route::redirect('/', 'login');
 
@@ -26,7 +27,7 @@ Route::namespace('Dashboard')
     ->prefix('dashboard')
     ->name('dashboard.')
     ->middleware('auth')
-//    ->middleware('verified')
+    ->middleware('verified')
     ->group(function(){
         Route::get('/', 'DashboardController@index')->name('index');
         Route::get('/abilities', 'AbilityController@index');
@@ -54,6 +55,7 @@ Route::namespace('Dashboard')
         Route::get('salaries/{salary}', 'SalaryController@show')->name('salaries.show');
         Route::any('settings/attendance', 'SettingController@attendnace')->name('settings.attendance');
         Route::any('settings/payrolls', 'SettingController@payrolls')->name('settings.payrolls');
+//        Route::any('settings/basic_allowances', 'SettingController@basicAllowances')->name('settings.basic_allowances');
 
 
         Route::resources([
@@ -79,5 +81,24 @@ Route::namespace('Dashboard')
 });
 Route::get('/foo', function (){
     Artisan::call('migrate --seed');
+    dd('done');
+});
+Route::get('/allowances', function (){
+    \App\Allowance::create([
+            'name_ar' => 'سكن',
+            'name_en' => 'HRA',
+            'percentage' => 25,
+            'type' => 1,
+            'is_basic' => true,
+            'label' => 'hra',
+    ]);
+    \App\Allowance::create([
+            'name_ar' => 'استقطاع التأمينات الاجتماعية',
+            'name_en' => 'GOSI Subscription',
+            'percentage' => 10,
+            'type' => 2,
+            'is_basic' => true,
+            'label' => 'gosi',
+    ]);
     dd('done');
 });

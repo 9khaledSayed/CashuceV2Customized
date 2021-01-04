@@ -370,10 +370,10 @@
                                                                 </select>
                                                             </div>
                                                             <div class="col-12 mt-3">
-                                                                <label>{{__('Work shift')}} *</label>
+                                                                <label>{{__('Work Shift')}} *</label>
                                                                 <select name="work_shift" class="form-control kt-selectpicker" title="Choose" >
-                                                                    <option value="1">{{__('Morning Shift')}}</option>
-                                                                    <option value="2">{{__('Evening Shift')}}</option>
+                                                                    <option value="1" @if(old('work_shift') == 1) selected @endif>{{__('Morning Shift')}}</option>
+                                                                    <option value="2" @if(old('work_shift') == 2) selected @endif>{{__('Evening Shift')}}</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -458,6 +458,7 @@
                                                                     <h3 class="kt-section__title kt-section__title-lg" style="margin: 25px 0 20px 0;">{{__('Allowances')}}</h3>
 
                                                                     <div class="kt-checkbox-list">
+
                                                                         @foreach($allowances as $allowance)
                                                                             <label class="kt-checkbox kt-checkbox--bold  @if($allowance->type == 1) kt-checkbox--success @else kt-checkbox--danger @endif ">
                                                                                 <input name="allowance[]" value="{{$allowance->id}}" type="checkbox">

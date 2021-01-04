@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
 //        $schedule->command('lateEmployees:notify')->everyMinute();
-        $schedule->command('lateEmployees:notify')->dailyAt('17:10')->timezone('Asia/Riyadh');
+        $schedule->command('lateEmployees:notify')->dailyAt('20:00')->timezone('Asia/Riyadh');
     }
 
     /**

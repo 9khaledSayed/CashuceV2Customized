@@ -401,11 +401,11 @@
                                                                 </select>
                                                             </div>
                                                             <div class="col-12 mt-3">
-                                                                <label>{{__('Workshift')}} *</label>
+                                                                <label>{{__('Work Shift')}} *</label>
                                                                 <select name="work_shift" class="form-control kt-selectpicker" title="Choose" >
 
-                                                                  <option value="1" @if($employee->shift_type == 1) selected @endif>{{__('Morning Shift')}}</option>
-                                                                  <option value="2" @if($employee->shift_type == 2) selected @endif>{{__('Evening Shift')}}</option>
+                                                                  <option value="1" @if(($employee->work_shift || old('work_shift')) == 1) selected @endif>{{__('Morning Shift')}}</option>
+                                                                  <option value="2" @if(($employee->work_shift || old('work_shift')) == 2) selected @endif>{{__('Evening Shift')}}</option>
 
                                                                 </select>
                                                             </div>
@@ -491,19 +491,17 @@
                                                                     <h3 class="kt-section__title kt-section__title-lg" style="margin: 25px 0 20px 0;">{{__('Allowances')}}</h3>
                                                                     <div class="kt-checkbox-list">
                                                                         @foreach($allowances as $allowance)
+                                                                        <label class="kt-checkbox kt-checkbox--bold  @if($allowance->type == 1) kt-checkbox--success @else kt-checkbox--danger @endif ">
+                                                                            <input name="allowance[]" @if($employee->allowances->contains($allowance)) checked @endif value="{{$allowance->id}}" type="checkbox">
+                                                                            {{$allowance->name()}}
 
-                                                                            <label class="kt-checkbox kt-checkbox--bold  @if($allowance->type == 1) kt-checkbox--success @else kt-checkbox--danger @endif ">
-                                                                                <input name="allowance[]" @if($employee->allowances->contains($allowance)) checked @endif value="{{$allowance->id}}" type="checkbox">
-                                                                                {{$allowance->name()}}
-
-                                                                                @if($allowance->value)
-                                                                               ( {{$allowance->value . __(' S.R')}} )
-                                                                                @else
-                                                                                {{ '( ' .$allowance->percentage . ' % )' }}
-                                                                                @endif
-                                                                                <span></span>
-                                                                            </label>
-
+                                                                            @if($allowance->value)
+                                                                           ( {{$allowance->value . __(' S.R')}} )
+                                                                            @else
+                                                                            {{ '( ' .$allowance->percentage . ' % )' }}
+                                                                            @endif
+                                                                            <span></span>
+                                                                        </label>
                                                                         @endforeach
                                                                     </div>
                                                                 </div>

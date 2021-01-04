@@ -103,6 +103,7 @@ class RegisterController extends Controller
             'contract_period'      => '12',
             'phone'      => '0000000000',
         ]);
+
         $employee->assignRole("User");
         $employee->generateDefaultRoles();
         return $employee;

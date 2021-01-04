@@ -28,7 +28,7 @@
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
                 <h3 class="kt-portlet__head-title">
-                    {{__('Update Info')}}
+                    {{__('Add New')}}
                 </h3>
             </div>
         </div>
@@ -37,9 +37,8 @@
                 @include('layouts.dashboard.parts.errorSection')
                 <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
                     <!--begin: Form Wizard Form-->
-                    <form action="{{route('dashboard.allowances.update', $allowance->id)}}" method="post" class="kt-form" style="width: 80%" id="">
+                    <form action="{{route('dashboard.allowances.store')}}" method="post" class="kt-form" style="width: 80%" id="">
                     @csrf
-                    @method('PUT')
                     <!--begin: Form Wizard Step 1-->
                         <div class="kt-wizard-v1__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
                             <div class="kt-section kt-section--first">
@@ -55,7 +54,7 @@
 
                                                                 <label>{{__('Name In Arabic')}} *</label>
                                                                 <input name="name_ar"
-                                                                       value="{{old('name_ar') ?? $allowance->name_ar}}"
+                                                                       value="{{old('name_ar')}}"
                                                                        class="form-control @error('name_ar') is-invalid @enderror"
                                                                        type="text">
 
@@ -64,7 +63,7 @@
 
                                                                 <label>{{__('Name In English')}} *</label>
                                                                 <input name="name_en"
-                                                                       value="{{old('name_en') ?? $allowance->name_en}}"
+                                                                       value="{{old('name_en')}}"
                                                                        class="form-control @error('name_en') is-invalid @enderror"
                                                                        type="text">
 
@@ -79,10 +78,10 @@
                                                                     <option value="" selected>
                                                                         {{__('Choose')}}
                                                                     </option>
-                                                                    <option value="1" @if((old('type') ?? $allowance->type) == 1) selected @endif>
+                                                                    <option value="1" @if(old('type') == 1) selected @endif>
                                                                         {{__('Addition')}}
                                                                     </option>
-                                                                    <option value="0" @if((old('type') ?? $allowance->type) == 0) selected @endif>
+                                                                    <option value="0" @if(old('type') == 0) selected @endif>
                                                                         {{__('Deduction')}}
                                                                     </option>
                                                                 </select>
@@ -93,7 +92,7 @@
 
                                                                 <label>{{__('Value In Ryal')}} *</label>
                                                                 <input name="value"
-                                                                       value="{{old('value') ?? $allowance->value}}"
+                                                                       value="{{old('value')}}"
                                                                        class="form-control @error('value') is-invalid @enderror"
                                                                        type="number">
 
@@ -103,7 +102,7 @@
 
                                                                 <label>{{__('Value In Percentage')}} *</label>
                                                                 <input name="percentage"
-                                                                       value="{{old('percentage') ?? $allowance->percentage}}"
+                                                                       value="{{old('percentage')}}"
                                                                        class="form-control @error('percentage') is-invalid @enderror"
                                                                        type="number" >
 

@@ -9,7 +9,7 @@ var KTDatatableLocalSortDemo = function() {
             "Total Additions":"اجمالي الاضافي",
             "Total Deductions":"إجمالي الحسومات",
             "Net Salary":"صافي الراتب",
-            "Net Pay":"صافي المبلغ",
+            // "Net Pay":"صافي المبلغ",
             "Total Days":"ايام العمل",
         }
     };
@@ -111,18 +111,21 @@ var KTDatatableLocalSortDemo = function() {
             // columns definition
             columns: [
                 {
-                    field: "payroll.date",
+                    field: "date",
                     title: locator.__("Date"),
                     width: 100,
 
                 }, {
-                    field: 'salary',
-                    title: locator.__('Net Salary'),
+                    field: 'total_package',
+                    title: locator.__('Total Package'),
                 }, {
-                    field: 'deductions',
-                    title: locator.__('Total Deductions'),
+                    field: 'gosi_deduction',
+                    title: locator.__('GOSI Deduction'),
                 }, {
-                    field: 'net_salary',
+                    field: 'violations_deduction',
+                    title: locator.__('Violation Deductions'),
+                }, {
+                    field: 'net_pay',
                     title: locator.__('Net Pay'),
                 }, {
                     field: 'work_days',

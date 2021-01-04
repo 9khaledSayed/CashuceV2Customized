@@ -121,6 +121,8 @@ return [
     'attendanceForgotten'    => 'You have been already record your attendance',
     'uniqueMonth'=> 'The :attribute has already been taken.',
     'current_password'    => 'The current password is incorrect.',
+    'required_if_null'    => 'The allowance value must be detected.',
+    'present_alone'    => 'Only one value must be detected.',
     'exist_infraction' => [
         'required_id' => 'Can\'t assign same infraction with the same date to the same employee',
     ],
