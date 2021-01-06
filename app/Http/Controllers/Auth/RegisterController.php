@@ -106,6 +106,7 @@ class RegisterController extends Controller
 
         $employee->assignRole("User");
         $employee->generateDefaultRoles();
+        $employee->generateDefaultAllowances();
         return $employee;
     }
 }

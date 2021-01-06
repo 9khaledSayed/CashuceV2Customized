@@ -141,47 +141,59 @@ class   RoleSeeder extends Seeder
             'category' => 'attendances'
         ]);
 
+        // Settings
+        \App\Ability::create([
+            'name'  => 'view_settings',
+            'label' => 'View Settings',
+            'category' => 'settings'
+        ]);
 
 
 
 
-        if ($this->managerId == 1){
-            $superAdmin = \App\Role::create([
-                'name_english'  => 'Super Admin',
-                'name_arabic'  => 'المدير التنفيذي',
-                'label' => 'Super Admin',
-                'type' => 'System Role',
-                'manager_id' => $this->managerId
-            ]);
-            $user = \App\Role::create([
-                'name_english'  => 'User',
-                'name_arabic'  => 'عميل',
-                'label' => 'User',
-                'type' => 'System Role',
-                'manager_id' => $this->managerId
-            ]);
-        }
-        $Hr = \App\Role::create([
+
+        $superAdmin = new \App\Role([
+            'name_english'  => 'Super Admin',
+            'name_arabic'  => 'المدير التنفيذي',
+            'label' => 'Super Admin',
+            'type' => 'System Role',
+            'manager_id' => $this->managerId
+        ]);
+        $user = new \App\Role([
+            'name_english'  => 'User',
+            'name_arabic'  => 'عميل',
+            'label' => 'User',
+            'type' => 'System Role',
+            'manager_id' => $this->managerId
+        ]);
+        $Hr = new \App\Role([
             'name_english'  => 'HR',
             'name_arabic'  => 'مدير الموارد البشرية',
             'label' => 'HR',
             'type' => 'System Role',
             'manager_id' => $this->managerId
         ]);
-        $supervisor = \App\Role::create([
+        $supervisor = new \App\Role([
             'name_english'  => 'Supervisor',
             'name_arabic'  => 'المدير المباشر',
             'label' => 'Supervisor',
             'type' => 'System Role',
             'manager_id' => $this->managerId
         ]);
-        $employee = \App\Role::create([
+        $employee = new \App\Role([
             'name_english'  => 'Employee',
             'name_arabic'  => 'موظف',
             'label' => 'Employee',
             'type' => 'System Role',
             'manager_id' => $this->managerId
         ]);
+
+        $superAdmin->saveWithoutEvents(['creating']);
+        $user->saveWithoutEvents(['creating']);
+        $Hr->saveWithoutEvents(['creating']);
+        $supervisor->saveWithoutEvents(['creating']);
+        $employee->saveWithoutEvents(['creating']);
+
         $abilities = \App\Ability::get();
         foreach($abilities as $ability){
             $superAdmin->allowTo($ability);

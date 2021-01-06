@@ -46,6 +46,8 @@ class CustomerController extends Controller
         $customer->manager_id = null;
         $customer->save();
         $this->setRole($customer, $request);
+        $customer->generateDefaultAllowances();
+
         return redirect(route('dashboard.customers.index'));
     }
 

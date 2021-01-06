@@ -123,6 +123,7 @@ return [
     'current_password'    => 'The current password is incorrect.',
     'required_if_null'    => 'The allowance value must be detected.',
     'present_alone'    => 'Only one value must be detected.',
+    'unique_item' => 'The :attribute has already been taken.',
     'exist_infraction' => [
         'required_id' => 'Can\'t assign same infraction with the same date to the same employee',
     ],

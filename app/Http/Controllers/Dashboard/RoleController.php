@@ -21,7 +21,8 @@ class RoleController extends Controller
         'payrolls',
         'requests',
         'employees_services',
-        'attendances'
+        'attendances',
+        'settings'
     ];
     protected $customerCategories = [
         'roles',
@@ -32,7 +33,8 @@ class RoleController extends Controller
         'payrolls',
         'requests',
         'employees_services',
-        'attendances'
+        'attendances',
+        'settings',
     ];
 
     public function __construct()

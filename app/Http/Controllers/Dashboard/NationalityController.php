@@ -4,13 +4,19 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Nationality;
+use App\Rules\UniqueItem;
 use Illuminate\Http\Request;
 
 class NationalityController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(Request $request)
     {
-//        $this->authorize('view_nationalities');
+        $this->authorize('view_settings');
         if ($request->ajax()) {
             $nationality = Nationality::all();
             return response()->json($nationality);
@@ -21,27 +27,27 @@ class NationalityController extends Controller
 
     public function create()
     {
-//        $this->authorize('create_nationalities');
+        $this->authorize('view_settings');
         return  view('dashboard.settings.nationalities.create');
     }
 
     public function store(Request $request)
     {
-//        $this->authorize('create_nationalities');
+        $this->authorize('view_settings');
         Nationality::create($this->validator($request));
         return redirect(route('dashboard.nationalities.index'));
     }
 
     public function edit(Nationality $nationality)
     {
-//        $this->authorize('update_nationalities');
+        $this->authorize('view_settings');
         return  view('dashboard.settings.nationalities.edit',compact('nationality'));
     }
 
     public function update(Request $request, Nationality $nationality)
     {
-//        $this->authorize('update_nationalities');
-        $nationality->update($this->validator($request));
+        $this->authorize('view_settings');
+        $nationality->update($this->validator($request, $nationality->id));
         return redirect(route('dashboard.nationalities.index'));
     }
 
@@ -59,10 +65,12 @@ class NationalityController extends Controller
 //        return redirect(route('dashboard.nationalities.index'));
     }
 
-    public function validator(Request $request) {
-        return $request->validate([
-            'name_ar' => ['required', 'string', 'max:25', 'unique:nationalities'],
-            'name_en' => ['required', 'string', 'max:25', 'unique:nationalities'],
-        ]);
+    public function validator(Request $request, $id = null)
+    {
+        $rules = Nationality::$rules;
+        array_push($rules['name_ar'], new UniqueItem(new Nationality(), $id));
+
+        return $request->validate($rules);
     }
+
 }

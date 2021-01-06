@@ -1,5 +1,6 @@
 <?php
 
+use App\Employee;
 use App\Scopes\ParentScope;
 use Illuminate\Support\Facades\Route;
 
@@ -55,7 +56,6 @@ Route::namespace('Dashboard')
         Route::get('salaries/{salary}', 'SalaryController@show')->name('salaries.show');
         Route::any('settings/attendance', 'SettingController@attendnace')->name('settings.attendance');
         Route::any('settings/payrolls', 'SettingController@payrolls')->name('settings.payrolls');
-//        Route::any('settings/basic_allowances', 'SettingController@basicAllowances')->name('settings.basic_allowances');
 
 
         Route::resources([
@@ -79,26 +79,18 @@ Route::namespace('Dashboard')
     ]);
 
 });
-Route::get('/foo', function (){
-    Artisan::call('migrate --seed');
-    dd('done');
+
+Route::get('/drop', function (){
+    Artisan::call('migrate:fresh', ['--force' => true]);
 });
-Route::get('/allowances', function (){
-    \App\Allowance::create([
-            'name_ar' => 'سكن',
-            'name_en' => 'HRA',
-            'percentage' => 25,
-            'type' => 1,
-            'is_basic' => true,
-            'label' => 'hra',
+
+Route::get('/fix', function (){
+
+    \App\Ability::create([
+        'name'  => 'view_settings',
+        'label' => 'View Settings',
+        'category' => 'settings'
     ]);
-    \App\Allowance::create([
-            'name_ar' => 'استقطاع التأمينات الاجتماعية',
-            'name_en' => 'GOSI Subscription',
-            'percentage' => 10,
-            'type' => 2,
-            'is_basic' => true,
-            'label' => 'gosi',
-    ]);
-    dd('done');
+
+
 });

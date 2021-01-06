@@ -118,6 +118,7 @@ return [
     'current_password'    => 'كلمة المرور الحالية غير صحيحة.',
     'required_if_null'    => 'يجب تحديد قيمة البدل.',
     'present_alone'    => 'يجب تحديد قيمة واحدة فقط.',
+    'unique_item'               => 'قيمة :attribute مُستخدمة من قبل.',
     'exist_infraction' => [
         'required_id' => 'لا يمكن تكرار نفس المخالفة في نفس اليوم',
     ],

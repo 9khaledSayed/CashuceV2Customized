@@ -8,8 +8,15 @@ use anlutro\LaravelSettings\Facade as Setting;
 
 class SettingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+    }
+
     public function setManagerID()
     {
+        $this->authorize('view_settings');
         $employee = auth()->user();
         $managerId = ($employee->is_manager)? $employee->id:$employee->manager->id;
         Setting::setExtraColumns(array(
@@ -19,6 +26,7 @@ class SettingController extends Controller
 
     public function attendnace(Request $request)
     {
+        $this->authorize('view_settings');
         $this->setManagerID();
 
         if ($request->post()){
@@ -36,6 +44,7 @@ class SettingController extends Controller
 
     public function payrolls(Request $request)
     {
+        $this->authorize('view_settings');
         $this->setManagerID();
 
         if ($request->post()){
@@ -51,16 +60,5 @@ class SettingController extends Controller
         return view('dashboard.settings.payrolls');
     }
 
-//    public function basicAllowances(Request $request)
-//    {
-//        $this->setManagerID();
-//
-//        if ($request->post()){
-//            unset($request['_token']);
-//            setting($request->all())->save();
-//            return redirect(route('dashboard.settings.basic_allowances'))->with('success', 'true');
-//        }
-//        return view('dashboard.settings.basic_allowances');
-//    }
 
 }

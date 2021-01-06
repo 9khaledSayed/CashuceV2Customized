@@ -28,7 +28,7 @@
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
                 <h3 class="kt-portlet__head-title">
-                    {{__('Add New')}}
+                    {{__('Update Info')}}
                 </h3>
             </div>
         </div>
@@ -37,8 +37,9 @@
                 @include('layouts.dashboard.parts.errorSection')
                 <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
                     <!--begin: Form Wizard Form-->
-                    <form action="{{route('dashboard.vacation_types.store')}}" method="post" class="kt-form" style="width: 80%" id="">
+                    <form action="{{route('dashboard.vacation_types.update', $vacationType->id)}}" method="post" class="kt-form" style="width: 80%" id="">
                     @csrf
+                        @method('PUT')
                     <!--begin: Form Wizard Step 1-->
                         <div class="kt-wizard-v1__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
                             <div class="kt-section kt-section--first">
@@ -51,19 +52,17 @@
 
                                                         <div class="form-group row mt-5 mb-5">
                                                             <div class="col-6">
-
                                                                 <label>{{__('Name In Arabic')}} *</label>
                                                                 <input name="name_ar"
-                                                                       value="{{old('name_ar')}}"
+                                                                       value="{{old('name_ar') ?? $vacationType->name_ar}}"
                                                                        class="form-control @error('name_ar') is-invalid @enderror"
                                                                        type="text">
 
                                                             </div>
                                                             <div class="col-6">
-
                                                                 <label>{{__('Name In English')}} *</label>
                                                                 <input name="name_en"
-                                                                       value="{{old('name_en')}}"
+                                                                       value="{{old('name_en') ?? $vacationType->name_en}}"
                                                                        class="form-control @error('name_en') is-invalid @enderror"
                                                                        type="text">
 

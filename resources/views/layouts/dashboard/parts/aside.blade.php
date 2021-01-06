@@ -176,30 +176,22 @@
                     </div>
                 </li>
                 @endcan
-{{--                @canany(['view_attendance_record_page','view_attendance_sheet', 'view_my_attendance_history'])--}}
+
+                @can('view_settings')
                 <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon  flaticon2-settings"></i><span class="kt-menu__link-text">{{__('Settings')}}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
                             <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Config</span></span></li>
-{{--                            @can('view_attendance_record_page')--}}
-                                <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.settings.attendance')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('General Settings')}}</span></a></li>
-{{--                            @endcan--}}
-{{--                            @can('view_attendance_sheet')--}}
-                                <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.nationalities.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Nationalities')}}</span></a></li>
-{{--                            @endcan--}}
-{{--                            @can('view_my_attendance_history')--}}
-                                <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.allowances.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Allowances')}}</span></a></li>
-{{--                            @endcan--}}
-{{--                            @can('view_my_attendance_history')--}}
-                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Work Shifts')}}</span></a></li>
-{{--                            @endcan--}}
-{{--                            @can('view_my_attendance_history')--}}
-                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Vacations Types')}}</span></a></li>
-{{--                            @endcan--}}
+                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.settings.attendance')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('General Settings')}}</span></a></li>
+                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.nationalities.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Nationalities')}}</span></a></li>
+                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.allowances.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Allowances')}}</span></a></li>
+                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Work Shifts')}}</span></a></li>
+                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.vacation_types.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Vacations Types')}}</span></a></li>
                         </ul>
                     </div>
                 </li>
-{{--                @endcan--}}
+                @endcan
+
                 <li class="kt-menu__item " aria-haspopup="true"><a onclick="document.getElementById('logout').submit();" href="javascript:" class="kt-menu__link "><i class="kt-menu__link-icon  fas fa-sign-out-alt"></i><span class="kt-menu__link-text">{{__('Log Out')}}</span></a></li>
                 <form id="logout" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf

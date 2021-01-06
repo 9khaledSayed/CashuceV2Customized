@@ -1,16 +1,13 @@
 "use strict";
 // Class definition
+var datatable;
 
 var KTDatatableLocalSortDemo = function() {
     // Private functions
     var messages = {
         'ar': {
-            "Employee":"الموظف",
-            "Manager": "المدير المباشر",
-            "Description": "الوصف",
-            "Forward to employee": "إعادة توجيه إلي الموظف",
-            "Created": "تاريخ البلاغ",
-            "Violation Date": "تاريخ المخالفة",
+            'Item': "اسم المنتج",
+            'Date': "تاريخ اﻹنشاء",
             "Actions": "الاجراءات",
             'Are you sure to delete this item?': "هل انت متأكد أنك تريد مسح هذا العنصر؟",
             'Item Deleted Successfully': "تم مسح العنصر بنجاح",
@@ -20,9 +17,10 @@ var KTDatatableLocalSortDemo = function() {
             'Loading...': "تحميل...",
             'Error!': "خطأ!",
             'Deleted!': "تم المسح!",
-            'Show': "عرض",
-            'Edit Info': "تعديل البيانات",
+            'Edit': "تعديل",
             'Delete': "مسح",
+            "Created At":"تاريخ الأنشاء",
+            "Name":"الأسم",
         }
     };
 
@@ -31,14 +29,14 @@ var KTDatatableLocalSortDemo = function() {
     // basic demo
     var demo = function() {
 
-        var datatable = $('.kt-datatable').KTDatatable({
+         datatable = $('.kt-datatable').KTDatatable({
             // datasource definition
             data: {
                 type: 'remote',
                 source: {
                     read: {
                         method: 'GET',
-                        url: '/dashboard/reports',
+                        url: '/dashboard/vacation_types',
                     },
                 },
                 pageSize: 10,
@@ -91,7 +89,7 @@ var KTDatatableLocalSortDemo = function() {
                                 $.ajax({
                                     method: 'DELETE',
                                     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                                    url: '/dashboard/reports/' + data.id,
+                                    url: '/dashboard/vacation_types/' + data.id,
                                     error: function (err) {
                                         if (err.hasOwnProperty('responseJSON')) {
                                             if (err.responseJSON.hasOwnProperty('message')) {
@@ -115,6 +113,7 @@ var KTDatatableLocalSortDemo = function() {
                                     });
                                     datatable.reload();
                                 });
+
                             }
                         });
                     });
@@ -132,35 +131,21 @@ var KTDatatableLocalSortDemo = function() {
                     selector: false,
                     textAlign: 'center',
                 }, {
-                    field: 'employee.name_in_arabic',
-                    title: locator.__('Employee'),
+                    field: 'name_ar',
+                    title: locator.__('Arabic Name'),
                     textAlign: 'center',
-                    template:function (row){
-                        return  employeeName(row.employee);
-                    }
-                },
-                {
-                    field: 'supervisor.name_in_arabic',
-                    title: locator.__('Manager'),
-                    textAlign: 'center',
-                    template:function (row){
-                        return employeeName(row.supervisor);
-                    }
+
                 }, {
-                    field: 'description',
-                    title: locator.__('Description'),
-                    textAlign: 'center',
-                },{
-                    field: 'violation_date',
-                    title: locator.__('Violation Date'),
+                    field: 'name_en',
+                    title: locator.__('English Name'),
                     textAlign: 'center',
 
                 },{
                     field: 'created_at',
-                    title: locator.__('Created'),
+                    title: locator.__('Date'),
                     textAlign: 'center',
 
-                }, {
+                },{
                     field: 'Actions',
                     title: locator.__('Actions'),
                     sortable: false,
@@ -175,8 +160,7 @@ var KTDatatableLocalSortDemo = function() {
 		                          <i class="la la-ellipsis-h"></i>\
 		                      </a>\
 		                      <div class="dropdown-menu dropdown-menu-right">\
-		                          <a class="dropdown-item" href="/dashboard/reports/' + row.id + '/edit"><i class="la la-pencil-square-o"></i>' + locator.__('Edit Info') + '</a>\
-		                          <a class="dropdown-item" href="/dashboard/reports/' + row.id + '/forwardToEmployee"><i class="la la-pencil-square-o"></i>' + locator.__('Forward to employee') + '</a>\
+                                  <a class="dropdown-item " href="/dashboard/vacation_types/' + row.id + '/edit"><i class="la la-pencil"></i>' + locator.__('Edit') + '</a>\
 		                          <a class="dropdown-item delete-item" href="#"><i class="la la-trash"></i>' + locator.__('Delete') + '</a>\
 		                      </div>\
 		                  </div>\
@@ -185,10 +169,27 @@ var KTDatatableLocalSortDemo = function() {
                 }],
         });
 
-        $('#kt_form_status').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'Status');
+        $('#kt_form_date').on('change', function() {
+            var current_datetime = new Date()
+            var value = $(this).val();
+            switch (value) {
+                case '1': // today
+                    datatable.search(current_datetime.toDateString(), 'created_at');
+                    break;
+                case '2':
+                    current_datetime.setDate(current_datetime.getDate() - 7);
+                    datatable.search(current_datetime.toDateString(), 'created_at');
+                    break;
+                case '3':
+                    current_datetime.setMonth(current_datetime.getMonth() - 1);
+                    datatable.search(current_datetime.toLocaleString('default', { month: 'short' }), 'created_at');
+                    break;
+                default:
+                    datatable.search($(this).val().toLowerCase(), 'created_at');
+            }
         });
-        $('#kt_form_status,#kt_form_type').selectpicker();
+        $('#kt_form_date').selectpicker();
+
 
     };
 

@@ -248,6 +248,31 @@ class Employee extends Authenticatable implements MustVerifyEmail
         return 0;
     }
 
+    public function generateDefaultAllowances()
+    {
+        $hra = new Allowance([
+            'name_en'  => 'HRA',
+            'name_ar'  => 'سكن',
+            'type' => 1,
+            'percentage' => 25,
+            'label' => 'hra',
+            'is_basic' => true,
+            'manager_id' => $this->id
+        ]);
+        $gosi = new Allowance([
+            'name_en'  => 'GOSI Subscription',
+            'name_ar'  => 'استقطاع التأمينات الاجتماعية',
+            'type' => 0,
+            'percentage' => 10,
+            'label' => 'gosi',
+            'is_basic' => true,
+            'manager_id' => $this->id
+        ]);
+
+        $hra->saveWithoutEvents(['creating']);
+        $gosi->saveWithoutEvents(['creating']);
+    }
+
     public function generateDefaultRoles()
     {
         $categories = [
