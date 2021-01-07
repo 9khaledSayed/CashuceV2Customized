@@ -25,7 +25,8 @@ class CreateAllowancesTable extends Migration
             $table->string('label')->nullable();
             $table->timestamps();
 
-            $table->unique(['manager_id', 'name_ar', 'name_en']);
+            $table->unique(['manager_id', 'name_ar']);
+            $table->unique(['manager_id', 'name_en']);
         });
 
         Schema::create('allowance_employee', function (Blueprint $table) {

@@ -427,6 +427,29 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="kt-section">
+                                                    <div class="kt-section__body">
+                                                        <h3 class="kt-section__title kt-section__title-lg">{{__('Work Shift')}}:</h3>
+                                                        <div class="form-group">
+                                                            <label>{{__('Work Shift')}}</label>
+                                                            <div class="kt-radio-list">
+                                                                @foreach($workShifts as $workShift)
+                                                                    <label class="kt-radio kt-radio--tick kt-radio--brand">
+                                                                        <input
+                                                                                type="radio" name="work_shift_id"
+                                                                                value="{{$workShift->id}}"
+                                                                                @if(old('work_shift_id') == $workShift->id) checked @endif>
+                                                                        {{$workShift->name()}}
+                                                                        <span></span>
+                                                                    </label>
+                                                                @endforeach
+                                                            </div>
+                                                            @error('work_shift_id')
+                                                            <span class="form-text text-danger">Some help text goes here</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

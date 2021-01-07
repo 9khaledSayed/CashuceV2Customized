@@ -20,7 +20,8 @@ class CreateNationalitiesTable extends Migration
             $table->string('name_en');
             $table->timestamps();
 
-            $table->unique(['manager_id', 'name_ar', 'name_en']);
+            $table->unique(['manager_id', 'name_ar']);
+            $table->unique(['manager_id', 'name_en']);
         });
     }
 

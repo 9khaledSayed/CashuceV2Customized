@@ -18,6 +18,8 @@ class CreateEmployeesTable extends Migration
 
             $table->unsignedBigInteger('manager_id')->nullable();
             $table->unsignedBigInteger('supervisor_id')->nullable();
+            $table->unsignedBigInteger('work_shift_id');
+            $table->unsignedBigInteger('nationality_id');
             $table->unique(['manager_id', 'job_number']);
             $table->string('fname_ar');
             $table->string('mname_ar')->nullable();
@@ -27,7 +29,6 @@ class CreateEmployeesTable extends Migration
             $table->string('lname_en');
             $table->string('job_number');
             $table->date('birthdate');
-            $table->unsignedBigInteger('nationality_id');
             $table->integer('marital_status')->nullable();
             $table->integer('gender')->nullable();
             $table->integer('identity_type')->nullable();
@@ -39,7 +40,6 @@ class CreateEmployeesTable extends Migration
             $table->date('passport_expire_date')->nullable();
             $table->string('issue_place')->nullable();
             $table->date('joined_date');
-            $table->string('work_shift')->nullable();
             $table->string('contract_type');
             $table->date('contract_start_date');
             $table->integer('contract_period')->nullable();
@@ -54,6 +54,8 @@ class CreateEmployeesTable extends Migration
             $table->string('password');
             $table->rememberToken();
 
+            $table->timestamps();
+
             $table->foreign('manager_id')
                 ->references('id')
                 ->on('employees')
@@ -63,7 +65,10 @@ class CreateEmployeesTable extends Migration
                 ->references('id')
                 ->on('employees')
                 ->onDelete('cascade');
-            $table->timestamps();
+
+            $table->foreign('work_shift_id')
+                ->references('id')
+                ->on('work_shifts');
         });
     }
 

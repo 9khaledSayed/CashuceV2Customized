@@ -13,6 +13,17 @@ class EmployeeSeeder extends Seeder
     public function run()
     {
 
+        $default = new \App\WorkShift([
+            'manager_id' => 1,
+            'name_ar' => 'test',
+            'name_en' => 'test',
+            'work_days' => '[]',
+            'shift_start_time' => '01:00:00',
+            'shift_end_time' => '01:00:00',
+            'overtime_hours' => '01:00',
+        ]);
+
+        $default->saveWithoutEvents(['creating']);
         $admin = \App\Employee::create([
             'fname_ar'      => 'Admin',
             'lname_ar'      => 'Admin',
@@ -29,6 +40,7 @@ class EmployeeSeeder extends Seeder
             'email' => 'admin@admin.com',
             'is_manager' => true,
             'manager_id' => null,
+            'work_shift_id' => 1,
             'job_number' => 1111,
             'barcode' => '53070423',
             'vacations_balance' => 30,
@@ -51,6 +63,7 @@ class EmployeeSeeder extends Seeder
             'phone'      => '01021212121',
             'email' => 'supervisor@admin.com',
             'manager_id' => 1,
+            'work_shift_id' => 1,
             'job_number' => 1112,
             'barcode' => '53070424',
             'vacations_balance' => 30,
@@ -73,6 +86,7 @@ class EmployeeSeeder extends Seeder
             'phone'      => '01021212121',
             'email' => 'hr@admin.com',
             'manager_id' => 1,
+            'work_shift_id' => 1,
             'job_number' => 1113,
             'barcode' => '53070425',
             'vacations_balance' => 30,
@@ -95,6 +109,7 @@ class EmployeeSeeder extends Seeder
             'phone'      => '01021212121',
             'email' => 'emp1@admin.com',
             'manager_id' => 1,
+            'work_shift_id' => 1,
             'job_number' => 1114,
             'barcode' => '53070426',
             'vacations_balance' => 30,
@@ -117,6 +132,7 @@ class EmployeeSeeder extends Seeder
             'phone'      => '01021212121',
             'email' => 'emp2@admin.com',
             'manager_id' => 1,
+            'work_shift_id' => 1,
             'job_number' => 1116,
             'barcode' => '53070427',
             'vacations_balance' => 30,

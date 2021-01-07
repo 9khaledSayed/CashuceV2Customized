@@ -19,12 +19,16 @@ class CreateWorkShiftsTable extends Migration
             $table->string('name_ar');
             $table->string('name_en');
             $table->text('work_days');
-            $table->time('shift_start_time');
-            $table->time('shift_end_time');
+            $table->time('shift_start_time')->nullable();
+            $table->time('shift_end_time')->nullable();
+            $table->time('second_shift_start_time')->nullable();
+            $table->time('second_shift_end_time')->nullable();
+            $table->time('work_hours')->nullable();
+            $table->time('check_in_time')->nullable();
             $table->time('overtime_hours');
             $table->boolean('is_delay_allowed')->default(false);
             $table->boolean('is_default')->default(false);
-            $table->time('time_delay_allowed')->default('00:00:00');
+            $table->time('time_delay_allowed')->nullable();
             $table->enum('type', ['normal', 'divided', 'flexible', 'once']);
             $table->timestamps();
 

@@ -20,6 +20,8 @@ class CreateAttendancesTable extends Migration
             $table->unsignedBigInteger('manager_id');
             $table->time('time_in');
             $table->time('time_out')->nullable();
+            $table->time('time_in2')->nullable();
+            $table->time('time_out2')->nullable();
             $table->time('total_working_hours')->nullable();
             $table->date('date');
             $table->boolean('day_off')->default(false);

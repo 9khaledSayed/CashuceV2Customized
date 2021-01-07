@@ -53,24 +53,7 @@
                                type="text">
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-6">
-                        <label>{{__('Shift Start Time')}} *</label>
-                        <input name="shift_start_time"
-                               value="{{old('shift_start_time') ?? $workShift->shift_start_time}}"
-                               placeholder="Select time"
-                               class="form-control shiftTimes @error('shift_start_time') is-invalid @enderror"
-                               type="text">
-                    </div>
-                    <div class="col-6">
-                        <label>{{__('Shift End Time')}} *</label>
-                        <input name="shift_end_time"
-                               value="{{old('shift_end_time') ?? $workShift->shift_end_time}}"
-                               placeholder="Select time"
-                               class="form-control endShiftTime @error('shift_end_time') is-invalid @enderror"
-                               type="text">
-                    </div>
-                </div>
+
                 <div class="form-group row">
                     <div class="col-12">
                         <label for="work_days">{{__('Work Days')}} *</label>
@@ -155,6 +138,68 @@
                     </div>
                 </div>
 
+                <div class="form-group row normal box">
+                    <div class="col-6">
+                        <label>{{__('Shift Start Time')}} *</label>
+                        <input name="shift_start_time"
+                               value="{{old('shift_start_time') ?? $workShift->shift_start_time}}"
+                               placeholder="Select time"
+                               class="form-control shiftTimes @error('shift_start_time') is-invalid @enderror"
+                               type="text">
+                    </div>
+                    <div class="col-6">
+                        <label>{{__('Shift End Time')}} *</label>
+                        <input name="shift_end_time"
+                               value="{{old('shift_end_time') ?? $workShift->shift_end_time}}"
+                               placeholder="Select time"
+                               class="form-control endShiftTime @error('shift_end_time') is-invalid @enderror"
+                               type="text">
+                    </div>
+                </div>
+                <div class="kt-section divided box">
+                    <div class="kt-section__body">
+                        <h3 class="kt-section__title kt-section__title-lg">{{__('Second Work Shift')}}:</h3>
+                        <div class="form-group row">
+                            <div class="col-6">
+                                <label>{{__('Shift Start Time')}} *</label>
+                                <input name="second_shift_start_time"
+                                       value="{{old('second_shift_start_time') ?? $workShift->second_shift_start_time}}"
+                                       placeholder="Select time"
+                                       class="form-control shiftTimes @error('second_shift_start_time') is-invalid @enderror"
+                                       type="text">
+                            </div>
+                            <div class="col-6">
+                                <label>{{__('Shift End Time')}} *</label>
+                                <input name="second_shift_end_time"
+                                       value="{{old('second_shift_end_time') ?? $workShift->second_shift_end_time}}"
+                                       placeholder="Select time"
+                                       class="form-control endShiftTime @error('second_shift_end_time') is-invalid @enderror"
+                                       type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row flexible box">
+                    <div class="col-6">
+                        <label>{{__('Work Hours')}} *</label>
+                        <input name="work_hours"
+                               value="{{old('work_hours') ?? $workShift->work_hours}}"
+                               placeholder="Select time"
+                               class="form-control shiftTimes @error('work_hours') is-invalid @enderror"
+                               type="text">
+                    </div>
+                </div>
+                <div class="form-group row once box">
+                    <div class="col-6">
+                        <label>{{__('Check In Time')}} *</label>
+                        <input name="check_in_time"
+                               value="{{old('check_in_time') ?? $workShift->check_in_time}}"
+                               placeholder="Select time"
+                               class="form-control shiftTimes @error('check_in_time') is-invalid @enderror"
+                               type="text">
+                    </div>
+                </div>
+
             </div>
             <div class="kt-portlet__foot" style="text-align: center">
                 <div class="kt-form__actions">
@@ -178,6 +223,9 @@
         $(function (){
             var switchBtn = $("input[name='is_delay_allowed']");
             var timeDelayAllowed = $("#timeDelayAllowed");
+            var radioBtn = $("input[name='type']");
+
+            $(".box").fadeOut()
 
             $('.shiftTimes').timepicker({
                 defaultTime: '',
@@ -198,13 +246,31 @@
                 showMeridian: false,
             });
 
-            switchBtn.val(switchBtn.is(':checked'));
+            switchBtn.val(switchBtn.is(':checked') ? 1 : 0);
             switchBtn.is(':checked') ? timeDelayAllowed.fadeIn() : timeDelayAllowed.fadeOut();
 
             switchBtn.click(function () {
                 $(this).is(':checked') ? timeDelayAllowed.fadeIn() : timeDelayAllowed.fadeOut();
-                switchBtn.val(switchBtn.is(':checked'));
+                switchBtn.val(switchBtn.is(':checked') ? 1 : 0);
             });
+
+            showTargetBox($("input[name='type']:checked").attr("value"))
+
+            radioBtn.click(function(){
+                var inputValue = $(this).attr("value");
+                showTargetBox(inputValue)
+            });
+
+            function showTargetBox(inputValue) {
+
+                var targetBox = $("." + inputValue);
+
+                $(".box").not(targetBox).fadeOut();
+                if(inputValue !== 'once'){
+                    $(".normal").fadeIn(10);
+                }
+                $(targetBox).fadeIn();
+            }
 
         });
     </script>

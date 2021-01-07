@@ -15,9 +15,6 @@ var KTContactsAdd = function () {
             "please fill the required data":"الرجاء مليء الحقول المطلوبة",
             "Check in":"تسجيل الحضور",
             "Check out":"تسجيل الانصراف",
-            "The operation Check in has been done successfully !":"لقد تمت عملية تسجيل الحضور بنجاح !",
-            "The operation Check out has been done successfully !":"لقد تمت عملية تسجيل الانصراف بنجاح !",
-            "You have been already record your attendance today":"لقد تمت عملية تسجيل حضورك وانصرافك اليوم بالفعل",
         }
     };
 
@@ -81,48 +78,70 @@ var KTContactsAdd = function () {
         let operation_show = $("input[name='operation_show']");
 
 
-        barcodeInput.keyup(function() {
-            if(barcodeInput.val().length === 8){
-                console.log('done')
-                formEl.ajaxSubmit({
-                    success: function(response) {
-                        //KTApp.unblock(formEl);
-                        if(response.status === false){
-                            swal.fire({
-                                "title": "",
-                                "text": locator.__(response.operation),
-                                "type": "error",
-                                "confirmButtonClass": "btn btn-secondary"
+        var delay = (function(){
+            var timer = 0;
+            return function(callback, ms){
+                clearTimeout (timer);
+                timer = setTimeout(callback, ms);
+            };
+        })();
+
+        barcodeInput.on("input", function() {
+            delay(function(){
+                if (barcodeInput.val().length < 8) {
+                    $("#txtInput").val("");
+                }else{
+                    formEl.ajaxSubmit({
+                        success: function(response) {
+                            //KTApp.unblock(formEl);
+                            if(response.status === false){
+                                swal.fire({
+                                    "title": "",
+                                    "text": locator.__(response.message),
+                                    "type": "error",
+                                    timer: 1000,
+                                });
+                            }else {
+                                swal.fire({
+                                    "title": "",
+                                    "text": locator.__(response.message),
+                                    "type": "success",
+                                    timer: 1000,
+                                });
+
+                            }
+
+                            barcodeInput.val("")
+                            operation_show.val(locator.__(locator.__(response.message)));
+
+                        },
+                        error:function (err){
+                            let response = err.responseJSON;
+                            let errors = '';
+                            $.each(response.errors, function( index, value ) {
+                                errors += value + '\n';
                             });
-                        }else {
                             swal.fire({
-                                "title": "",
-                                "text": locator.__("The operation " + response.operation + " has been done successfully !"),
-                                "type": "success",
-                                "confirmButtonClass": "btn btn-secondary"
+                                title: locator.__(response.message),
+                                text: errors,
+                                type: 'error',
+                                timer: 1000,
                             });
+                            barcodeInput.val("");
                         }
-
-                        operation_show.val(locator.__(response.operation));
-
-                    },
-                    error:function (err){
-                        let response = err.responseJSON;
-                        let errors = '';
-                        $.each(response.errors, function( index, value ) {
-                            errors += value + '\n';
-                        });
-                        swal.fire({
-                            title: locator.__(response.message),
-                            text: errors,
-                            type: 'error'
-                        });
-                    }
-                });
-            }
-
+                    });
+                }
+            }, 20 );
         });
 
+
+        // barcodeInput.keydown(function() {
+        //     if(barcodeInput.val().length === 8){
+        //         console.log('done')
+        //
+        //     }
+        //
+        // });
 
 
     }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Nationality;
 use App\Role;
 use App\Rules\UniqueJopNumber;
+use App\WorkShift;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -40,6 +41,7 @@ class EmployeeController extends Controller
         $nationalities = Nationality::all();
         $roles = Role::whereNotIn('label', ['User', 'Super Admin'])->get();
         $supervisors = Employee::whereNull('supervisor_id')->whereNotNull('manager_id')->get();
+        $workShifts = WorkShift::get();
 
         return view('dashboard.employees.create', [
             'nationalities' => $nationalities,
@@ -47,6 +49,7 @@ class EmployeeController extends Controller
             'contract_type' => $this->contract_type,
             'allowances' =>$allowances,
             'supervisors' =>$supervisors,
+            'workShifts' =>$workShifts,
         ]);
     }
 
@@ -80,6 +83,7 @@ class EmployeeController extends Controller
         $this->authorize('update_employees');
         $allowances = Allowance::all();
         $nationalities = Nationality::all();
+        $workShifts = WorkShift::get();
         $roles = Role::whereNotIn('label', ['User', 'Super Admin'])->get();
         $supervisors = Employee::whereNull('supervisor_id')->whereNotNull('manager_id')->get();
         return view('dashboard.employees.edit', [
@@ -89,6 +93,7 @@ class EmployeeController extends Controller
             'contract_type' => $this->contract_type,
             'allowances' =>$allowances,
             'supervisors' =>$supervisors,
+            'workShifts' =>$workShifts,
         ]);
     }
 

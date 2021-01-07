@@ -13,14 +13,34 @@ class WorkShift extends Model
         'name_ar' => ['required', 'string', 'max:255'],
         'name_en' => ['required', 'string', 'max:255'],
         'work_days' => ['required', 'array'],
-        'shift_start_time' => ['required'],
-        'shift_end_time' => ['required'],
+        'shift_start_time' => ['required_if:type,normal,divided,flexible', 'exclude_if:type,once'],
+        'shift_end_time' => ['required_if:type,normal,divided,flexible', 'exclude_if:type,once'],
+        'second_shift_start_time' => ['exclude_unless:type,divided'],
+        'second_shift_end_time' => ['exclude_unless:type,divided'],
+        'work_hours' => ['exclude_unless:type,flexible'],
+        'check_in_time' => ['exclude_unless:type,once'],
         'overtime_hours' => ['required'],
-        'is_delay_allowed' => ['nullable', 'boolean'],
-        'time_delay_allowed' => ['required_if:is_delay_allowed,true'],
+        'is_delay_allowed' => ['nullable'],
+        'time_delay_allowed' => ['required_if:is_delay_allowed,1'],
         'type' => ['required', 'string', 'max:255'],
     ];
+    protected $casts = [
+        'shift_start_time' => 'date:h:i',
+        'shift_end_time' => 'date:h:i',
+        'second_shift_start_time' => 'date:h:i',
+        'second_shift_end_time' => 'date:h:i',
+        'work_hours' => 'date:h:i',
+        'check_in_time' => 'date:h:i',
+        'overtime_hours' => 'date:h:i',
+        'time_delay_allowed' => 'date:h:i',
+    ];
 
+    public function saveWithoutEvents(array $options=[])
+    {
+        return static::withoutEvents(function() use ($options) {
+            return $this->save($options);
+        });
+    }
 
     public static function booted()
     {

@@ -43,6 +43,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'nationality_id' => 'required|numeric',
         'id_num' => ['required_if:identity_type,0'],
         'contract_type' => ['required'],
+        'work_shift_id' => ['required', 'exists:work_shifts,id'],
         'contract_start_date' => ['required'],
         'contract_period' => 'nullable',
         'phone' => ['required'],
@@ -71,7 +72,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'issue_place' => ['nullable'],
         'job_number' =>['required'],
         'joined_date' => ['required'],
-        'work_shift' => ['required'],
+        'work_shift_id' => ['required', 'exists:work_shifts,id'],
         'contract_type' => ['required'],
         'contract_start_date' => ['required'],
         'contract_period' => 'nullable',
@@ -137,6 +138,10 @@ class Employee extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Allowance::class);
     }
 
+    public function workShift()
+    {
+        return $this->belongsTo(WorkShift::class);
+    }
 
     public function abilities()
     {

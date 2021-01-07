@@ -400,15 +400,6 @@
                                                                     @endforelse
                                                                 </select>
                                                             </div>
-                                                            <div class="col-12 mt-3">
-                                                                <label>{{__('Work Shift')}} *</label>
-                                                                <select name="work_shift" class="form-control kt-selectpicker" title="Choose" >
-
-                                                                  <option value="1" @if(($employee->work_shift || old('work_shift')) == 1) selected @endif>{{__('Morning Shift')}}</option>
-                                                                  <option value="2" @if(($employee->work_shift || old('work_shift')) == 2) selected @endif>{{__('Evening Shift')}}</option>
-
-                                                                </select>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -457,6 +448,29 @@
                                                                 <label>{{__('Contract period in months')}} *</label>
                                                                 <input name="contract_period" class="form-control" type="text"  value="{{$employee->contract_period}}">
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="kt-section">
+                                                    <div class="kt-section__body">
+                                                        <h3 class="kt-section__title kt-section__title-lg">{{__('Work Shift')}}:</h3>
+                                                        <div class="form-group">
+                                                            <label>{{__('Work Shift')}}</label>
+                                                            <div class="kt-radio-list">
+                                                                @foreach($workShifts as $workShift)
+                                                                    <label class="kt-radio kt-radio--tick kt-radio--brand">
+                                                                        <input
+                                                                            type="radio" name="work_shift_id"
+                                                                            value="{{$workShift->id}}"
+                                                                           @if((old('work_shift_id') ?? $employee->work_shift_id) == $workShift->id) checked @endif>
+                                                                        {{$workShift->name()}}
+                                                                        <span></span>
+                                                                    </label>
+                                                                @endforeach
+                                                            </div>
+                                                            @error('work_shift_id')
+                                                            <span class="form-text text-danger">Some help text goes here</span>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div>

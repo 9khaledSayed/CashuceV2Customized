@@ -20,7 +20,7 @@ class Nationality extends Model
             $manager_id = $employee->is_manager? $employee->id:$employee->manager->id;
             $model->manager_id = $manager_id; // Ceo Id
         });
-        static::addGlobalScope(new ParentScope());
+//        static::addGlobalScope(new ParentScope());
     }
 
     public function name()

@@ -43,45 +43,137 @@ class AttendanceController extends Controller
            'barcode' => 'required|numeric|min:8|exists:employees,barcode',
         ]);
         $employee = Employee::where('barcode', $request->barcode)->first();
-        $status = $this->attendanceStatus($employee);
-        $dateTime = Carbon::now()->toDate();
 
-        if ($status == 'Check in'){
+        $workShift = $employee->workShift;
+        $dateTime = Carbon::now();
 
-            Attendance::create([
-               'employee_id' => $employee->id,
-               'time_in' => $dateTime->format('H:i'),
-               'date' => $dateTime->format('Y-m-d'),
-            ]);
-            $response = [
-                'status' => true,
-                'operation' => 'Check in',
-            ];
+        switch($workShift->type){
+            case "divided":
+                $todayAttendance = $employee->attendances()->whereDate('created_at', Carbon::today())->first();
+                if(!isset($todayAttendance)){ //check in
 
-        }elseif($status == 'Check out'){
+                    Attendance::create([
+                        'employee_id' => $employee->id,
+                        'time_in' => $dateTime->format('H:i'),
+                        'date' => $dateTime->format('Y-m-d'),
+                    ]);
+                    $response = [
+                        "status" => true,
+                        "message" => __("The operation check in  has been done successfully for employee ") . $employee->name(),
+                    ];
 
-            $attendance = $employee->attendances()->whereDate('created_at', Carbon::today())->first();
-            $totalWorkingHours = (new Carbon($attendance->time_in))->diff(new Carbon($dateTime->format('H:i:s')))->format('%h:%I:%s');
+                }elseif (!isset($todayAttendance->time_out)){
 
-            $attendance->update([
-                'time_out' => $dateTime->format('H:i'),
-                'total_working_hours' => $totalWorkingHours
-            ]);
-            $response = [
-                'status' => true,
-                'operation' => 'Check out',
-            ];
+                    $todayAttendance->update([
+                        'time_out' => $dateTime->format('H:i'),
+                    ]);
+                    $response = [
+                        'status' => true,
+                        "message" => __("The operation check out  has been done successfully for employee ") . $employee->name(),
+                    ];
 
-        }else{
-            $response = [
-                'status' => false,
-                'operation' => 'You have been already record your attendance today',
-            ];
+                }elseif (!isset($todayAttendance->time_in2)){
+
+                    $todayAttendance->update([
+                        'time_in2' => $dateTime->format('H:i'),
+                    ]);
+                    $response = [
+                        'status' => true,
+                        "message" => __("The operation check in  has been done successfully for employee ") . $employee->name(),
+                    ];
+
+                }elseif (!isset($todayAttendance->time_out2)){
+
+//                    $workingHoursForShift1 = (new Carbon($todayAttendance->time_in))->diff(new Carbon($todayAttendance->time_out));
+//                    $workingHoursForShift2 = (new Carbon($todayAttendance->time_in2))->diff($dateTime->format('H:i:s'));
+//                    $totalWorkingHours = $workingHoursForShift2->addHours($workingHoursForShift1->format('H'));
+//                    $totalWorkingHours->addMinutes($workingHoursForShift1->format('i'));
+
+                    $totalWorkingHours = (new Carbon($todayAttendance->time_in))->diff(new Carbon($dateTime->format('H:i:s')));
+                    $todayAttendance->update([
+                        'time_out2' => $dateTime->format('H:i'),
+                        'total_working_hours' => $totalWorkingHours->format('%h:%I:%s')
+                    ]);
+                    $response = [
+                        'status' => true,
+                        "message" => __("The operation check out  has been done successfully for employee ") . $employee->name(),
+                    ];
+
+                }else{
+
+                    $response = [
+                        'status' => false,
+                        'message' => __('The attendance has been already record for employee ') . $employee->name(),
+                    ];
+
+                }
+                break;
+            case "once":
+                $todayAttendance = $employee->attendances()->whereDate('created_at', Carbon::today())->first();
+                if(!isset($todayAttendance)){ //check in
+                    Attendance::create([
+                        'employee_id' => $employee->id,
+                        'time_in' => $dateTime->format('H:i'),
+                        'time_out' => $dateTime->addHours(8),
+                        'date' => $dateTime->format('Y-m-d'),
+                        'total_working_hours' => $workShift->work_hours
+                    ]);
+                    $response = [
+                        "status" => true,
+                        "message" => __("The operation check in  has been done successfully for employee ") . $employee->name(),
+                    ];
+
+                }else{
+                    $response = [
+                        'status' => false,
+                        'message' => __('The attendance has been already record for employee ') . $employee->name(),
+                    ];
+                }
+                break;
+            default: // normal && flexible
+
+                $todayAttendance = $employee->attendances()->whereDate('created_at', Carbon::today())->first();
+                if(!isset($todayAttendance)){ //check in
+
+                    Attendance::create([
+                        'employee_id' => $employee->id,
+                        'time_in' => $dateTime->format('H:i'),
+                        'date' => $dateTime->format('Y-m-d'),
+                    ]);
+                    $response = [
+                        "status" => true,
+                        "message" => __("The operation check in  has been done successfully for employee ") . $employee->name(),
+                    ];
+
+                }elseif (!isset($todayAttendance->time_out)){
+
+                    $totalWorkingHours = (new Carbon($todayAttendance->time_in))->diff(new Carbon($dateTime->format('H:i:s')))->format('%h:%I:%s');
+
+                    $todayAttendance->update([
+                        'time_out' => $dateTime->format('H:i'),
+                        'total_working_hours' => $totalWorkingHours
+                    ]);
+                    $response = [
+                        'status' => true,
+                        "message" => __("The operation check out  has been done successfully for employee ") . $employee->name(),
+                    ];
+
+                }else{
+
+                    $response = [
+                        'status' => false,
+                        'message' => __('The attendance has been already record for employee ') . $employee->name(),
+                    ];
+
+                }
+                break;
         }
+
+
         return response()->json($response);
     }
 
-    public function attendanceStatus(Employee $employee)
+    public function getOperation(Employee $employee)
     {
         $this->authorize('view_attendance_record_page');
         $attendance = $employee->attendances()->whereDate('created_at', Carbon::today())->first();
