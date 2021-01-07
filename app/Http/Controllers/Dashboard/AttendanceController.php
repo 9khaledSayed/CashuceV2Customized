@@ -40,50 +40,64 @@ class AttendanceController extends Controller
     {
         $this->authorize('view_attendance_record_page');
         $request->validate([
-           'employee_id' => 'required|exists:employees,id',
-           'operation' => 'required',
+           'barcode' => 'required|numeric|min:8|exists:employees,barcode',
         ]);
-
+        $employee = Employee::where('barcode', $request->barcode)->first();
+        $status = $this->attendanceStatus($employee);
         $dateTime = Carbon::now()->toDate();
-        if ($request->operation == 'Check in'){
+
+        if ($status == 'Check in'){
 
             Attendance::create([
-               'employee_id' => $request->employee_id,
+               'employee_id' => $employee->id,
                'time_in' => $dateTime->format('H:i'),
                'date' => $dateTime->format('Y-m-d'),
             ]);
+            $response = [
+                'status' => true,
+                'operation' => 'Check in',
+            ];
 
-        }elseif($request->operation == 'Check out'){
+        }elseif($status == 'Check out'){
 
-            $employee = Employee::find($request->employee_id);
             $attendance = $employee->attendances()->whereDate('created_at', Carbon::today())->first();
-            $totalWorkingHours = (new Carbon($attendance->time_in))->diff(new Carbon($dateTime->format('H:i:s')))->format('%h');
+            $totalWorkingHours = (new Carbon($attendance->time_in))->diff(new Carbon($dateTime->format('H:i:s')))->format('%h:%I:%s');
 
             $attendance->update([
                 'time_out' => $dateTime->format('H:i'),
                 'total_working_hours' => $totalWorkingHours
             ]);
+            $response = [
+                'status' => true,
+                'operation' => 'Check out',
+            ];
+
         }else{
-            return response()->json([
+            $response = [
                 'status' => false,
-                'message' => 'You have been already record your attendance today',
-            ]);
+                'operation' => 'You have been already record your attendance today',
+            ];
         }
+        return response()->json($response);
     }
 
-    public function attendanceCheck(Employee $employee)
+    public function attendanceStatus(Employee $employee)
     {
         $this->authorize('view_attendance_record_page');
         $attendance = $employee->attendances()->whereDate('created_at', Carbon::today())->first();
         $checked_in = isset($attendance->time_in);
         $checked_out = isset($attendance->time_out);
+
+
         if(!$checked_in){
-            return response()->json(['value' => 'Check in']);
+            $status = 'Check in';
         } elseif (!$checked_out){
-            return response()->json(['value' => 'Check out']);
+            $status = 'Check out';
         }else{
-            return response()->json(['value' => 'Attendance and leave have been recorded']);
+            $status = 'Attendance and leave have been recorded';
         }
+
+        return $status;
     }
 
     public function myAttendance()

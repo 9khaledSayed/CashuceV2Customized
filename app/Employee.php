@@ -88,14 +88,11 @@ class Employee extends Authenticatable implements MustVerifyEmail
     ];
     public static function booted()
     {
-        //TODO :: put vacations balance in settings
-        //TODO :: put work hours in settings
-        //TODO :: put delay period in settings
-        //TODO :: put vacations types in settings
         static::addGlobalScope(new ParentScope());
 
         static::creating(function ($model){
              if(auth()->check()){
+
                  $barcode = rand(0, 99999999);
                  $barcode = str_pad($barcode, 8, "0", STR_PAD_LEFT);
                  while (Employee::pluck('job_number')->contains($barcode)){
@@ -107,6 +104,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
                  $model->manager_id = $manager_id;
                  $model->barcode = $barcode;
                  $model->vacations_balance = 30;
+
              }
          });
     }

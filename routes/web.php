@@ -38,7 +38,7 @@ Route::namespace('Dashboard')
         Route::get('myProfile/change_password', 'ProfileController@changePasswordForm')->name('myProfile.change_password');
         Route::post('myProfile/change_password', 'ProfileController@changePassword')->name('myProfile.changePassword');
         Route::get('/reports/{report}/forwardToEmployee', 'ReportController@forwardToEmployee');
-        Route::get('attendances/check/{employee}', 'AttendanceController@attendanceCheck');
+        Route::get('attendances/check/{employee:barcode}', 'AttendanceController@attendanceCheck');
         Route::get('attendances/myAttendance', 'AttendanceController@myAttendance')->name('attendances.my_attendances');
         Route::get('attendances/lateNotification', 'AttendanceController@lateNotification');
         Route::get('notifications', 'NotificationController@index')->name('notifications.index');

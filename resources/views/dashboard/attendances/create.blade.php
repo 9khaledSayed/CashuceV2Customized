@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @push('styles')
-    <link href="{{asset('assets/css/pages/wizard/wizard-1' . (App::isLocale('ar')?'.rtl':'') . '.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/css/pages/wizard/wizard-1' . (app()->isLocale('ar')?'.rtl':'') . '.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
@@ -47,20 +47,8 @@
                                                     <div class="kt-section__body">
                                                         <div class="form-group row">
                                                             <div class="col-lg-4" id="doctors">
-                                                                <label>{{__('Employee')}} *</label>
-                                                                <select class="form-control kt-select2"
-                                                                        id="kt_select2_1"
-                                                                        name="employee_id">
-                                                                    <option></option>
-                                                                    @forelse($employees as $employee)
-                                                                        <option
-                                                                            value="{{$employee->id}}"
-                                                                        >{{$employee->name() . ' (' . $employee->job_number . ' ) ' . $employee->barcode}}
-                                                                        </option>
-                                                                    @empty
-                                                                        <option disabled>{{__('There is no employees')}}</option>
-                                                                    @endforelse
-                                                                </select>
+                                                                <label>{{__('Barcode')}} *</label>
+                                                                <input name="barcode" autofocus  class="form-control" type="text">
                                                             </div>
                                                             <div class="col-lg-4">
                                                                 <label>{{__('Operation')}} *</label>
@@ -69,12 +57,6 @@
                                                             <div class="col-lg-4">
                                                                 <label>{{__('Date And Time')}}</label>
                                                                 <input name="date_time" class="form-control border-0" style="font-size: 1.2rem;font-weight: 600; " readonly type="text" id="time">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <div class="col-lg-4" style="visibility: hidden">
-                                                                <label>{{__('Operation')}} *</label>
-                                                                <input name="operation" style="" class="form-control" readonly type="text">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -87,11 +69,11 @@
                         </div>
                         <!--end: Form Wizard Step 1-->
                         <!--begin: Form Actions -->
-                        <div class="kt-form__actions">
-                            <div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u mx-auto" style="display: block" data-ktwizard-type="action-submit">
-                                {{__('confirm')}}
-                            </div>
-                        </div>
+{{--                        <div class="kt-form__actions">--}}
+{{--                            <div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u mx-auto" style="display: block" data-ktwizard-type="action-submit">--}}
+{{--                                {{__('confirm')}}--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
                         <!--end: Form Actions -->
                     </form>

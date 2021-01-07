@@ -13,7 +13,10 @@ var KTContactsAdd = function () {
     let messages = {
         'ar': {
             "please fill the required data":"الرجاء مليء الحقول المطلوبة",
-            "The operation has been done successfully !":"لقد تمت العملية بنجاح !",
+            "Check in":"تسجيل الحضور",
+            "Check out":"تسجيل الانصراف",
+            "The operation Check in has been done successfully !":"لقد تمت عملية تسجيل الحضور بنجاح !",
+            "The operation Check out has been done successfully !":"لقد تمت عملية تسجيل الانصراف بنجاح !",
             "You have been already record your attendance today":"لقد تمت عملية تسجيل حضورك وانصرافك اليوم بالفعل",
         }
     };
@@ -48,21 +51,9 @@ var KTContactsAdd = function () {
 
             // Validation rules
             rules: {
-                name_arabic: {
-                    required: true
-                },
+                barcode: {
 
-                name_english: {
-                    required: true
-                },
-                from_date: {
-                    required: true,
-                    date:true
-                },
-                to_date: {
-                    required: true,
-                    date:true
-                },
+                }
             },
 
             // Display error
@@ -86,41 +77,54 @@ var KTContactsAdd = function () {
     }
 
     var initSubmit = function() {
-        var btn = formEl.find('[data-ktwizard-type="action-submit"]');
+        let barcodeInput = $("input[name='barcode']");
+        let operation_show = $("input[name='operation_show']");
 
-        btn.on('click', function(e) {
-            e.preventDefault();
 
-            if (validator.form()) {
-                // See: src\js\framework\base\app.js
-                KTApp.progress(btn);
-                //KTApp.block(formEl);
-
-                // See: http://malsup.com/jquery/form/#ajaxSubmit
+        barcodeInput.keyup(function() {
+            if(barcodeInput.val().length === 8){
+                console.log('done')
                 formEl.ajaxSubmit({
                     success: function(response) {
-                        KTApp.unprogress(btn);
                         //KTApp.unblock(formEl);
                         if(response.status === false){
                             swal.fire({
                                 "title": "",
-                                "text": locator.__(response.message),
+                                "text": locator.__(response.operation),
                                 "type": "error",
                                 "confirmButtonClass": "btn btn-secondary"
                             });
                         }else {
                             swal.fire({
                                 "title": "",
-                                "text": locator.__("The operation has been done successfully !"),
+                                "text": locator.__("The operation " + response.operation + " has been done successfully !"),
                                 "type": "success",
                                 "confirmButtonClass": "btn btn-secondary"
                             });
                         }
 
+                        operation_show.val(locator.__(response.operation));
+
+                    },
+                    error:function (err){
+                        let response = err.responseJSON;
+                        let errors = '';
+                        $.each(response.errors, function( index, value ) {
+                            errors += value + '\n';
+                        });
+                        swal.fire({
+                            title: locator.__(response.message),
+                            text: errors,
+                            type: 'error'
+                        });
                     }
                 });
             }
+
         });
+
+
+
     }
 
     var initAvatar = function() {
@@ -142,46 +146,13 @@ var KTContactsAdd = function () {
 
 jQuery(document).ready(function() {
     var timeDisplay = $("#time");
+
     function refreshTime() {
         var dateString = new Date().toLocaleString("en-US", {timeZone: "Asia/Riyadh"});
         var formattedString = dateString.replace(", ", " - ");
         timeDisplay.val(formattedString);
     }
     setInterval(refreshTime, 1000);
-    // $('.kt-selectpicker').selectpicker();
-    var messages = {
-        'ar': {
-            'Check in': "تسجيل حضور",
-            'Check out': "تسجيل انصراف",
-            'Attendance and leave have been recorded': "لقد تمت عملية تسجيل حضورك وانصرافك",
-        }
-    };
-    var locator = new KTLocator(messages);
-    let select_employee = $("select[name='employee_id']");
-    let operation_show = $("input[name='operation_show']");
-    let operation = $("input[name='operation']");
-    select_employee.change(function() {
-        let id = select_employee.val();
-        attendanceStatus(id);
-    });
-    /*employees*/
-    $('#kt_select2_1, #kt_select2_1_validate').select2({
-        placeholder: locator.__('Choose'),
-        allowClear: true
-    });
 
-    function attendanceStatus (id){
-        if(id != null){
-            $.ajax({
-                method: "get",
-                url: "/dashboard/attendances/check/" + id,
-                success:function(data){
-                    operation.val('');
-                    operation.val(data.value);
-                    operation_show.val(locator.__(data.value));
-                }
-            })
-        }
-    }
     KTContactsAdd.init();
 });
