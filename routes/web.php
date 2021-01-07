@@ -80,17 +80,12 @@ Route::namespace('Dashboard')
 
 });
 
-Route::get('/drop', function (){
-    Artisan::call('migrate:fresh', ['--force' => true]);
-});
+//Route::get('/drop', function (){
+//    Artisan::call('migrate:fresh', ['--force' => true]);
+//});
 
-Route::get('/fix', function (){
+Route::get('/migrate', function (){
 
-    \App\Ability::create([
-        'name'  => 'view_settings',
-        'label' => 'View Settings',
-        'category' => 'settings'
-    ]);
-
+    Artisan::call('migrate');
 
 });

@@ -1,4 +1,4 @@
-// Class definition
+    // Class definition
 
 var KTBootstrapTimepicker = function () {
     
