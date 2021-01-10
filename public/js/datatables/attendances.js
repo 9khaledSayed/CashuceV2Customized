@@ -58,7 +58,11 @@ var KTUserListDatatable = function() {
             },
 
             // columns definition
-            columns: [{
+            columns: [
+                {
+                    field: 'job_number',
+                    title: locator.__('Job Number'),
+                },{
                 field: "employee.fname_arabic",
                 title: locator.__("Employee Name"),
                 width: 200,
@@ -78,7 +82,7 @@ var KTUserListDatatable = function() {
                     var state = states[stateNo];
                     let employee = data.employee
                     let name = employeeName(employee);
-                    output = '<div class="kt-user-card-v2" style="width: fit-content; margin: auto">\
+                    output = '<div class="kt-user-card-v2" >\
 								<div class="kt-user-card-v2__pic">\
 									<div class="kt-badge kt-badge--xl kt-badge--' + state + '">' + name.substring(0, 2) + '</div>\
 								</div>\

@@ -39,7 +39,8 @@ class EmployeeController extends Controller
         $this->authorize('create_employees');
         $allowances = Allowance::all();
         $nationalities = Nationality::all();
-        $roles = Role::whereNotIn('label', ['User', 'Super Admin'])->get();
+//        $roles = Role::whereNotIn('label', ['User', 'Super Admin'])->get();
+        $roles = Role::get();
         $supervisors = Employee::whereNull('supervisor_id')->whereNotNull('manager_id')->get();
         $workShifts = WorkShift::get();
 
@@ -84,7 +85,7 @@ class EmployeeController extends Controller
         $allowances = Allowance::all();
         $nationalities = Nationality::all();
         $workShifts = WorkShift::get();
-        $roles = Role::whereNotIn('label', ['User', 'Super Admin'])->get();
+        $roles = Role::get();
         $supervisors = Employee::whereNull('supervisor_id')->whereNotNull('manager_id')->get();
         return view('dashboard.employees.edit', [
             'employee' => $employee,

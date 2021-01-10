@@ -48,15 +48,15 @@ class PayrollController extends Controller
     {
         $this->authorize('create_payrolls');
         $request->validate(['year_month' => new UniqueMonth()]);
-        $payrollDate = Carbon::createFromDate($request->year_month . '-' . 25);
+        $payrollDay = setting('payroll_day') ?? 30;
         $employees = Employee::get();
 
         $total_deductions = $employees->map(function($employee){
-           return $employee->deductions();
+           return $employee->deductions() + $employee->gosiDeduction();
         })->sum();
         $payroll = Payroll::create([
-            'year_month'               => $request->year_month,
-            'date'               => $payrollDate,
+            'year_month'         => $request->year_month,
+            'date'               => $request->year_month . '-' . $payrollDay,
             'issue_date'         => Carbon::now()->toDateTimeString(),
             'employees_no'       => $employees->count(),
             'total_deductions'   => $total_deductions,
@@ -81,6 +81,7 @@ class PayrollController extends Controller
                         'gosi_deduction' => $salary->employee->gosiDeduction(),
                         'violations_deduction' => $salary->employee->deductions(),
                         'net_pay' => $salary->net_salary,
+                        'work_days' => $salary->work_days,
                     ];
                 });
             return response()->json($salaries);
@@ -94,21 +95,22 @@ class PayrollController extends Controller
         $this->authorize('proceed_payrolls');
         $payroll->salaries()->delete();
         $employees = Employee::get();
-        $monthHolidays = 0;
-
+        $payrollDay = setting('payroll_day') ?? 30;
         $totalDeductions = $employees->map(function($employee){
-            return $employee->deductions();
+            return $employee->deductions() + $employee->gosiDeduction();
         })->sum();
         $payroll->update([
+            'date'               => $payroll->year_month . '-' . $payrollDay,
             'issue_date'         => Carbon::now()->toDateTimeString(),
             'employees_no'       => $employees->count(),
             'total_deductions'   => $totalDeductions,
         ]);
         foreach ($employees as $employee) {
-//            $workDays = $employee->workDays($payroll->date->month);
-
-            $workDays = setting('work_days') ?? 0;
-            $totalPackage = $workDays * ($employee->totalPackage()/(30 - $monthHolidays));
+            $payrollDay = setting('payroll_day') ?? 30;
+            $workDays = $employee->workDays($payroll->date->month);
+            $workDays = $workDays > $payrollDay ? $payrollDay : $workDays;  // 26 - 25
+            $daysOff = $employee->daysOff();
+            $totalPackage = $workDays * ($employee->totalPackage()/(30 - $daysOff));
             $deductions = $employee->deductions() + $employee->gosiDeduction();
             $netPay = $totalPackage  - $deductions;
 

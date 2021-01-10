@@ -279,6 +279,7 @@
     "The operation check out  has been done successfully for employee " : "لقد تمت عملية تسجيل الانصراف بنجاح للموظف ",
     "The attendance has been already record for employee " :  "لقد تمت عملية تسجيل الحضور والانصراف بالفعل للموظف ",
     "Looks like you are not authorize to this page.": "يبدو انك غير مفوض للدخول الي هذه الصفحة.",
+    "There is No Work shift for employee ": "لم تحدد نوبة عمل للموظف ",
     "Nationalities": "الجنسيات",
     "Work Shifts": "فترات العمل",
     "Vacations Types": "انواع الاجازات",

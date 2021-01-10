@@ -20,15 +20,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'password', 'remember_token',
     ];
 
-//    public static $rules = [
-//        'name_in_arabic' => 'required|string|max:191',
-//        'name_in_english' => 'required|string|max:191',
-//        'email' => 'sometimes|required|email|unique:employees',
-//        'salary' => 'required|numeric',
-//        'supervisor_id' => 'nullable|numeric|exists:employees,id',
-//        'job_number' => ['required'],
-//        'password' => ['required', 'string', 'min:8', 'confirmed']
-//    ];
+
     public static $managerRules = [
         'fname_ar' => ['required', 'string'],
         'mname_ar' => ['nullable', 'string'],
@@ -43,7 +35,6 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'nationality_id' => 'required|numeric',
         'id_num' => ['required_if:identity_type,0'],
         'contract_type' => ['required'],
-        'work_shift_id' => ['required', 'exists:work_shifts,id'],
         'contract_start_date' => ['required'],
         'contract_period' => 'nullable',
         'phone' => ['required'],
@@ -197,6 +188,13 @@ class Employee extends Authenticatable implements MustVerifyEmail
         $work_days = Attendance::where('employee_id', $this->id)->whereNotNull(['time_in', 'time_out'])->whereMonth('created_at', $month)->count();
         return $work_days;
     }
+
+    public function daysOff()
+    {
+        $daysOff = isset($this->workShift) ? 7 - count(unserialize($this->workShift->work_days)) : 0;
+        return $daysOff * 4;
+    }
+
     public function salary()
     {
         return $this->totalPackage() - $this->gosiDeduction();

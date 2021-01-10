@@ -11,6 +11,8 @@ class Attendance extends Model
     protected $casts = [
         'time_in'  => 'date:h:i',
         'time_out'  => 'date:h:i',
+        'time_in2'  => 'date:h:i',
+        'time_out2'  => 'date:h:i',
     ];
 
     protected static function booted()

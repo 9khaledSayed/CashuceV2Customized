@@ -2,9 +2,23 @@
 
 @section('content')
     <!--begin::Head-->
-<div class="kt-login__head">
-    <span class="kt-login__signup-label">{{__('Don\'t have an account yet?')}}</span>&nbsp;&nbsp;
-    <a href="{{ route("register") }}" class="kt-link kt-login__signup-link">{{__('Sign Up!')}}</a>
+    <div class="kt-login__head d-flex justify-content-between">
+        <div>
+        <span class="kt-login__signup-label ">{{__('Don\'t have an account yet?')}}</span>&nbsp;&nbsp;
+        <a href="{{ route("register") }}" class="kt-link kt-login__signup-link">{{__('Sign Up!')}}</a>
+    </div>
+    <div>
+        @if(app()->isLocale('en'))
+            <a href="{{ route('change_language', 'ar')}}">
+                العربية <i class="fa fa-globe" aria-hidden="true"></i>
+            </a>
+        @else
+            <a href="{{ route('change_language', 'en')}}">
+                English <i class="fa fa-globe" aria-hidden="true"></i>
+            </a>
+        @endif
+    </div>
+
 </div>
 
 <!--end::Head-->

@@ -135,26 +135,37 @@
                                             @include('layouts.dashboard.parts.successSection')
                                         @endif
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label">{{__('Name In Arabic')}}</label>
-                                            <div class="col-lg-9 col-xl-6">
-                                                <input class="form-control @error('name_in_arabic') is-invalid @enderror"
-                                                       type="text"
-                                                       name="name_in_arabic"
-                                                       value="{{ old('name_in_arabic') ?? $user->name_in_arabic}}">
+                                            <div class="col-lg-4">
+                                                <label>{{__('First Name Arabic')}} *</label>
+                                                <input name="fname_ar" class="form-control" type="text"  value="{{$user->fname_ar}}">
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label>{{__('Middle Name Arabic')}}</label>
+                                                <input name="mname_ar" class="form-control" type="text"  value="{{$user->mname_ar}}">
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label>{{__('Last Name Arabic')}} *</label>
+                                                <input name="lname_ar" class="form-control" type="text"  value="{{$user->lname_ar}}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label">{{__('Name In English')}}</label>
-                                            <div class="col-lg-9 col-xl-6">
-                                                <input class="form-control @error('name_in_english') is-invalid @enderror"
-                                                       type="text"
-                                                       name="name_in_english"
-                                                       value="{{ old('name_in_english') ?? $user->name_in_english}}">
+                                            <div class="col-lg-4">
+                                                <label>{{__('First Name English')}} *</label>
+                                                <input name="fname_en" class="form-control" type="text"  value="{{$user->fname_en}}">
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label>{{__('Middle Name English')}}</label>
+                                                <input name="mname_en" class="form-control" type="text"  value="{{$user->mname_en}}">
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label>{{__('Last Name English')}} *</label>
+                                                <input name="lname_en" class="form-control" type="text"  value="{{$user->lname_en}}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label">{{__('Email')}}</label>
-                                            <div class="col-lg-9 col-xl-6">
+
+                                            <div class="col-lg-9 col-xl-12">
+                                                <label >{{__('Email')}}</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend"><span class="input-group-text"><i class="la la-at"></i></span></div>
                                                     <input type="text"
@@ -167,12 +178,11 @@
                                             </div>
                                         </div>
 {{--                                        <div class="form-group row">--}}
-{{--                                            <label class="col-xl-3 col-lg-3 col-form-label">Language</label>--}}
-{{--                                            <div class="col-lg-9 col-xl-6">--}}
-{{--                                                <select class="form-control">--}}
-{{--                                                    <option>Select Language...</option>--}}
-{{--                                                    <option value="en" selected="">English</option>--}}
-{{--                                                    <option value="ar">العربية - Arabic</option>--}}
+{{--                                            <div class="col-lg-9 col-xl-12">--}}
+{{--                                                <label>Language - اللغة</label>--}}
+{{--                                                <select class="form-control kt-selectpicker" name="lang">--}}
+{{--                                                    <option value="en" @if(app()->isLocale('en')) selected @endif>English</option>--}}
+{{--                                                    <option value="ar" @if(app()->isLocale('ar')) selected @endif>العربية - Arabic</option>--}}
 {{--                                                </select>--}}
 {{--                                            </div>--}}
 {{--                                        </div>--}}

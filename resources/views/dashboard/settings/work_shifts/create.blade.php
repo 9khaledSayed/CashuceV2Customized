@@ -184,14 +184,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group row flexible box">
+                <div class="form-group row flexible once box">
                     <div class="col-6">
                         <label>{{__('Work Hours')}} *</label>
                         <input name="work_hours"
                                value="{{old('work_hours')}}"
-                               placeholder="Select time"
-                               class="form-control shiftTimes @error('work_hours') is-invalid @enderror"
-                               type="text">
+                               class="form-control @error('work_hours') is-invalid @enderror"
+                               type="number" max="8">
                     </div>
                 </div>
                 <div class="form-group row once box">

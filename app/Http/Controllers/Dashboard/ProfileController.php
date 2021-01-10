@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use anlutro\LaravelSettings\Facade as Setting;
 use App\Employee;
 use App\Http\Controllers\Controller;
 use App\Rules\EqualToCurrentPassword;
@@ -25,10 +26,13 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
         $user->update($request->validate([
-            'name_in_arabic' => 'required|string|max:191',
-            'name_in_english' => 'required|string|max:191',
+            'fname_ar' => 'required|string|max:191',
+            'lname_ar' => 'required|string|max:191',
+            'fname_en' => 'required|string|max:191',
+            'lname_en' => 'required|string|max:191',
             'email' => 'sometimes|required|email|unique:employees,email,' . $user->id,
         ]));
+
         return redirect(route('dashboard.myProfile.account_info'))->with('success', 'true');
     }
 

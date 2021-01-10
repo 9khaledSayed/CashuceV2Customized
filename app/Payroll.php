@@ -23,14 +23,16 @@ class Payroll extends Model
             $managerId = ($employee->is_manager)? $employee->id:$employee->manager->id;
             $payroll->manager_id = $managerId; // for Ceo
         });
+
         static::created(function ($payroll){
-            $payroll->salaries()->delete();
             $employees = Employee::get();
-            $monthHolidays = 0;
+
             foreach ($employees as $employee) {
-//                $workDays = $employee->workDays($payroll->date->month);
-                $workDays = setting('work_days') ?? 0;
-                $totalPackage = $workDays * ($employee->totalPackage()/(30 - $monthHolidays));
+                $payrollDay = setting('payroll_day') ?? 30;
+                $workDays = $employee->workDays($payroll->date->month);
+                $workDays = $workDays > $payrollDay ? $payrollDay : $workDays;  // 26 - 25
+                $daysOff = $employee->daysOff();
+                $totalPackage = $workDays * ($employee->totalPackage()/(30 - $daysOff));
                 $deductions = $employee->deductions() + $employee->gosiDeduction();
                 $netPay = $totalPackage  - $deductions;
 

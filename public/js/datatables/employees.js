@@ -151,7 +151,7 @@ var KTDatatableLocalSortDemo = function() {
                                 </style>'
                         content += '<svg id="code128" jsbarcode-value="123456789012" onload="print()"></svg>'
                         content += '<script src="https://cdn.jsdelivr.net/jsbarcode/3.3.16/barcodes/JsBarcode.code128.min.js"></script>'
-                        content += '<script>JsBarcode("#code128", ' + data.barcode + ', { format: "CODE128", displayValue: true});</script>';
+                        content += '<script>JsBarcode("#code128", "' + data.barcode + '", { format: "CODE128", displayValue: true});</script>';
                         mywindow.document.write(content);
                         mywindow.document.close(); // necessary for IE >= 10
                         mywindow.focus(); // necessary for IE >= 10*/
@@ -180,10 +180,6 @@ var KTDatatableLocalSortDemo = function() {
                         return  employeeName(row);
                     }
                 }, {
-                    field: 'email',
-                    title: locator.__('Email'),
-                    textAlign: 'center',
-                }, {
                     field: 'job_number',
                     title: locator.__('Job Number'),
                     textAlign: 'center',
@@ -191,18 +187,20 @@ var KTDatatableLocalSortDemo = function() {
                     field: 'salary',
                     title: locator.__('Salary'),
                     textAlign: 'center',
-                }, {
+                }
+                , {
                     field: 'roles',
                     title: locator.__('Role'),
                     textAlign: 'center',
                     template:function (row){
                         return row.roles[0].name_arabic
                     }
-                }, {
+                }
+                , {
                     field: 'bar_code',
                     title: locator.__('Barcode'),
                     template: function(raw) {
-                        return '<a class="h5 print-item" href="#"><i class="flaticon-reply"></i>Barcode</a>';
+                        return '<a class="h5 print-item" href="#"><i class="flaticon-reply"></i>Print ID</a>';
                     },
                 }
                 , {
