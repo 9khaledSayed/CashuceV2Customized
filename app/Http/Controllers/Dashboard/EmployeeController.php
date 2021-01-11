@@ -75,7 +75,20 @@ class EmployeeController extends Controller
 
     public function show(Employee $employee)
     {
-        return view('dashboard.employees.show', compact('employee'));
+        $allowances = Allowance::all();
+        $nationalities = Nationality::all();
+        $workShifts = WorkShift::get();
+        $roles = Role::get();
+        $supervisors = Employee::whereNull('supervisor_id')->whereNotNull('manager_id')->get();
+        return view('dashboard.employees.show', [
+            'employee' => $employee,
+            'nationalities' => $nationalities,
+            'roles' => $roles,
+            'contract_type' => $this->contract_type,
+            'allowances' =>$allowances,
+            'supervisors' =>$supervisors,
+            'workShifts' =>$workShifts,
+        ]);
     }
 
 

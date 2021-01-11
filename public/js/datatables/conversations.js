@@ -141,7 +141,15 @@ var KTDatatableLocalSortDemo = function() {
                     title: locator.__('Employee'),
                     textAlign: 'center',
                     template:function (row){
-                       return  employeeName(row.employee);
+                        return '\
+		                  \
+		                      \
+		                          \
+		                            <a href="/dashboard/employees/' + row.employee.id + '">' + employeeName(row.employee) + '</a>\
+		                          \
+		                      \
+		                  \
+                        ';
                     }
                 },{
                     field: 'created_at',

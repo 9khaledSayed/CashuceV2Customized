@@ -47,6 +47,7 @@ return array(
     'App\\Http\\Controllers\\Dashboard\\VacationController' => $baseDir . '/app/Http/Controllers/Dashboard/VacationController.php',
     'App\\Http\\Controllers\\Dashboard\\VacationTypeController' => $baseDir . '/app/Http/Controllers/Dashboard/VacationTypeController.php',
     'App\\Http\\Controllers\\Dashboard\\ViolationController' => $baseDir . '/app/Http/Controllers/Dashboard/ViolationController.php',
+    'App\\Http\\Controllers\\Dashboard\\WorkShiftController' => $baseDir . '/app/Http/Controllers/Dashboard/WorkShiftController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',

@@ -538,6 +538,7 @@ class ComposerStaticInitf6d57cfbea0541c8e8483fe876a82800
         'App\\Http\\Controllers\\Dashboard\\VacationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/VacationController.php',
         'App\\Http\\Controllers\\Dashboard\\VacationTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/VacationTypeController.php',
         'App\\Http\\Controllers\\Dashboard\\ViolationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/ViolationController.php',
+        'App\\Http\\Controllers\\Dashboard\\WorkShiftController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/WorkShiftController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',

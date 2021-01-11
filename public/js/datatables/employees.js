@@ -177,7 +177,15 @@ var KTDatatableLocalSortDemo = function() {
                     title: locator.__('Full Name'),
                     textAlign: 'center',
                     template:function (row){
-                        return  employeeName(row);
+                        return '\
+		                  \
+		                      \
+		                          \
+		                            <a href="/dashboard/employees/' + row.id + '">' + employeeName(row) + '</a>\
+		                          \
+		                      \
+		                  \
+                        ';
                     }
                 }, {
                     field: 'job_number',
