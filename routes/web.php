@@ -58,6 +58,7 @@ Route::namespace('Dashboard')
         Route::any('settings/payrolls', 'SettingController@payrolls')->name('settings.payrolls');
 
 
+
         Route::resources([
         'employees' => 'EmployeeController',
         'violations' => 'ViolationController',
@@ -76,6 +77,7 @@ Route::namespace('Dashboard')
         'allowances' => 'AllowanceController',
         'work_shifts' => 'WorkShiftController',
         'vacation_types' => 'VacationTypeController',
+        'feedbacks' => 'FeedbackController',
     ]);
 
 });
