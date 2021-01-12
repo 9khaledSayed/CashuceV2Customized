@@ -6,10 +6,11 @@ use App\Scopes\ParentScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\App;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Role extends Model
 {
-    use SoftDeletes;
+    use LogsActivity;
 
 
     protected $dates = ['deleted_at'];
@@ -17,6 +18,14 @@ class Role extends Model
     protected $casts = [
         'created_at'  => 'date:D M d Y',
     ];
+
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        $baseName = class_basename(__CLASS__);
+        return "$baseName has been {$eventName}";
+    }
 
     public function saveWithoutEvents(array $options=[])
     {

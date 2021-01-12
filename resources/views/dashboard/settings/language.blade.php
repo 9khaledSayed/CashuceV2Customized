@@ -42,23 +42,17 @@
                             <div class="kt-widget__content">
                                 <div class="kt-widget__section">
                                     <a href="#" class="kt-widget__username">
-                                        {{__('Settings')}}
+                                        {{__('Language')}}
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <div class="kt-widget__body">
-                            <a href="{{route('dashboard.settings.attendance')}}" class="kt-widget__item kt-widget__item--active">
-                                {{__('Attendance')}}
+                            <a href="{{route('dashboard.settings.language')}}" class="kt-widget__item kt-widget__item--active">
+                                {{__('Language')}}
                             </a>
                             <a href="{{route('dashboard.settings.payrolls')}}" class="kt-widget__item">
                                 {{__('Payrolls')}}
-                            </a>
-{{--                            <a href="{{route('dashboard.settings.basic_allowances')}}" class="kt-widget__item">--}}
-{{--                                {{__('Basic Allowances')}}--}}
-{{--                            </a>--}}
-                            <a href="#" class="kt-widget__item">
-                                {{__('Vacation Types')}}
                             </a>
                         </div>
                     </div>
@@ -99,24 +93,6 @@
                                                        readonly placeholder="Select time" type="text"
                                                        name="work_start_date"
                                                        value="{{ old('work_start_date') ?? setting('work_start_date')}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label">{{__('Work End Date')}}</label>
-                                            <div class="col-lg-9 col-xl-6">
-                                                <input class="form-control end_time @error('work_end_date') is-invalid @enderror"
-                                                       readonly placeholder="Select time" type="text"
-                                                       name="work_end_date"
-                                                       value="{{ old('work_end_date') ?? setting('work_end_date')}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label">{{__('Overtime')}}</label>
-                                            <div class="col-lg-9 col-xl-6">
-                                                <input class="form-control overtime @error('overtime') is-invalid @enderror"
-                                                       readonly placeholder="Select time" type="text"
-                                                       name="overtime"
-                                                       value="{{ old('overtime') ?? setting('overtime')}}">
                                             </div>
                                         </div>
                                     </div>

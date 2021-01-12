@@ -5,9 +5,12 @@ namespace App;
 
 use App\Scopes\ParentScope;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Allowance extends Model
 {
+    use LogsActivity;
+
     protected $guarded = [];
     public static $rules = [
         'name_ar'    => ['sometimes', 'required', 'string:191'],
@@ -16,6 +19,14 @@ class Allowance extends Model
         'value' =>  [],
         'type' => 'required|integer'
     ];
+
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        $baseName = class_basename(__CLASS__);
+        return "$baseName has been {$eventName}";
+    }
 
     public function saveWithoutEvents(array $options=[])
     {

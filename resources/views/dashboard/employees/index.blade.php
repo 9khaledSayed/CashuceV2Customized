@@ -27,7 +27,7 @@
                     <i class="kt-font-brand flaticon2-user-1"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    {{__('Employees')}}
+                    {{__('Employees')}} ( {{ $employeesNo }} )
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">

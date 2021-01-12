@@ -4,9 +4,11 @@ namespace App;
 
 use App\Scopes\ParentScope;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class WorkShift extends Model
 {
+    use LogsActivity;
 
     protected $guarded = [];
     public static $rules = [
@@ -33,6 +35,14 @@ class WorkShift extends Model
         'overtime_hours' => 'date:h:i',
         'time_delay_allowed' => 'date:h:i',
     ];
+
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        $baseName = class_basename(__CLASS__);
+        return "$baseName has been {$eventName}";
+    }
 
     public function saveWithoutEvents(array $options=[])
     {

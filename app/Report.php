@@ -4,9 +4,12 @@ namespace App;
 
 use App\Scopes\ParentScope;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Report extends Model
 {
+    use LogsActivity;
+
     protected $guarded = [];
 
     protected $casts = [
@@ -17,6 +20,14 @@ class Report extends Model
         'violation_date' => 'required|date',
         'description' => ['required', 'string'],
     ];
+
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        $baseName = class_basename(__CLASS__);
+        return "$baseName has been {$eventName}";
+    }
 
     public static function booted()
     {

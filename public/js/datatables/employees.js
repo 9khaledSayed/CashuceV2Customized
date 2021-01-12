@@ -201,7 +201,7 @@ var KTDatatableLocalSortDemo = function() {
                     title: locator.__('Role'),
                     textAlign: 'center',
                     template:function (row){
-                        return row.roles[0].name_arabic
+                        return row.role.name_arabic
                     }
                 }
                 , {

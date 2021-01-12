@@ -25,12 +25,16 @@ class EmployeeController extends Controller
 
     public function index(Request $request)
     {
+
         $this->authorize('view_employees');
         if ($request->ajax()){
-            $employees = Employee::with('roles')->get();
+            $employees = Employee::with('role')->get();
             return response()->json($employees);
+        }else{
+            $employeesNo = Employee::get()->count();
+            return view('dashboard.employees.index', compact('employeesNo'));
         }
-        return view('dashboard.employees.index');
+
     }
 
 
@@ -79,7 +83,7 @@ class EmployeeController extends Controller
         $nationalities = Nationality::all();
         $workShifts = WorkShift::get();
         $roles = Role::get();
-        $supervisors = Employee::whereNull('supervisor_id')->whereNotNull('manager_id')->get();
+        $supervisors = Employee::whereNull('supervisor_id')->get();
         return view('dashboard.employees.show', [
             'employee' => $employee,
             'nationalities' => $nationalities,

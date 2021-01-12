@@ -6,10 +6,14 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Activitylog\Traits\CausesActivity;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Company extends Authenticatable
 {
     use Notifiable;
+    use LogsActivity;
+    use CausesActivity;
 
     protected $guarded = [];
 
@@ -39,6 +43,14 @@ class Company extends Authenticatable
         'email' => 'required|string|email|max:255|unique:companies',
         'password' => ['required', 'string', 'min:8', 'confirmed'],
     ];
+
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        $baseName = class_basename(__CLASS__);
+        return "$baseName has been {$eventName}";
+    }
 
     public function saveWithoutEvents(array $options=[])
     {

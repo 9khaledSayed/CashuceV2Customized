@@ -8,14 +8,19 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use anlutro\LaravelSettings\Facade as Setting;
+use Spatie\Activitylog\Traits\CausesActivity;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Employee extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
+    use LogsActivity;
+    use CausesActivity;
 
     protected $table = 'employees';
 
     protected $guarded = [];
+    protected static $logUnguarded = true;
 
     protected $hidden = [
         'password', 'remember_token',
@@ -61,6 +66,14 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'contract_start_date' => 'datetime',
         'created_at'  => 'date:D M d Y',
     ];
+
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        $baseName = class_basename(__CLASS__);
+        return "$baseName has been {$eventName}";
+    }
+
     public static function booted()
     {
         static::addGlobalScope(new ParentScope());
@@ -101,21 +114,9 @@ class Employee extends Authenticatable implements MustVerifyEmail
 
     public function abilities()
     {
-        return $this->roles->abilities->flatten()->pluck('name')->unique();
+        return $this->role->abilities->flatten()->pluck('name')->unique();
     }
 
-//    public function roles()
-//    {
-//        return $this->belongsToMany(Role::class)->withoutGlobalScope(ParentScope::class)->withTimestamps();
-//    }
-
-//    public function assignRole($role)
-//    {
-//        if(is_string($role)){
-//            $role = Role::where('label', $role)->firstOrFail();
-//        }
-//        return $this->roles()->sync($role, false);
-//    }
 
     public function allowances()
     {

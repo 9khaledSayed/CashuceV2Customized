@@ -6,6 +6,7 @@ use App\Employee;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\Models\Activity;
 
 class DashboardController extends Controller
 {
@@ -18,6 +19,7 @@ class DashboardController extends Controller
     public function index()
     {
         $employees = Employee::take(10)->get();
-        return view('dashboard.index', compact('employees'));
+        $activities = Auth::user()->actions ?? [];
+        return view('dashboard.index', compact('employees', 'activities'));
     }
 }

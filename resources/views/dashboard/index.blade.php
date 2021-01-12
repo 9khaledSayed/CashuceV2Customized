@@ -118,7 +118,7 @@
 
     <!--Begin::Row-->
     <div class="row">
-        <div class="col-xl-12">
+        <div class="col-xl-6">
 
             <!--begin:: Widgets/Sale Reports-->
             <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
@@ -179,6 +179,49 @@
             </div>
 
     <!--end:: Widgets/Sale Reports-->
+        </div>
+        <div class="col-xl-6 col-lg-6 order-lg-1 order-xl-1">
+
+            <!--begin:: Widgets/Audit Log-->
+            <div class="kt-portlet kt-portlet--height-fluid">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            Recent Activities
+                        </h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="kt_widget4_tab11_content">
+                            <div class="kt-scroll" data-scroll="true" data-height="400" style="height: 400px;">
+                                <div class="kt-list-timeline">
+                                    <div class="kt-list-timeline__items">
+                                        @forelse($activities as $activity)
+                                            <div class="kt-list-timeline__item">
+                                                <span class="kt-list-timeline__badge kt-list-timeline__badge--{{$activity->statusColor()}}"></span>
+                                                <span class="kt-list-timeline__text">{{$activity->description}}</span>
+                                                <span class="kt-list-timeline__time">{{$activity->created_at->diffForHumans()}}</span>
+                                            </div>
+                                        @empty
+                                            <div class="kt-grid kt-grid--ver" style="min-height: 200px;">
+                                                <div class="kt-grid kt-grid--hor kt-grid__item kt-grid__item--fluid kt-grid__item--middle">
+                                                    <div class="kt-grid__item kt-grid__item--middle kt-align-center">
+                                                        {{__('There Is No Activities Yet !')}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforelse
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--end:: Widgets/Audit Log-->
         </div>
     </div>
 

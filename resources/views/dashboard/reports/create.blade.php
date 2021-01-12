@@ -41,7 +41,7 @@
                                 data-size="7"
                                 data-live-search="true"
                                 data-show-subtext="true" name="employee_id" title="{{__('Select')}}">
-                            @forelse($employees as $employee)
+                            @forelse($employees ?? [] as $employee)
                                 <option
                                     value="{{$employee->id}}"
                                     @if(old('employee_id') == $employee->id) selected @endif

@@ -23,8 +23,12 @@ Route::get('language/{lang}', function ($lang) {
     return back();
 })->name('change_language');
 
-Route::get('/out', function(){
-   \Illuminate\Support\Facades\Auth::logout();
+Route::get('/log', function(){
+    $employee = Employee::find(1);
+    $employee->fname_ar = 'kok';
+    $employee->save();
+
+    dd(\Spatie\Activitylog\Models\Activity::all()->last());
 });
 
 
@@ -59,7 +63,7 @@ Route::namespace('Dashboard')
         Route::get('payrolls/pending', 'PayrollController@pending')->name('payrolls.pending');
         Route::get('salaries/my_salaries', 'SalaryController@mySalaries')->name('salaries.my_salaries');
         Route::get('salaries/{salary}', 'SalaryController@show')->name('salaries.show');
-        Route::any('settings/attendance', 'SettingController@attendnace')->name('settings.attendance');
+        Route::any('settings/language', 'SettingController@language')->name('settings.language');
         Route::any('settings/payrolls', 'SettingController@payrolls')->name('settings.payrolls');
 
 

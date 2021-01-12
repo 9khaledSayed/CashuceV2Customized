@@ -94,7 +94,7 @@
                             @forelse($roles as $role)
                                 <option
                                     value="{{$role->id}}"
-                                    @if($employee->roles->first()->id == $role->id) selected @endif
+                                    @if($employee->role->id == $role->id) selected @endif
                                 >{{$role->name()}}</option>
                             @empty
                                 <option disabled>{{__('There is no roles')}}</option>

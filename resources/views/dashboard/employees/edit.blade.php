@@ -378,7 +378,7 @@
                                                                 <label>{{__('Job Title')}} *</label>
                                                                 <select name="role_id" class="form-control kt-selectpicker" title="Choose" >
                                                                     @foreach($roles as $role)
-                                                                        <option value="{{$role->id}}" @if($employee->roles->first()->id == $role->id) selected @endif>{{$role->Name()}}</option>
+                                                                        <option value="{{$role->id}}" @if($employee->role->id == $role->id) selected @endif>{{$role->Name()}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>

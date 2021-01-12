@@ -4,14 +4,25 @@ namespace App;
 
 use App\Scopes\ParentScope;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Payroll extends Model
 {
+    use LogsActivity;
+
     protected $guarded=[];
     protected $dates = ['date', 'issue_date'];
     protected $casts = [
         'date'  => 'date:M-Y',
     ];
+
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        $baseName = class_basename(__CLASS__);
+        return "$baseName has been {$eventName}";
+    }
 
     protected static function booted()
     {
