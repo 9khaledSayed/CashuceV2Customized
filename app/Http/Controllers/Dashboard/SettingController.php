@@ -24,7 +24,7 @@ class SettingController extends Controller
 
 
 
-    public function attendnace(Request $request)
+    public function language(Request $request)
     {
         $this->authorize('view_settings');
         $this->setManagerID();
@@ -32,14 +32,12 @@ class SettingController extends Controller
         if ($request->post()){
 
             setting($request->validate([
-                'work_start_date' => 'required',
-                'work_end_date' => 'required',
-                'overtime' => 'required',
+                'lang' => 'required',
             ]))->save();
 
-            return redirect(route('dashboard.settings.attendance'))->with('success', 'true');
+            return redirect(route('dashboard.settings.language'))->with('success', 'true');
         }
-        return view('dashboard.settings.attendance');
+        return view('dashboard.settings.language');
     }
 
     public function payrolls(Request $request)

@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -54,6 +55,7 @@ class LoginController extends Controller
                 $this->credentials($request), $request->has('remember')
             );
         }
+        Session::put('locale', setting('lang') ?? 'en');
         return $employeeAttempt;
     }
 

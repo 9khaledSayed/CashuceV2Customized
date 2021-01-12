@@ -54,7 +54,7 @@ class LateEmployeesNotification extends Command
         foreach ($companies as $company) {
             $employees = $company->employees;
             $HrAndSupervisorCollection = $employees->map(function ($employee){
-                $roleLabel = $employee->roles->first()->label;
+                $roleLabel = $employee->role->label;
                 if($roleLabel == 'HR' || $roleLabel == 'Supervisor')
                     return $employee;
             })->filter(function ($employee){return !is_null($employee);});

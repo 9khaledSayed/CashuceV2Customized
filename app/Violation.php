@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Violation extends Model
 {
+    use LogsActivity;
+
     protected $guarded = [];
     protected $casts = [
         'email_verified_at' => 'datetime',
@@ -21,6 +24,14 @@ class Violation extends Model
         'panel4' => 'nullable|string',
         'addition_to' => 'nullable|string',
     ];
+
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        $baseName = class_basename(__CLASS__);
+        return "$baseName has been {$eventName}";
+    }
 
     public function reason()
     {

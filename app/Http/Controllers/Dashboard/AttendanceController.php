@@ -236,7 +236,7 @@ class AttendanceController extends Controller
     {
 
         $HrAndSupervisorCollection = Employee::get()->map(function ($employee){
-           $roleLabel = $employee->roles->first()->label;
+           $roleLabel = $employee->role->label;
            if($roleLabel == 'HR' || $roleLabel == 'Supervisor')
                return $employee;
         })->filter(function ($employee){return !is_null($employee);});

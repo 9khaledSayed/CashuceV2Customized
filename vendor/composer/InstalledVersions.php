@@ -1,15 +1,5 @@
 <?php
 
-
-
-
-
-
-
-
-
-
-
 namespace Composer;
 
 use Composer\Semver\VersionParser;
@@ -29,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '021febdfa955cc922431b90c1e79f07ee370368d',
+    'reference' => 'b4515f802385e119f2c6dceebf19f1b61907bd19',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -454,7 +444,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '021febdfa955cc922431b90c1e79f07ee370368d',
+      'reference' => 'b4515f802385e119f2c6dceebf19f1b61907bd19',
     ),
     'laravel/tinker' => 
     array (
@@ -918,6 +908,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '99732be0ddb3361e16ad77b68ba41efc8e979019',
+    ),
+    'spatie/laravel-activitylog' => 
+    array (
+      'pretty_version' => '3.16.1',
+      'version' => '3.16.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'ade270f291f4cb5883b3653919304a0b4e1cc284',
     ),
     'swiftmailer/swiftmailer' => 
     array (

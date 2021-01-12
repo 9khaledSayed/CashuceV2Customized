@@ -4,9 +4,12 @@ namespace App;
 
 use App\Scopes\ParentScope;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class EmployeeViolation extends Model
 {
+    use LogsActivity;
+
     protected $table = 'employee_violation';
     protected $guarded = [];
     protected $dates = ['date'];
@@ -21,6 +24,14 @@ class EmployeeViolation extends Model
         'minutes_late' => 'nullable|numeric',
         'absences_days' => 'nullable|numeric',
     ];
+
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        $baseName = class_basename(__CLASS__);
+        return "$baseName has been {$eventName}";
+    }
 
     public static function booted()
     {

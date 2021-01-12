@@ -5,14 +5,24 @@ namespace App;
 use App\Notifications\NewRequest;
 use App\Scopes\ParentScope;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Request extends Model
 {
+    use LogsActivity;
+
     protected $guarded = [];
     protected $casts = [
         "created_at" => "date:Y-m-d"
     ];
 
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        $baseName = class_basename(__CLASS__);
+        return "$baseName has been {$eventName}";
+    }
 
     protected static function booted()
     {
@@ -30,7 +40,7 @@ class Request extends Model
         static::created(function($request){
             $employees = Employee::get();
             foreach ($employees as $employee) {
-                if($employee->roles->first()->label == 'Supervisor'){
+                if($employee->role->label == 'Supervisor'){
                     $employee->notify(new NewRequest());
                 }
             }
