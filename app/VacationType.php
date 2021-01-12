@@ -15,12 +15,10 @@ class VacationType extends Model
 
     public static function booted()
     {
-        static::creating(static function ($model){
-            $employee = auth()->user();
-            $manager_id = $employee->is_manager? $employee->id:$employee->manager->id;
-            $model->manager_id = $manager_id; // Ceo Id
-        });
         static::addGlobalScope(new ParentScope());
+        static::creating(function ($model){
+            $model->company_id = Company::companyID();
+        });
     }
 
     public function name()

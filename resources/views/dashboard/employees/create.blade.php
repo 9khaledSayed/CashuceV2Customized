@@ -369,13 +369,6 @@
                                                                     @endforelse
                                                                 </select>
                                                             </div>
-                                                            <div class="col-12 mt-3">
-                                                                <label>{{__('Work Shift')}} *</label>
-                                                                <select name="work_shift" class="form-control kt-selectpicker" title="Choose" >
-                                                                    <option value="1" @if(old('work_shift') == 1) selected @endif>{{__('Morning Shift')}}</option>
-                                                                    <option value="2" @if(old('work_shift') == 2) selected @endif>{{__('Evening Shift')}}</option>
-                                                                </select>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -445,7 +438,7 @@
                                                                 @endforeach
                                                             </div>
                                                             @error('work_shift_id')
-                                                            <span class="form-text text-danger">Some help text goes here</span>
+                                                            <span class="form-text text-danger">{{$message}}</span>
                                                             @enderror
                                                         </div>
                                                     </div>

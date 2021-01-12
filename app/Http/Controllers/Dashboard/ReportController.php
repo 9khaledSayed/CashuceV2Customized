@@ -29,7 +29,8 @@ class ReportController extends Controller
     public function create()
     {
         $this->authorize('create_reports');
-        $employees = auth()->user()->supervisedEmployees;
+        $user = auth()->user();
+        $employees = auth()->guard('company') ? $user->employees : $user->supervisedEmployees;
         return view('dashboard.reports.create', compact('employees'));
     }
 
@@ -53,7 +54,8 @@ class ReportController extends Controller
     public function edit(Report $report)
     {
         $this->authorize('update_reports');
-        $employees = auth()->user()->supervisedEmployees;
+        $user = auth()->user();
+        $employees = auth()->guard('company') ? $user->employees : $user->supervisedEmployees;
         return view('dashboard.reports.edit', compact('employees', 'report'));
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use anlutro\LaravelSettings\Facade as Setting;
+use App\Company;
 use App\Employee;
 use App\Http\Controllers\Controller;
 use App\Rules\EqualToCurrentPassword;
@@ -50,5 +51,25 @@ class ProfileController extends Controller
         ]);
         $user->update(['password' => $request->password ]);
         return redirect(route('dashboard.myProfile.change_password'))->with('success', 'true');
+    }
+
+    public function companyProfile(Company $company,Request $request)
+    {
+        $employees = $company->employees;
+        if ($request->post()){
+            $rules = Company::$rules;
+            $rules['email'] = ($rules['email'] . ',email,' . $company->id);
+            unset($rules['password']);
+            $company->update($request->validate($rules));
+            if(isset($request->logo)){
+                $fileName = $request->file('logo')->getClientOriginalName();
+                $request->file('logo')->storeAs('public/companies/logos/', $fileName);
+
+                $company->logo = $fileName;
+                $company->save();
+            }
+            return redirect(route('dashboard.profile.company_profile', $company->id))->with('success', 'true');
+        }
+        return view('dashboard.myProfile.company_profile', compact('company', 'employees'));
     }
 }

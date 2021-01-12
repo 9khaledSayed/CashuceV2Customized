@@ -14,13 +14,14 @@ class CreateEmployeesTable extends Migration
     public function up()
     {
         Schema::create('employees', function (Blueprint $table) {
-            $table->id('id');
+            $table->id();
 
-            $table->unsignedBigInteger('manager_id')->nullable();
+            $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('supervisor_id')->nullable();
             $table->unsignedBigInteger('work_shift_id');
             $table->unsignedBigInteger('nationality_id');
-            $table->unique(['manager_id', 'job_number']);
+            $table->unsignedBigInteger('role_id');
+            $table->unique(['company_id', 'job_number']);
             $table->string('fname_ar');
             $table->string('mname_ar')->nullable();
             $table->string('lname_ar');
@@ -48,7 +49,6 @@ class CreateEmployeesTable extends Migration
             $table->integer('vacations_balance');
             $table->string('barcode');
             $table->string('email')->unique();
-            $table->boolean('is_manager')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->decimal('salary')->default(0);
             $table->string('password');
@@ -56,20 +56,41 @@ class CreateEmployeesTable extends Migration
 
             $table->timestamps();
 
-            $table->foreign('manager_id')
+            $table->foreign('company_id')
                 ->references('id')
-                ->on('employees')
+                ->on('companies')
+                ->onDelete('cascade');
+
+            $table->foreign('role_id')
+                ->references('id')
+                ->on('roles')
                 ->onDelete('cascade');
 
             $table->foreign('supervisor_id')
                 ->references('id')
-                ->on('employees')
-                ->onDelete('cascade');
+                ->on('employees');
 
             $table->foreign('work_shift_id')
                 ->references('id')
                 ->on('work_shifts');
         });
+
+//        Schema::create('employee_role', function (Blueprint $table) {
+//            $table->primary(['role_id', 'employee_id']);
+//            $table->unsignedBigInteger('role_id');
+//            $table->unsignedBigInteger('employee_id');
+//            $table->timestamps();
+//
+//            $table->foreign('role_id')
+//                ->references('id')
+//                ->on('roles')
+//                ->onDelete('cascade');
+//
+//            $table->foreign('employee_id')
+//                ->references('id')
+//                ->on('employees')
+//                ->onDelete('cascade');
+//        });
     }
 
     /**

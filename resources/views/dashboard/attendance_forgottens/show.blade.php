@@ -54,7 +54,7 @@
                                         <a class="kt-user-card-v2__name" href="{{route('dashboard.employees.show', $employee)}}">
                                             {{$employee->job_number  . ' - ' . $employee->name()}}
                                         </a>
-                                        <span class="kt-user-card-v2__desc">{{$employee->roles->first()->name()}}</span>
+                                        <span class="kt-user-card-v2__desc">{{$employee->role->name()}}</span>
                                     </div>
                                 </div>
                             </div>

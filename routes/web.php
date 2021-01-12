@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes(['verify' => true]);
+Auth::routes(['verify' => false]);
 
 Route::redirect('/', 'login');
 
@@ -23,16 +23,21 @@ Route::get('language/{lang}', function ($lang) {
     return back();
 })->name('change_language');
 
+Route::get('/out', function(){
+   \Illuminate\Support\Facades\Auth::logout();
+});
+
 
 Route::namespace('Dashboard')
     ->prefix('dashboard')
     ->name('dashboard.')
-    ->middleware('auth')
-    ->middleware('verified')
+    ->middleware('auth:employee,company')
+//    ->middleware('verified')
     ->group(function(){
         Route::get('/', 'DashboardController@index')->name('index');
         Route::get('/abilities', 'AbilityController@index');
         Route::get('/violations/{violation}/additions', 'ViolationController@additions');
+        Route::any('profile/company_profile/{company}', 'ProfileController@companyProfile')->name('profile.company_profile');
         Route::get('myProfile/account_info', 'ProfileController@accountInfo')->name('myProfile.account_info');
         Route::post('myProfile/update_account_info', 'ProfileController@updateAccountInfo')->name('myProfile.update_account_info');
         Route::get('myProfile/change_password', 'ProfileController@changePasswordForm')->name('myProfile.change_password');
@@ -62,7 +67,7 @@ Route::namespace('Dashboard')
         'employees' => 'EmployeeController',
         'violations' => 'ViolationController',
         'roles' => 'RoleController',
-        'customers' => 'CustomerController',
+        'companies' => 'CompanyController',
         'employees_violations' => 'EmployeeViolationController',
         'reports' => 'ReportController',
         'conversations' => 'ConversationController',

@@ -43,7 +43,7 @@
                                     {{$employee->name()}}
                                 </a>
                                 <span class="kt-widget__subtitle">
-                               {{$employee->roles->first()->name()}}
+                               {{$employee->role->name()}}
                             </span>
                                 <span class="kt-widget__subtitle">
                                 {{$employee->created_at->format('Y-m-d')}}

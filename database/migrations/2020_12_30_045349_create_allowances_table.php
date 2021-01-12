@@ -15,7 +15,7 @@ class CreateAllowancesTable extends Migration
     {
         Schema::create('allowances', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('manager_id');
+            $table->unsignedBigInteger('company_id');
             $table->string('name_ar');
             $table->string('name_en');
             $table->decimal('value')->nullable();
@@ -25,8 +25,14 @@ class CreateAllowancesTable extends Migration
             $table->string('label')->nullable();
             $table->timestamps();
 
-            $table->unique(['manager_id', 'name_ar']);
-            $table->unique(['manager_id', 'name_en']);
+            $table->unique(['company_id', 'name_ar']);
+            $table->unique(['company_id', 'name_en']);
+
+            $table->foreign('company_id')
+                ->references('id')
+                ->on('companies')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
 
         Schema::create('allowance_employee', function (Blueprint $table) {

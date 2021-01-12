@@ -24,7 +24,7 @@ class RoleController extends Controller
         'attendances',
         'settings'
     ];
-    protected $customerCategories = [
+    protected $companyCategories = [
         'roles',
         'employees',
         'employees_violations',
@@ -53,11 +53,11 @@ class RoleController extends Controller
     public function create()
     {
         $this->authorize('create_roles');
-        $userRole = auth()->user()->roles->first()->label;
+        $userRole = auth()->user()->role->label;
         $abilities = Ability::distinct('category')->get(['name', 'category', 'label']);
         return view('dashboard.roles.create' , [
             'abilities' => $abilities,
-            'categories' => $userRole == "Super Admin" ? $this->adminCategories : $this->customerCategories
+            'categories' => $userRole == "Super Admin" ? $this->adminCategories : $this->companyCategories
         ]);
     }
     public function store(Request $request)
@@ -77,21 +77,21 @@ class RoleController extends Controller
     }
     public function show(Role $role)
     {
-        $userRole = auth()->user()->roles->first()->label;
+        $userRole = auth()->user()->role->label;
         return view('dashboard.roles.show', [
             'role' => $role,
             'abilities' => Ability::distinct('category')->get(['name', 'category', 'label']),
-            'categories' => $userRole == "Super Admin" ? $this->adminCategories : $this->customerCategories,
+            'categories' => $userRole == "Super Admin" ? $this->adminCategories : $this->companyCategories,
             'role_abilities' =>$role->abilities
         ]);
     }
     public function edit(Role $role)
     {
         $this->authorize('update_roles');
-        $userRole = auth()->user()->roles->first()->label;
+        $userRole = auth()->user()->role->label;
         return view('dashboard.roles.edit', [
             'abilities' => $abilities = Ability::distinct('category')->get(['name', 'category', 'label']),
-            'categories' => $userRole == "Super Admin" ? $this->adminCategories : $this->customerCategories,
+            'categories' => $userRole == "Super Admin" ? $this->adminCategories : $this->companyCategories,
             'role_abilities' => $role->abilities,
             'role'  => $role
         ]);

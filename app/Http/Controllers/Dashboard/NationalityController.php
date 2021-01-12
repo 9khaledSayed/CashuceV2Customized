@@ -68,8 +68,10 @@ class NationalityController extends Controller
     public function validator(Request $request, $id = null)
     {
         $rules = Nationality::$rules;
-        array_push($rules['name_ar'], new UniqueItem(new Nationality(), $id));
-
+        if($id){
+            $rules['name_ar'] = ($rules['name_ar'] . ',name_ar,' . $id);
+            $rules['name_en'] = ($rules['name_en'] . ',name_en,' . $id);
+        }
         return $request->validate($rules);
     }
 

@@ -149,11 +149,11 @@
                                     <tr>
                                         <td>
                                             <a href="{{route('dashboard.employees.show', $employee)}}" class="kt-widget11__title">{{$employee->name()}}</a>
-                                            <span class="kt-widget11__sub">{{$employee->roles->first()->name()}}</span>
+                                            <span class="kt-widget11__sub">{{$employee->role->name()}}</span>
                                         </td>
                                         <td>{{$employee->email}}</td>
                                         <td>{{$employee->job_number}}</td>
-                                        <td><span class="kt-badge kt-badge--inline kt-badge--brand">{{$employee->roles->first()->name()}}</span></td>
+                                        <td><span class="kt-badge kt-badge--inline kt-badge--brand">{{$employee->role->name()}}</span></td>
                                         @if($employee->email_verified_at)
                                         <td>
                                             <span class="kt-badge kt-badge--inline kt-badge--success">

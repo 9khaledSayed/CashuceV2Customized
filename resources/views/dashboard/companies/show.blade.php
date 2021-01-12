@@ -13,7 +13,7 @@
             <div class="kt-subheader__toolbar">
                 <a href="#" class="">
                 </a>
-                <a href="{{route('dashboard.customers.index')}}" class="btn btn-secondary">
+                <a href="{{route('dashboard.companies.index')}}" class="btn btn-secondary">
                     {{__('Back')}}
                 </a>
             </div>
@@ -114,7 +114,7 @@
                                                 <span class="kt-widget11__sub">{{$employee->salary}}</span>
                                             </td>
                                             <td>
-                                                <span class="kt-widget11__sub">{{$employee->roles->first()->name()}}</span>
+                                                <span class="kt-widget11__sub">{{$employee->role->name()}}</span>
                                             </td>
                                             @if($employee->email_verified_at)
                                                 <td>

@@ -16,11 +16,17 @@ class CreateRequestsTable extends Migration
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('manager_id');
+            $table->unsignedBigInteger('company_id');
             $table->morphs('requestable');
             $table->integer('status')->default(0);
             $table->string('comment')->nullable();
             $table->timestamps();
+
+            $table->foreign('company_id')
+                ->references('id')
+                ->on('companies')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('employee_id')
                 ->references('id')

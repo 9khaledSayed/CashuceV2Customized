@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use App\Allowance;
+use App\Company;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,12 +32,10 @@ class UniqueItem implements Rule
     public function passes($attribute, $value)
     {
         if(isset($this->id)) return true; // for update method
-        $employee = auth()->user();
-        $managerId = $employee->is_manager ? $employee->id:$employee->manager->id;
 
         return $this->model->where([
             ['name_ar','=', $value],
-            ['manager_id', '=', $managerId]
+            ['company_id', '=', Company::companyID()]
         ])->doesntExist();
     }
 

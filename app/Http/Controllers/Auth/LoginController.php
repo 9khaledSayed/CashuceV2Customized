@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -36,5 +38,23 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->middleware('guest:company')->except('logout');
+        $this->middleware('guest:employee')->except('logout');
     }
+
+    protected function attemptLogin(Request $request)
+    {
+
+        $employeeAttempt = Auth::guard('employee')->attempt( // employees
+            $this->credentials($request), $request->has('remember')
+        );
+
+        if(!$employeeAttempt){
+            return Auth::guard('company')->attempt( // companies
+                $this->credentials($request), $request->has('remember')
+            );
+        }
+        return $employeeAttempt;
+    }
+
 }
