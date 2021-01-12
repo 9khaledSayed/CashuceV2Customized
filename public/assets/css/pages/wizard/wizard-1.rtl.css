@@ -34,6 +34,7 @@
         -ms-flex: 1;
         flex: 1; }
         .kt-wizard-v1 .kt-wizard-v1__nav .kt-wizard-v1__nav-items .kt-wizard-v1__nav-item:after {
+          transform: rotate(180deg);
           font-family: Flaticon2;
           font-style: normal;
           font-weight: normal;
