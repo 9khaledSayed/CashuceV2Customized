@@ -14,8 +14,8 @@ class CreateRolesTable extends Migration
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('manager_id');
+            $table->id();
+            $table->unsignedBigInteger('company_id');
             $table->string('name_english');
             $table->string('name_arabic');
             $table->string('label')->nullable();
@@ -49,22 +49,7 @@ class CreateRolesTable extends Migration
                 ->onDelete('cascade');
         });
 
-        Schema::create('employee_role', function (Blueprint $table) {
-            $table->primary(['role_id', 'employee_id']);
-            $table->unsignedBigInteger('role_id');
-            $table->unsignedBigInteger('employee_id');
-            $table->timestamps();
 
-            $table->foreign('role_id')
-                ->references('id')
-                ->on('roles')
-                ->onDelete('cascade');
-
-            $table->foreign('employee_id')
-                ->references('id')
-                ->on('employees')
-                ->onDelete('cascade');
-        });
 
     }
 

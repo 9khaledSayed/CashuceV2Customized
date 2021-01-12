@@ -9,7 +9,7 @@ $factory->define(EmployeeViolation::class, function (Faker $faker) {
     return [
         'employee_id' => 3,
         'violation_id' => 20,
-        'manager_id' => 1,
+        'company_id' => 1,
         'repeats' => 4,
         'deduction' => 300,
         'date' => $faker->date(),

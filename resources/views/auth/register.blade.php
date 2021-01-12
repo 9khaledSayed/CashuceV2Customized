@@ -23,102 +23,17 @@
 
                 @csrf
                 <div class="form-group row">
-                    <div class="col-lg-4">
-                        <input name="fname_ar"
-                               class="form-control @error('fname_ar') is-invalid @enderror"
-                               value="{{old('fname_ar')}}"
-                               placeholder="{{__('First Name Arabic')}}"
-                               type="text">
-                        @error('fname_ar')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="col-lg-4">
-                        <input name="mname_ar"
-                               class="form-control @error('mname_ar') is-invalid @enderror"
-                               value="{{old('mname_ar')}}"
-                               placeholder="{{__('Middle Name Arabic')}}"
-                               type="text">
-                        @error('mname_ar')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="col-lg-4">
-                        <input name="lname_ar"
-                               class="form-control @error('lname_ar') is-invalid @enderror"
-                               value="{{old('lname_ar')}}"
-                               placeholder="{{__('Last Name Arabic')}}"
-                               type="text">
-                        @error('lname_ar')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-lg-4">
-                        <input name="fname_en"
-                               class="form-control @error('fname_en') is-invalid @enderror"
-                               value="{{old('fname_en')}}"
-                               placeholder="{{__('First Name English')}}"
-                               type="text">
-                        @error('fname_en')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="col-lg-4">
-                        <input name="mname_en"
-                               class="form-control @error('mname_en') is-invalid @enderror"
-                               value="{{old('mname_en')}}"
-                               placeholder="{{__('Middle Name English')}}"
-                               type="text">
-                        @error('mname_en')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="col-lg-4">
-                        <input name="lname_en"
-                               class="form-control @error('lname_en') is-invalid @enderror"
-                               value="{{old('lname_en')}}"
-                               placeholder="{{__('Last Name English')}}"
-                               type="text">
-                        @error('lname_en')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="form-group row">
                     <div class="col-lg-12">
-                        <div class="input-group date">
-                            <input name="birthdate"
-                                   placeholder="{{__('Birthdate')}}"
-                                   type="text"
-                                   value="{{old('birthdate')}}"
-                                   style="direction: @if(app()->getLocale() == 'ar') rtl @else 'en' @endif"
-                                   class="form-control @error('birthdate') is-invalid @enderror datepicker" readonly/>
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="la la-calendar"></i>
-                                </span>
-                            </div>
-                            @error('birthdate')
-                            <span class="invalid-feedback" role="alert">
+                        <input name="name"
+                               class="form-control @error('name') is-invalid @enderror"
+                               value="{{old('name')}}"
+                               placeholder="{{__('Name')}}"
+                               type="text">
+                        @error('name')
+                        <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                            @enderror
-                        </div>
-
+                        @enderror
                     </div>
                 </div>
                 <div class="form-group row">

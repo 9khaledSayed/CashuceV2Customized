@@ -17,15 +17,19 @@ $(function (){
                     switch (data.additions){
                         case 'minutes_deduc': // lateness
                             minutesLate.fadeIn();
+                            minutesLate.prop('required', true);
                             absenceDays.fadeOut();
                             break;
                         case 'leave_days': // leave work
                             absenceDays.fadeIn();
+                            absenceDays.prop('required', true);
                             minutesLate.fadeOut();
                             break;
                         default :
                             absenceDays.fadeOut();
                             minutesLate.fadeOut();
+                            absenceDays.prop('required', false);
+                            minutesLate.prop('required', false);
                             break;
                     }
                 },

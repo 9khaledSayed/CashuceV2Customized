@@ -54,8 +54,7 @@ class AttendanceController extends Controller
     public function create()
     {
         $this->authorize('view_attendance_record_page');
-        $employees = Employee::whereNotNull('manager_id')->get();
-        return view('dashboard.attendances.create', compact('employees'));
+        return view('dashboard.attendances.create');
     }
 
     public function store(Request $request)

@@ -21,10 +21,7 @@ class Report extends Model
     public static function booted()
     {
         static::creating(function ($model){
-            $employee = auth()->user();
-            // Get the id of the company manager
-            $managerId = ($employee->is_manager)? $employee->id:$employee->manager->id;
-            $model->manager_id = $managerId; // for Ceo
+            $model->company_id = Company::companyID();
             $model->supervisor_id = auth()->user()->id; // for director
         });
         static::addGlobalScope(new ParentScope());
@@ -34,6 +31,11 @@ class Report extends Model
     public function employee()
     {
         return $this->belongsTo(Employee::class);
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
     }
 
     public function supervisor()

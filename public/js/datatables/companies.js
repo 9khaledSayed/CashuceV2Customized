@@ -40,7 +40,7 @@ var KTDatatableLocalSortDemo = function() {
                 source: {
                     read: {
                         method: 'GET',
-                        url: '/dashboard/customers',
+                        url: '/dashboard/companies',
                     },
                 },
                 pageSize: 10,
@@ -134,23 +134,14 @@ var KTDatatableLocalSortDemo = function() {
                     selector: false,
                     textAlign: 'center',
                 }, {
-                    field: 'name_in_arabic',
+                    field: 'name',
                     title: locator.__('Full Name'),
                     textAlign: 'center',
-                    template:function (row){
-                        return  employeeName(row);
-                    }
+
                 }, {
                     field: 'email',
                     title: locator.__('Email'),
                     textAlign: 'center',
-                }, {
-                    field: 'roles',
-                    title: locator.__('Role'),
-                    textAlign: 'center',
-                    template:function (row){
-                        return row.roles[0].name_arabic
-                    }
                 }, {
                     field: 'email_verified_at',
                     title: locator.__('Account Status'),
@@ -182,8 +173,8 @@ var KTDatatableLocalSortDemo = function() {
 		                          <i class="la la-ellipsis-h"></i>\
 		                      </a>\
 		                      <div class="dropdown-menu dropdown-menu-right">\
-		                          <a class="dropdown-item" href="/dashboard/customers/' + row.id + '/edit"><i class="la la-pencil-square-o"></i>' + locator.__('Edit Info') + '</a>\
-		                          <a class="dropdown-item" href="/dashboard/customers/' + row.id + '"><i class="la la-eye"></i>' + locator.__('Show Info') + '</a>\
+		                          <a class="dropdown-item" href="/dashboard/companies/' + row.id + '/edit"><i class="la la-pencil-square-o"></i>' + locator.__('Edit Info') + '</a>\
+		                          <a class="dropdown-item" href="/dashboard/companies/' + row.id + '"><i class="la la-eye"></i>' + locator.__('Show Info') + '</a>\
 		                          <a class="dropdown-item delete-item" href="#"><i class="la la-trash"></i>' + locator.__('Delete') + '</a>\
 		                      </div>\
 		                  </div>\

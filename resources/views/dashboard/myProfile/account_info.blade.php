@@ -57,7 +57,7 @@
                                         <i class="flaticon2-correct kt-font-success"></i>
                                     </a>
                                     <span class="kt-widget__subtitle">
-                                        {{$user->roles()->first()->name()}}
+                                        {{$user->role->name()}}
                                     </span>
                                 </div>
                             </div>

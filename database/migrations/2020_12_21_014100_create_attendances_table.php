@@ -17,7 +17,7 @@ class CreateAttendancesTable extends Migration
             $table->id();
             $table->unique(['employee_id', 'date']);
             $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('manager_id');
+            $table->unsignedBigInteger('company_id');
             $table->time('time_in');
             $table->time('time_out')->nullable();
             $table->time('time_in2')->nullable();
@@ -31,6 +31,12 @@ class CreateAttendancesTable extends Migration
                 ->references('id')
                 ->on('employees')
                 ->onDelete('cascade');
+
+            $table->foreign('company_id')
+                ->references('id')
+                ->on('companies')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

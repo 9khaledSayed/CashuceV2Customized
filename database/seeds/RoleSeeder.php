@@ -4,10 +4,10 @@ use Illuminate\Database\Seeder;
 
 class   RoleSeeder extends Seeder
 {
-    protected $managerId;
-    public function __construct($managerId = 1)
+    protected $companyID;
+    public function __construct($companyID = 1)
     {
-        $this->managerId= $managerId;
+        $this->companyID= $companyID;
     }
 
     /**
@@ -157,35 +157,35 @@ class   RoleSeeder extends Seeder
             'name_arabic'  => 'المدير التنفيذي',
             'label' => 'Super Admin',
             'type' => 'System Role',
-            'manager_id' => $this->managerId
+            'company_id' => $this->companyID
         ]);
         $user = new \App\Role([
             'name_english'  => 'User',
             'name_arabic'  => 'عميل',
             'label' => 'User',
             'type' => 'System Role',
-            'manager_id' => $this->managerId
+            'company_id' => $this->companyID
         ]);
         $Hr = new \App\Role([
             'name_english'  => 'HR',
             'name_arabic'  => 'مدير الموارد البشرية',
             'label' => 'HR',
             'type' => 'System Role',
-            'manager_id' => $this->managerId
+            'company_id' => $this->companyID
         ]);
         $supervisor = new \App\Role([
             'name_english'  => 'Supervisor',
             'name_arabic'  => 'المدير المباشر',
             'label' => 'Supervisor',
             'type' => 'System Role',
-            'manager_id' => $this->managerId
+            'company_id' => $this->companyID
         ]);
         $employee = new \App\Role([
             'name_english'  => 'Employee',
             'name_arabic'  => 'موظف',
             'label' => 'Employee',
             'type' => 'System Role',
-            'manager_id' => $this->managerId
+            'company_id' => $this->companyID
         ]);
 
         $superAdmin->saveWithoutEvents(['creating']);

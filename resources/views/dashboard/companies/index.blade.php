@@ -27,7 +27,7 @@
                     <i class="kt-font-brand flaticon2-user-1"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    {{__('Employees')}}
+                    {{__('Companies')}}
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
@@ -38,7 +38,7 @@
                     </a>
                     &nbsp;
                     <div class="dropdown dropdown-inline">
-                        <a href="{{route('dashboard.employees.create')}}" class="btn btn-brand btn-icon-sm">
+                        <a href="{{route('dashboard.companies.create')}}" class="btn btn-brand btn-icon-sm">
                             <i class="flaticon2-plus"></i> {{__('Add New')}}
                         </a>
                     </div>
@@ -62,6 +62,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-xl-4 order-1 order-xl-2 kt-align-right">
+                        <a href="#" class="btn btn-default kt-hidden">
+                            <i class="la la-cart-plus"></i> New Order
+                        </a>
+                        <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg d-xl-none"></div>
+                    </div>
                 </div>
             </div>
 
@@ -78,5 +84,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{asset('js/datatables/employees.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/datatables/companies.js')}}" type="text/javascript"></script>
 @endpush

@@ -26,16 +26,39 @@ class Allowance extends Model
 
     public static function booted()
     {
-        static::creating(static function ($model){
-            $employee = auth()->user();
-            $manager_id = $employee->is_manager? $employee->id:$employee->manager->id;
-            $model->manager_id = $manager_id; // Ceo Id
-        });
         static::addGlobalScope(new ParentScope());
+        static::creating(function ($model){
+            $model->company_id = Company::companyID();
+        });
     }
 
     public function name()
     {
         return $this->{'name_' . app()->getLocale()};
+    }
+
+    public static function generateDefaultAllowances($managerID)
+    {
+        $hra = new Allowance([
+            'name_en'  => 'HRA',
+            'name_ar'  => 'سكن',
+            'type' => 1,
+            'percentage' => 25,
+            'label' => 'hra',
+            'is_basic' => true,
+            'company_id' => $managerID
+        ]);
+        $gosi = new Allowance([
+            'name_en'  => 'GOSI Subscription',
+            'name_ar'  => 'استقطاع التأمينات الاجتماعية',
+            'type' => 0,
+            'percentage' => 10,
+            'label' => 'gosi',
+            'is_basic' => true,
+            'company_id' => $managerID
+        ]);
+
+        $hra->saveWithoutEvents(['creating']);
+        $gosi->saveWithoutEvents(['creating']);
     }
 }

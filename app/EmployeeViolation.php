@@ -24,12 +24,12 @@ class EmployeeViolation extends Model
 
     public static function booted()
     {
-        static::creating(static function ($model){
-            $employee = auth()->user();
-            $manager_id = ($employee->is_manager)? $employee->id:$employee->manager->id;
-            $model->manager_id = $manager_id;
-        });
         static::addGlobalScope(new ParentScope());
+
+        static::creating(static function ($model){
+            $model->company_id = Company::companyID();
+        });
+
     }
 
     public function reason()
@@ -41,8 +41,15 @@ class EmployeeViolation extends Model
     {
         return $this->belongsTo(Employee::class);
     }
+
     public function violation()
     {
         return $this->belongsTo(Violation::class);
     }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
 }

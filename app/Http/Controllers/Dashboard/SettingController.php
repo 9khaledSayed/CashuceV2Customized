@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use anlutro\LaravelSettings\Facade as Setting;
@@ -16,13 +17,12 @@ class SettingController extends Controller
 
     public function setManagerID()
     {
-        $this->authorize('view_settings');
-        $employee = auth()->user();
-        $managerId = ($employee->is_manager)? $employee->id:$employee->manager->id;
         Setting::setExtraColumns(array(
-            'manager_id' => $managerId
+            'company_id' => Company::companyID()
         ));
    }
+
+
 
     public function attendnace(Request $request)
     {

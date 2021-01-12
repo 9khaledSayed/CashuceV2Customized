@@ -16,7 +16,7 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('manager_id');
+            $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('supervisor_id');
             $table->longText('description');
             $table->date('violation_date');
@@ -26,9 +26,9 @@ class CreateReportsTable extends Migration
                 ->on('employees')
                 ->onDelete('cascade');
 
-            $table->foreign('manager_id')
+            $table->foreign('company_id')
                 ->references('id')
-                ->on('employees')
+                ->on('companies')
                 ->onDelete('cascade');
 
             $table->foreign('supervisor_id')

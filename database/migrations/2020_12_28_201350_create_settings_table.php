@@ -30,7 +30,7 @@ class CreateSettingsTable extends Migration
 		Schema::create($this->tablename, function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->unsignedBigInteger('manager_id');
+			$table->unsignedBigInteger('company_id');
 			$table->string($this->keyColumn)->index();
 			$table->text($this->valueColumn);
 		});

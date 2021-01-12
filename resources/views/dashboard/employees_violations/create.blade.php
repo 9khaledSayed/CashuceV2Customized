@@ -89,7 +89,6 @@
                     <div class="col-lg-6 col-md-9 col-sm-12">
                         <input class="form-control @error('minutes_late') is-invalid @enderror"
                                type="text"
-                               required
                                value="{{ old('minutes_late') }}"
                                id="minutes_late",
                                placeholder="{{__('example: 1 hours = 60 minutes')}}"
@@ -101,7 +100,6 @@
                     <div class="col-lg-6 col-md-9 col-sm-12">
                         <input class="form-control @error('absence_days') is-invalid @enderror"
                                type="text" value="{{ old('absence_days') }}"
-                               required
                                id="absence_days"
                                name="absence_days">
                     </div>

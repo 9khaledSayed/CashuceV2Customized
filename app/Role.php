@@ -28,10 +28,7 @@ class Role extends Model
     public static function booted()
     {
         static::creating(function ($model){
-            $employee = auth()->user();
-            // Get the id of the company manager
-            $managerId = ($employee->is_manager)? $employee->id:$employee->manager->id;
-            $model->manager_id = $managerId; // for Ceo
+            $model->company_id = Company::companyID();
         });
         static::addGlobalScope(new ParentScope());
     }
@@ -58,9 +55,57 @@ class Role extends Model
         return (App::isLocale('ar'))?$this->name_arabic:$this->name_english;
     }
 
-//    $doctor->assignAbility('sadfsdf')
-/*
- * edit
- * */
+    public static function generateDefaultRoles($companyID)
+    {
+        $categories = [
+            'roles',
+            'users',
+            'violations',
+            'employees',
+            'employees_violations',
+            'reports',
+            'conversations',
+        ];
+        $abilities = Ability::get();
+
+        $Hr = new Role([
+            'name_english'  => 'HR',
+            'name_arabic'  => 'مدير الموارد البشرية',
+            'label' => 'HR',
+            'type' => 'System Role',
+            'company_id' => $companyID
+        ]);
+        $supervisor = new Role([
+            'name_english'  => 'Supervisor',
+            'name_arabic'  => 'المدير المباشر',
+            'label' => 'Supervisor',
+            'type' => 'System Role',
+            'company_id' => $companyID
+        ]);
+        $employee = new Role([
+            'name_english'  => 'Employee',
+            'name_arabic'  => 'موظف',
+            'label' => 'Employee',
+            'type' => 'System Role',
+            'company_id' => $companyID
+        ]);
+
+
+        $supervisor->saveWithoutEvents(['creating']);
+        $Hr->saveWithoutEvents(['creating']);
+        $employee->saveWithoutEvents(['creating']);
+
+        foreach($abilities->whereIn('category',['employees', 'employees_violations', 'reports', 'conversations']) as $ability){
+            $Hr->allowTo($ability);
+        }
+
+        foreach($abilities->whereIn('category',['reports']) as $ability){
+            $supervisor->allowTo($ability);
+        }
+
+        foreach($abilities->whereIn('category',['conversations']) as $ability){
+            $employee->allowTo($ability);
+        }
+    }
 
 }
