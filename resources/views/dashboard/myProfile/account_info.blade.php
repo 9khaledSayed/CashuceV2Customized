@@ -177,15 +177,15 @@
                                                 </div>
                                             </div>
                                         </div>
-{{--                                        <div class="form-group row">--}}
-{{--                                            <div class="col-lg-9 col-xl-12">--}}
-{{--                                                <label>Language - اللغة</label>--}}
-{{--                                                <select class="form-control kt-selectpicker" name="lang">--}}
-{{--                                                    <option value="en" @if(app()->isLocale('en')) selected @endif>English</option>--}}
-{{--                                                    <option value="ar" @if(app()->isLocale('ar')) selected @endif>العربية - Arabic</option>--}}
-{{--                                                </select>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
+                                        <div class="form-group row">
+                                            <div class="col-lg-9 col-xl-12">
+                                                <label>Language - اللغة</label>
+                                                <select class="form-control kt-selectpicker" name="lang">
+                                                    <option value="en" @if($user->lang == 'en') selected @endif>English</option>
+                                                    <option value="ar" @if($user->lang == 'ar') selected @endif>العربية - Arabic</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
