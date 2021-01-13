@@ -31,6 +31,7 @@ class CreateCompaniesTable extends Migration
             $table->string('cr_number')->nullable();
             $table->string('logo')->nullable();
             $table->string('email')->unique();
+            $table->string('lang')->default('ar');
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

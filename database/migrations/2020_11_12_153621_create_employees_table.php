@@ -48,6 +48,7 @@ class CreateEmployeesTable extends Migration
             $table->string('phone');
             $table->integer('vacations_balance');
             $table->string('barcode');
+            $table->string('lang')->default('ar');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->decimal('salary')->default(0);
