@@ -36,7 +36,7 @@ Route::namespace('Dashboard')
     ->prefix('dashboard')
     ->name('dashboard.')
     ->middleware('auth:employee,company')
-//    ->middleware('verified')
+    ->middleware('verified')
     ->group(function(){
         Route::get('/', 'DashboardController@index')->name('index');
         Route::get('/abilities', 'AbilityController@index');
