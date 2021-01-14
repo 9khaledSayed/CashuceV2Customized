@@ -19,7 +19,6 @@ class DashboardController extends Controller
 
     public function index()
     {
-        Session::put('locale', Auth::user()->lang);
         $employees = Employee::take(10)->get();
         $activities = Auth::user()->actions ?? [];
         return view('dashboard.index', compact('employees', 'activities'));

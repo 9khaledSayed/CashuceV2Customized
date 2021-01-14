@@ -60,6 +60,12 @@
                                     </span>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-center mt-5 ">
+                    <div class="col-xl-12 order-2 order-xl-1">
+                        <div class="row align-items-center">
                             <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
@@ -107,6 +113,23 @@
                                             @empty
                                                 <option disabled>{{__('There is no nationalities in your company')}}</option>
                                             @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                                <div class="kt-form__group kt-form__group--inline">
+                                    <div class="kt-form__label">
+                                        <label>{{__('Department')}}:</label>
+                                    </div>
+                                    <div class="kt-form__control">
+                                        <select class="form-control selectpicker" id="kt_form_department">
+                                            <option value="">{{__('All')}}</option>
+                                            {{--                                            @forelse($nationalities as $nationality)--}}
+                                            {{--                                                <option value="{{$nationality->name()}}">{{$nationality->name()}}</option>--}}
+                                            {{--                                            @empty--}}
+                                            {{--                                                <option disabled>{{__('There is no nationalities in your company')}}</option>--}}
+                                            {{--                                            @endforelse--}}
                                         </select>
                                     </div>
                                 </div>

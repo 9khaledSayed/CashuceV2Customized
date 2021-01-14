@@ -49,10 +49,10 @@ var KTDatatableLocalSortDemo = function() {
                 serverPaging: true,
                 serverFiltering: false,
                 serverSorting: true,
-                saveState: {
-                    cookie: true,
-                    webstorage: true,
-                },
+                // saveState: {
+                //     cookie: true,
+                //     webstorage: true,
+                // },
             },
 
             // layout definition
@@ -162,17 +162,18 @@ var KTDatatableLocalSortDemo = function() {
                 }
             },
 
+
             // columns definition
             columns: [
-                // {
-                //     field: 'id',
-                //     title: '#',
-                //     sortable: 'asc',
-                //     width: 30,
-                //     type: 'number',
-                //     selector: false,
-                //     textAlign: 'center',
-                // }
+                {
+                    field: 'ID',
+                    title: '#',
+                    sortable: 'asc',
+                    width: 30,
+                    type: 'number',
+                    selector: false,
+                    textAlign: 'center',
+                },
                 {
                     field: 'name',
                     title: locator.__('Full Name'),
@@ -184,6 +185,7 @@ var KTDatatableLocalSortDemo = function() {
                     field: 'job_number',
                     title: locator.__('Job Number'),
                     textAlign: 'center',
+                    type: 'number',
                 }, {
                     field: 'salary',
                     title: locator.__('Salary'),
@@ -216,7 +218,7 @@ var KTDatatableLocalSortDemo = function() {
                     field: 'nationality',
                     title: locator.__('Nationality'),
                     textAlign: 'center',
-
+                    visible: false,
                 },{
                     field: 'supervisor',
                     title: locator.__('Supervisor'),
@@ -227,10 +229,10 @@ var KTDatatableLocalSortDemo = function() {
                     }
 
                 },{
-                    field: 'created_at',
+                    field: 'joined_date',
                     title: locator.__('Created'),
                     textAlign: 'center',
-
+                    autoHide: false,
                 }, {
                     field: 'Actions',
                     title: locator.__('Actions'),

@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '1bdd79773064ef3de47503d4818f29cc6185c9bf',
+    'reference' => '13babd4f8a9ef2a1135dc40cacd60806bc2ff4f4',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -444,7 +444,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '1bdd79773064ef3de47503d4818f29cc6185c9bf',
+      'reference' => '13babd4f8a9ef2a1135dc40cacd60806bc2ff4f4',
     ),
     'laravel/tinker' => 
     array (
@@ -490,6 +490,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '353f66d7555d8a90781f6f5e7091932f9a4250aa',
+    ),
+    'mcamara/laravel-localization' => 
+    array (
+      'pretty_version' => '1.6.1',
+      'version' => '1.6.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '4f0bfd89e5ee8100cb8cff8ca2cc3b985ed46694',
     ),
     'milon/barcode' => 
     array (

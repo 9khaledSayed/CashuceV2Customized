@@ -31,7 +31,7 @@ class EmployeeController extends Controller
             $employees = Employee::get()->map(function($employee){
                 $supervisor = $employee->supervisor? $employee->supervisor->name(): '';
                 return [
-                    'id' => $employee->id,
+                    'ID' => $employee->id,
                     'role' => $employee->role->name(),
                     'supervisor' => $supervisor,
                     'nationality' => $employee->nationality(),
@@ -40,10 +40,19 @@ class EmployeeController extends Controller
                     'salary' => $employee->salary,
                     'barcode' => $employee->barcode,
                     'email_verified_at' => $employee->email_verified_at,
-                    'created_at' => $employee->created_at,
+                    'joined_date' => $employee->joined_date,
                 ];
             });
-            return response()->json($employees);
+//            $response['meta'] = [
+//                "page" => 1,
+//                "pages" => 35,
+//                "perpage" => 10,
+//                "total" => $employees->count(),
+//                "sort" => "desc",
+//                "field" => "job_number"
+//            ];
+            $response['data'] = $employees;
+            return response()->json($response);
         }else{
 
             return view('dashboard.employees.index', [

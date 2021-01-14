@@ -8,15 +8,11 @@
         <a href="{{ route("register") }}" class="kt-link kt-login__signup-link">{{__('Sign Up!')}}</a>
     </div>
     <div>
-        @if(app()->isLocale('en'))
-            <a href="{{ route('change_language', 'ar')}}">
-                العربية <i class="fa fa-globe" aria-hidden="true"></i>
-            </a>
-        @else
-            <a href="{{ route('change_language', 'en')}}">
-                English <i class="fa fa-globe" aria-hidden="true"></i>
-            </a>
-        @endif
+{{--    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)--}}
+{{--        <a href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">--}}
+{{--            {{ $properties['native'] }} <i class="fa fa-globe" aria-hidden="true"></i>--}}
+{{--        </a>--}}
+{{--    @endforeach--}}
     </div>
 
 </div>

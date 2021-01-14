@@ -125,30 +125,19 @@
         <div class="kt-header__topbar-item kt-header__topbar-item--langs">
             <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
                 <span class="kt-header__topbar-icon kt-header__topbar-icon--brand">
-                    @if(App::isLocale('en'))
-                        <img class="" src="{{asset('assets/media/flags/226-united-states.svg')}}" alt="english" />
-                    @else
-                        <img class="" src="{{asset('assets/media/flags/133-saudi-arabia.svg')}}" alt="arabic" />
-                    @endif
+                    <img class="" src="{{asset('assets/media/flags/' . LaravelLocalization::getCurrentLocale() . '.svg')}}" alt="english" />
                 </span>
             </div>
             <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim">
                 <ul class="kt-nav kt-margin-t-10 kt-margin-b-10">
-                    @if(App::isLocale('en'))
-                        <li class="kt-nav__item kt-nav__item--active">
-                            <a href="{{route('change_language', 'ar')}}" class="kt-nav__link">
-                                <span class="kt-nav__link-icon"><img src="{{asset('assets/media/flags/133-saudi-arabia.svg')}}" alt="" /></span>
-                                <span class="kt-nav__link-text">Arabic</span>
-                            </a>
-                        </li>
-                    @else
-                        <li class="kt-nav__item">
-                            <a href="{{route('change_language', 'en')}}" class="kt-nav__link">
-                                <span class="kt-nav__link-icon"><img src="{{asset('assets/media/flags/226-united-states.svg')}}" alt="" /></span>
-                                <span class="kt-nav__link-text">English</span>
-                            </a>
-                        </li>
-                    @endif
+                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <li class="kt-nav__item">
+                        <a href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}" class="kt-nav__link">
+                            <span class="kt-nav__link-icon"><img src="{{asset('assets/media/flags/' . $localeCode . '.svg')}}" alt="" /></span>
+                            <span class="kt-nav__link-text">{{ $properties['native'] }}</span>
+                        </a>
+                    </li>
+                @endforeach
                 </ul>
             </div>
         </div>
