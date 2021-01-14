@@ -7,7 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Ability' => $baseDir . '/app/Ability.php',
-    'App\\ActivityLog\\Activity' => $baseDir . '/app/ActivityLog/Activity.php',
+    'App\\ActivityLog\\ActivityLogger' => $baseDir . '/app/ActivityLog/ActivityLogger.php',
     'App\\Allowance' => $baseDir . '/app/Allowance.php',
     'App\\Attendance' => $baseDir . '/app/Attendance.php',
     'App\\AttendanceForgotten' => $baseDir . '/app/AttendanceForgotten.php',
@@ -87,6 +87,7 @@ return array(
     'App\\Rules\\UniqueMonth' => $baseDir . '/app/Rules/UniqueMonth.php',
     'App\\Salary' => $baseDir . '/app/Salary.php',
     'App\\Scopes\\ParentScope' => $baseDir . '/app/Scopes/ParentScope.php',
+    'App\\Scopes\\SupervisorScope' => $baseDir . '/app/Scopes/SupervisorScope.php',
     'App\\User' => $baseDir . '/app/User.php',
     'App\\Vacation' => $baseDir . '/app/Vacation.php',
     'App\\VacationType' => $baseDir . '/app/VacationType.php',

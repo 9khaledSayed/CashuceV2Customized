@@ -504,7 +504,7 @@ class ComposerStaticInitf6d57cfbea0541c8e8483fe876a82800
 
     public static $classMap = array (
         'App\\Ability' => __DIR__ . '/../..' . '/app/Ability.php',
-        'App\\ActivityLog\\Activity' => __DIR__ . '/../..' . '/app/ActivityLog/Activity.php',
+        'App\\ActivityLog\\ActivityLogger' => __DIR__ . '/../..' . '/app/ActivityLog/ActivityLogger.php',
         'App\\Allowance' => __DIR__ . '/../..' . '/app/Allowance.php',
         'App\\Attendance' => __DIR__ . '/../..' . '/app/Attendance.php',
         'App\\AttendanceForgotten' => __DIR__ . '/../..' . '/app/AttendanceForgotten.php',
@@ -584,6 +584,7 @@ class ComposerStaticInitf6d57cfbea0541c8e8483fe876a82800
         'App\\Rules\\UniqueMonth' => __DIR__ . '/../..' . '/app/Rules/UniqueMonth.php',
         'App\\Salary' => __DIR__ . '/../..' . '/app/Salary.php',
         'App\\Scopes\\ParentScope' => __DIR__ . '/../..' . '/app/Scopes/ParentScope.php',
+        'App\\Scopes\\SupervisorScope' => __DIR__ . '/../..' . '/app/Scopes/SupervisorScope.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\Vacation' => __DIR__ . '/../..' . '/app/Vacation.php',
         'App\\VacationType' => __DIR__ . '/../..' . '/app/VacationType.php',
