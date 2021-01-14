@@ -32,7 +32,7 @@ Route::get('/log', function(){
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
-    ], function(){
+    ], function() {
 
     Auth::routes(['verify' => false]);
     Route::redirect('/', 'login');
@@ -42,7 +42,7 @@ Route::group([
         ->name('dashboard.')
         ->middleware('auth:employee,company')
         //->middleware('verified')
-        ->group(function(){
+        ->group(function () {
             Route::get('/', 'DashboardController@index')->name('index');
             Route::get('/abilities', 'AbilityController@index');
             Route::get('/violations/{violation}/additions', 'ViolationController@additions');
@@ -70,7 +70,7 @@ Route::group([
             Route::get('salaries/my_salaries', 'SalaryController@mySalaries')->name('salaries.my_salaries');
             Route::get('salaries/{salary}', 'SalaryController@show')->name('salaries.show');
             Route::any('settings/payrolls', 'SettingController@payrolls')->name('settings.payrolls');
-
+            Route::get('departments/getSections/{department}', 'DepartmentController@getSectionList');
 
 
             Route::resources([
@@ -97,6 +97,7 @@ Route::group([
             ]);
 
         });
+
 });
 
 
