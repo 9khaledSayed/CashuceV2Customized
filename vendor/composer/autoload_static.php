@@ -504,6 +504,7 @@ class ComposerStaticInitf6d57cfbea0541c8e8483fe876a82800
 
     public static $classMap = array (
         'App\\Ability' => __DIR__ . '/../..' . '/app/Ability.php',
+        'App\\ActivityLog\\Activity' => __DIR__ . '/../..' . '/app/ActivityLog/Activity.php',
         'App\\Allowance' => __DIR__ . '/../..' . '/app/Allowance.php',
         'App\\Attendance' => __DIR__ . '/../..' . '/app/Attendance.php',
         'App\\AttendanceForgotten' => __DIR__ . '/../..' . '/app/AttendanceForgotten.php',
@@ -514,6 +515,7 @@ class ComposerStaticInitf6d57cfbea0541c8e8483fe876a82800
         'App\\Employee' => __DIR__ . '/../..' . '/app/Employee.php',
         'App\\EmployeeViolation' => __DIR__ . '/../..' . '/app/EmployeeViolation.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Feedback' => __DIR__ . '/../..' . '/app/Feedback.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
@@ -530,6 +532,7 @@ class ComposerStaticInitf6d57cfbea0541c8e8483fe876a82800
         'App\\Http\\Controllers\\Dashboard\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/DashboardController.php',
         'App\\Http\\Controllers\\Dashboard\\EmployeeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/EmployeeController.php',
         'App\\Http\\Controllers\\Dashboard\\EmployeeViolationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/EmployeeViolationController.php',
+        'App\\Http\\Controllers\\Dashboard\\FeedbackController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/FeedbackController.php',
         'App\\Http\\Controllers\\Dashboard\\MessageController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/MessageController.php',
         'App\\Http\\Controllers\\Dashboard\\NationalityController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/NationalityController.php',
         'App\\Http\\Controllers\\Dashboard\\NotificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/NotificationController.php',
@@ -559,6 +562,7 @@ class ComposerStaticInitf6d57cfbea0541c8e8483fe876a82800
         'App\\Nationality' => __DIR__ . '/../..' . '/app/Nationality.php',
         'App\\Notifications\\AlarmForEmployee' => __DIR__ . '/../..' . '/app/Notifications/AlarmForEmployee.php',
         'App\\Notifications\\EmployeesLate' => __DIR__ . '/../..' . '/app/Notifications/EmployeesLate.php',
+        'App\\Notifications\\FeedbackReceived' => __DIR__ . '/../..' . '/app/Notifications/FeedbackReceived.php',
         'App\\Notifications\\NewRequest' => __DIR__ . '/../..' . '/app/Notifications/NewRequest.php',
         'App\\Notifications\\RespondToRequest' => __DIR__ . '/../..' . '/app/Notifications/RespondToRequest.php',
         'App\\Payroll' => __DIR__ . '/../..' . '/app/Payroll.php',
