@@ -48,9 +48,7 @@
                             </div>
                         </div>
                         <div class="kt-widget__body">
-                            <a href="{{route('dashboard.settings.language')}}" class="kt-widget__item">
-                                {{__('Language')}}
-                            </a>
+
                             <a href="{{route('dashboard.settings.payrolls')}}" class="kt-widget__item kt-widget__item--active">
                                 {{__('Payrolls')}}
                             </a>

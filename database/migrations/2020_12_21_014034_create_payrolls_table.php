@@ -16,6 +16,7 @@ class CreatePayrollsTable extends Migration
         Schema::create('payrolls', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('supervisor_id')->nullable();
             $table->string('year_month');
             $table->date('date');
             $table->dateTime('issue_date');
@@ -32,7 +33,14 @@ class CreatePayrollsTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->unique(['company_id', 'year_month']);
+            $table->foreign('supervisor_id')
+                ->references('id')
+                ->on('employees')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+//            $table->unique(['company_id', 'year_month']);
+            $table->unique(['company_id', 'supervisor_id', 'year_month']);
         });
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Allowance;
+use App\Company;
 use App\Employee;
 use App\Http\Controllers\Controller;
 use App\Nationality;
@@ -25,14 +26,32 @@ class EmployeeController extends Controller
 
     public function index(Request $request)
     {
-
         $this->authorize('view_employees');
         if ($request->ajax()){
-            $employees = Employee::with('role')->get();
+            $employees = Employee::get()->map(function($employee){
+                $supervisor = $employee->supervisor? $employee->supervisor->name(): '';
+                return [
+                    'id' => $employee->id,
+                    'role' => $employee->role->name(),
+                    'supervisor' => $supervisor,
+                    'nationality' => $employee->nationality(),
+                    'name' => $employee->name(),
+                    'job_number' => $employee->job_number,
+                    'salary' => $employee->salary,
+                    'barcode' => $employee->barcode,
+                    'email_verified_at' => $employee->email_verified_at,
+                    'created_at' => $employee->created_at,
+                ];
+            });
             return response()->json($employees);
         }else{
-            $employeesNo = Employee::get()->count();
-            return view('dashboard.employees.index', compact('employeesNo'));
+
+            return view('dashboard.employees.index', [
+                'employeesNo' => Employee::get()->count(),
+                'supervisors' =>  Company::supervisors(),
+                'nationalities' => Nationality::get(),
+                'roles' => Role::get(),
+                ]);
         }
 
     }
@@ -63,11 +82,8 @@ class EmployeeController extends Controller
     {
         $this->authorize('create_employees');
         if($request->ajax()){
-
             $employee = Employee::create($this->validator($request));
-            $this->setRole($request, $employee);
             $employee->allowances()->attach($request->allowance);
-
             return response()->json([
                 'status' => true,
             ]);
@@ -122,7 +138,6 @@ class EmployeeController extends Controller
         $this->authorize('update_employees');
         if($request->ajax()){
             $employee->update($this->validator($request, $employee->id));
-            $this->setRole($request, $employee);
             $employee->allowances()->detach($request->allowance);
             $employee->allowances()->attach($request->allowance);
             return response()->json([
@@ -145,12 +160,6 @@ class EmployeeController extends Controller
         //
     }
 
-    public function setRole(Request $request, $employee)
-    {
-        $role = Role::find($request->role_id);
-        $employee->roles()->detach($employee->roles);
-        $employee->assignRole($role);
-    }
 
     public function validator(Request $request, $id = null)
     {

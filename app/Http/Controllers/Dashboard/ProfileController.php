@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Rules\EqualToCurrentPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class ProfileController extends Controller
 {
@@ -53,8 +54,9 @@ class ProfileController extends Controller
         return redirect(route('dashboard.myProfile.change_password'))->with('success', 'true');
     }
 
-    public function companyProfile(Company $company,Request $request)
+    public function companyProfile(Request $request)
     {
+        $company = auth()->user();
         $employees = $company->employees;
         if ($request->post()){
             $rules = Company::$rules;
@@ -68,8 +70,21 @@ class ProfileController extends Controller
                 $company->logo = $fileName;
                 $company->save();
             }
-            return redirect(route('dashboard.profile.company_profile', $company->id))->with('success', 'true');
+            return redirect(route('dashboard.profile.company_profile'))->with('success', 'true');
         }
         return view('dashboard.myProfile.company_profile', compact('company', 'employees'));
+    }
+
+    public function changeLanguage(Request $request)
+    {
+        $user = auth()->user();
+        if ($request->post()){
+            $user->lang = $request->lang;
+            $user->save();
+            Session::put('locale', $request->lang);
+            return redirect(route('dashboard.myProfile.change_language'))->with('success', 'true');
+        }
+        return view('dashboard.myProfile.change_language', compact('user'));
+
     }
 }

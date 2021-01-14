@@ -70,7 +70,25 @@
                                 </div>
                             </div>
                             <div class="kt-widget__items">
-                                <a href="{{route('dashboard.myProfile.account_info')}}" class="kt-widget__item kt-widget__item--active">
+                                @if(auth()->guard('company')->check())
+                                <a href="{{route('dashboard.profile.company_profile')}}" class="kt-widget__item">
+                                    <span class="kt-widget__section">
+                                        <span class="kt-widget__icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect x="0" y="0" width="24" height="24" />
+                                                    <path d="M2.56066017,10.6819805 L4.68198052,8.56066017 C5.26776695,7.97487373 6.21751442,7.97487373 6.80330086,8.56066017 L8.9246212,10.6819805 C9.51040764,11.267767 9.51040764,12.2175144 8.9246212,12.8033009 L6.80330086,14.9246212 C6.21751442,15.5104076 5.26776695,15.5104076 4.68198052,14.9246212 L2.56066017,12.8033009 C1.97487373,12.2175144 1.97487373,11.267767 2.56066017,10.6819805 Z M14.5606602,10.6819805 L16.6819805,8.56066017 C17.267767,7.97487373 18.2175144,7.97487373 18.8033009,8.56066017 L20.9246212,10.6819805 C21.5104076,11.267767 21.5104076,12.2175144 20.9246212,12.8033009 L18.8033009,14.9246212 C18.2175144,15.5104076 17.267767,15.5104076 16.6819805,14.9246212 L14.5606602,12.8033009 C13.9748737,12.2175144 13.9748737,11.267767 14.5606602,10.6819805 Z" fill="#000000" opacity="0.3" />
+                                                    <path d="M8.56066017,16.6819805 L10.6819805,14.5606602 C11.267767,13.9748737 12.2175144,13.9748737 12.8033009,14.5606602 L14.9246212,16.6819805 C15.5104076,17.267767 15.5104076,18.2175144 14.9246212,18.8033009 L12.8033009,20.9246212 C12.2175144,21.5104076 11.267767,21.5104076 10.6819805,20.9246212 L8.56066017,18.8033009 C7.97487373,18.2175144 7.97487373,17.267767 8.56066017,16.6819805 Z M8.56066017,4.68198052 L10.6819805,2.56066017 C11.267767,1.97487373 12.2175144,1.97487373 12.8033009,2.56066017 L14.9246212,4.68198052 C15.5104076,5.26776695 15.5104076,6.21751442 14.9246212,6.80330086 L12.8033009,8.9246212 C12.2175144,9.51040764 11.267767,9.51040764 10.6819805,8.9246212 L8.56066017,6.80330086 C7.97487373,6.21751442 7.97487373,5.26776695 8.56066017,4.68198052 Z" fill="#000000" />
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <span class="kt-widget__desc">
+                                            {{__('Company Profile')}}
+                                        </span>
+                                        </span>
+                                </a>
+                                @else
+                                <a href="{{route('dashboard.myProfile.account_info')}}" class="kt-widget__item">
                                     <span class="kt-widget__section">
                                         <span class="kt-widget__icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -86,7 +104,8 @@
                                         </span>
                                         </span>
                                     </a>
-                                    <a href="{{route('dashboard.myProfile.change_password')}}" class="kt-widget__item ">
+                                @endif
+                                <a href="{{route('dashboard.myProfile.change_password')}}" class="kt-widget__item ">
                                         <span class="kt-widget__section">
                                             <span class="kt-widget__icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -102,7 +121,7 @@
                                             </span>
                                         </span>
                                     </a>
-                                    <a href="{{route('dashboard.myProfile.change_language')}}" class="kt-widget__item ">
+                                <a href="{{route('dashboard.myProfile.change_language')}}" class="kt-widget__item kt-widget__item--active">
                                         <span class="kt-widget__section">
                                             <span class="kt-widget__icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -138,11 +157,11 @@
                     <div class="kt-portlet">
                         <div class="kt-portlet__head">
                             <div class="kt-portlet__head-label">
-                                <h3 class="kt-portlet__head-title">{{__('Account Information')}}</h3>
+                                <h3 class="kt-portlet__head-title">{{__('Change Language')}}</h3>
                             </div>
                         </div>
                         @include('layouts.dashboard.parts.errorSection')
-                        <form class="kt-form kt-form--label-right" action="{{route('dashboard.myProfile.update_account_info')}}" method="post">
+                        <form class="kt-form kt-form--label-right" action="{{route('dashboard.myProfile.change_language')}}" method="post">
                             @csrf
                             <div class="kt-portlet__body">
                                 <div class="kt-section kt-section--first">
@@ -150,49 +169,7 @@
                                         @if(session('success'))
                                             @include('layouts.dashboard.parts.successSection')
                                         @endif
-                                        <div class="form-group row">
-                                            <div class="col-lg-4">
-                                                <label>{{__('First Name Arabic')}} *</label>
-                                                <input name="fname_ar" class="form-control" type="text"  value="{{$user->fname_ar}}">
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <label>{{__('Middle Name Arabic')}}</label>
-                                                <input name="mname_ar" class="form-control" type="text"  value="{{$user->mname_ar}}">
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <label>{{__('Last Name Arabic')}} *</label>
-                                                <input name="lname_ar" class="form-control" type="text"  value="{{$user->lname_ar}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-lg-4">
-                                                <label>{{__('First Name English')}} *</label>
-                                                <input name="fname_en" class="form-control" type="text"  value="{{$user->fname_en}}">
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <label>{{__('Middle Name English')}}</label>
-                                                <input name="mname_en" class="form-control" type="text"  value="{{$user->mname_en}}">
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <label>{{__('Last Name English')}} *</label>
-                                                <input name="lname_en" class="form-control" type="text"  value="{{$user->lname_en}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
 
-                                            <div class="col-lg-9 col-xl-12">
-                                                <label >{{__('Email')}}</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend"><span class="input-group-text"><i class="la la-at"></i></span></div>
-                                                    <input type="text"
-                                                           class="form-control @error('name_in_english') is-invalid @enderror"
-                                                           name="email"
-                                                           value="{{old('email')??$user->email}}"
-                                                           placeholder="Email"
-                                                           aria-describedby="basic-addon1">
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="form-group row">
                                             <div class="col-lg-9 col-xl-12">
                                                 <label>Language - اللغة</label>

@@ -41,7 +41,8 @@ Route::namespace('Dashboard')
         Route::get('/', 'DashboardController@index')->name('index');
         Route::get('/abilities', 'AbilityController@index');
         Route::get('/violations/{violation}/additions', 'ViolationController@additions');
-        Route::any('profile/company_profile/{company}', 'ProfileController@companyProfile')->name('profile.company_profile');
+        Route::any('profile/company_profile', 'ProfileController@companyProfile')->name('profile.company_profile');
+        Route::any('myProfile/change_language', 'ProfileController@changeLanguage')->name('myProfile.change_language');
         Route::get('myProfile/account_info', 'ProfileController@accountInfo')->name('myProfile.account_info');
         Route::post('myProfile/update_account_info', 'ProfileController@updateAccountInfo')->name('myProfile.update_account_info');
         Route::get('myProfile/change_password', 'ProfileController@changePasswordForm')->name('myProfile.change_password');
@@ -63,7 +64,6 @@ Route::namespace('Dashboard')
         Route::get('payrolls/pending', 'PayrollController@pending')->name('payrolls.pending');
         Route::get('salaries/my_salaries', 'SalaryController@mySalaries')->name('salaries.my_salaries');
         Route::get('salaries/{salary}', 'SalaryController@show')->name('salaries.show');
-        Route::any('settings/language', 'SettingController@language')->name('settings.language');
         Route::any('settings/payrolls', 'SettingController@payrolls')->name('settings.payrolls');
 
 

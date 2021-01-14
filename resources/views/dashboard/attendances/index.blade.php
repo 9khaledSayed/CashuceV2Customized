@@ -46,12 +46,48 @@
                                     <label>{{__('Date')}}:</label>
                                 </div>
                                 <div class="kt-form__control">
-                                    <select class="form-control bootstrap-select" id="kt_form_date">
+                                    <div class="input-group date">
+                                        <input name="date" type="text" class="form-control datepic" id="kt_form_date" readonly/>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="la la-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                            <div class="kt-form__group kt-form__group--inline">
+                                <div class="kt-form__label">
+                                    <label>{{__('Supervisor')}}:</label>
+                                </div>
+                                <div class="kt-form__control">
+                                    <select class="form-control selectpicker" id="kt_form_supervisor">
                                         <option value="">{{__('All')}}</option>
-                                        <option value="1">{{__('Today')}}</option>
-                                        <option value="2">{{__('Last Week')}}</option>
-                                        <option value="3">{{__('Last Month')}}</option>
-                                        <option value="4">{{__('Last Year')}}</option>
+                                        @forelse($supervisors as $supervisor)
+                                            <option value="{{$supervisor->name()}}">{{$supervisor->name()}}</option>
+                                        @empty
+                                            <option disabled>{{__('There is no supervisors in your company')}}</option>
+                                        @endforelse
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                            <div class="kt-form__group kt-form__group--inline">
+                                <div class="kt-form__label">
+                                    <label>{{__('Nationality')}}:</label>
+                                </div>
+                                <div class="kt-form__control">
+                                    <select class="form-control selectpicker" id="kt_form_nationality">
+                                        <option value="">{{__('All')}}</option>
+                                        @forelse($nationalities as $nationality)
+                                            <option value="{{$nationality->name()}}">{{$nationality->name()}}</option>
+                                        @empty
+                                            <option disabled>{{__('There is no nationalities in your company')}}</option>
+                                        @endforelse
                                     </select>
                                 </div>
                             </div>
@@ -83,4 +119,17 @@
 
 @push('scripts')
 <script src="{{asset('js/datatables/attendances.js')}}" type="text/javascript"></script>
+<script>
+    $(function () {
+        $('#kt_form_date').datepicker({
+            rtl: true,
+            language: appLang,
+            orientation: "bottom",
+            format: "yyyy-mm",
+            viewMode: "months",
+            minViewMode: "months",
+            clearBtn: true,
+        });
+    })
+</script>
 @endpush

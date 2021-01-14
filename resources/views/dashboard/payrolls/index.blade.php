@@ -52,11 +52,31 @@
                                         <label>{{__('Date')}}:</label>
                                     </div>
                                     <div class="kt-form__control">
-                                        <select class="form-control bootstrap-select" id="kt_form_date">
+                                        <div class="input-group date">
+                                            <input name="date" type="text" class="form-control datepic" id="kt_form_date" readonly/>
+                                            <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="la la-calendar"></i>
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                                <div class="kt-form__group kt-form__group--inline">
+                                    <div class="kt-form__label">
+                                        <label>{{__('Supervisor')}}:</label>
+                                    </div>
+                                    <div class="kt-form__control">
+                                        <select class="form-control selectpicker" id="kt_form_supervisor">
                                             <option value="">{{__('All')}}</option>
-                                            @foreach($dates as $date)
-                                                <option value="{{ $date->format('F Y') }}">{{ $date->format('F Y') }}</option>
-                                            @endforeach
+                                            @forelse($supervisors as $supervisor)
+                                                <option value="{{$supervisor->name()}}">{{$supervisor->name()}}</option>
+                                            @empty
+                                                <option disabled>{{__('There is no supervisors in your company')}}</option>
+                                            @endforelse
                                         </select>
                                     </div>
                                 </div>
@@ -97,7 +117,7 @@
 
         <!--Begin::Section-->
         <div class="row" id="container_1">
-            @foreach($payrolls as $payroll)
+            @forelse($payrolls as $payroll)
                 <div class="col-xl-3 container_2 droid_font">
 
                     <!--Begin::Portlet-->
@@ -117,6 +137,8 @@
                                         <a href="#" class="kt-widget__username search_item">{{ $payroll->date->translatedFormat('d F Y') }}</a>
 
                                         <div class="text-center">
+                                            <a href="#" class="kt-widget__username search_item">{{$payroll->creator()}}</a>
+
                                             <span class="kt-widget__desc search_item">{{__('Payroll')}}</span>
                                             @switch($payroll->status)
                                                 @case('0')
@@ -162,7 +184,17 @@
 
                     <!--End::Portlet-->
                 </div>
-            @endforeach
+            @empty
+                <div class="col-xl-12 container_2 droid_font">
+                    <div class="kt-grid kt-grid--ver" style="min-height: 200px;">
+                        <div class="kt-grid kt-grid--hor kt-grid__item kt-grid__item--fluid kt-grid__item--middle">
+                            <div class="kt-grid__item kt-grid__item--middle kt-align-center">
+                                {{__('There is no payrolls yet !')}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforelse
         </div>
 
         <!--End::Section-->
@@ -177,32 +209,7 @@
                     <div class="kt-portlet__body">
 
                         <!--begin: Pagination-->
-                        <!--begin: Pagination-->
-                        <div class="kt-pagination kt-pagination--brand">
-                            <ul class="kt-pagination__links">
-                                <li class="kt-pagination__link--first">
-                                    <a href="#"><i class="fa fa-angle-double-right kt-font-brand"></i></a>
-                                </li>
-
-                                <li class="kt-pagination__link--next">
-                                    <a href="#"><i class="fa fa-angle-right kt-font-brand"></i></a>
-                                </li>
-
-                                @for( $i = 0 ,$k = 1  ; $i < $no_sal_report ; $i += 8 , $k++)
-                                    <li>
-                                        <a href="{{$payrolls->url($k)}}">{{$k}}</a>
-                                    </li>
-                                @endfor
-
-                                <li class="kt-pagination__link--prev">
-                                    <a href="#"><i class="fa fa-angle-left kt-font-brand"></i></a>
-                                </li>
-                                <li class="kt-pagination__link--last">
-                                    <a href="#"><i class="fa fa-angle-double-left kt-font-brand"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
+                            {{$payrolls->links()}}
                         <!--end: Pagination-->
                     </div>
                 </div>
@@ -242,12 +249,30 @@
                 });
             });
 
+            $("#kt_form_supervisor").on("change", function() {
+                var value = $(this).val().toLowerCase();
+                $(".col-xl-3").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
             $("#kt_form_status").on("change", function() {
                 var value = $(this).val().toLowerCase();
                 $(".col-xl-3").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
+
+            $(function () {
+                $('#kt_form_date').datepicker({
+                    rtl: true,
+                    language: appLang,
+                    orientation: "bottom",
+                    format: "MM yyyy",
+                    viewMode: "months",
+                    minViewMode: "months",
+                    clearBtn: true,
+                });
+            })
         });
 
     </script>

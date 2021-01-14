@@ -103,5 +103,14 @@ class Company extends Authenticatable
         return $this->hasMany(Employee::class);
     }
 
+    public static function supervisors()
+    {
+        return Employee::get()->map(function($employee){
+            if($employee->role->label == 'Supervisor'){
+                return $employee;
+            }
+        })->filter();
+    }
+
     //
 }

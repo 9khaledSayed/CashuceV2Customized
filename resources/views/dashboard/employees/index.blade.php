@@ -50,9 +50,9 @@
             <!--begin: Search Form -->
             <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
                 <div class="row align-items-center">
-                    <div class="col-xl-8 order-2 order-xl-1">
+                    <div class="col-xl-12 order-2 order-xl-1">
                         <div class="row align-items-center">
-                            <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-input-icon kt-input-icon--left">
                                     <input type="text" class="form-control" placeholder="{{__('Search...')}}" id="generalSearch">
                                     <span class="kt-input-icon__icon kt-input-icon__icon--left">
@@ -60,11 +60,61 @@
                                     </span>
                                 </div>
                             </div>
+                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                                <div class="kt-form__group kt-form__group--inline">
+                                    <div class="kt-form__label">
+                                        <label>{{__('Supervisor')}}:</label>
+                                    </div>
+                                    <div class="kt-form__control">
+                                        <select class="form-control selectpicker" id="kt_form_supervisor">
+                                            <option value="">{{__('All')}}</option>
+                                            @forelse($supervisors as $supervisor)
+                                                <option value="{{$supervisor->name()}}">{{$supervisor->name()}}</option>
+                                            @empty
+                                                <option disabled>{{__('There is no supervisors in your company')}}</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                                <div class="kt-form__group kt-form__group--inline">
+                                    <div class="kt-form__label">
+                                        <label>{{__('Role')}}:</label>
+                                    </div>
+                                    <div class="kt-form__control">
+                                        <select class="form-control selectpicker" id="kt_form_role">
+                                            <option value="">{{__('All')}}</option>
+                                            @forelse($roles as $role)
+                                                <option value="{{$role->name()}}">{{$role->name()}}</option>
+                                            @empty
+                                                <option disabled>{{__('There is no roles in your company')}}</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                                <div class="kt-form__group kt-form__group--inline">
+                                    <div class="kt-form__label">
+                                        <label>{{__('Nationality')}}:</label>
+                                    </div>
+                                    <div class="kt-form__control">
+                                        <select class="form-control selectpicker" id="kt_form_nationality">
+                                            <option value="">{{__('All')}}</option>
+                                            @forelse($nationalities as $nationality)
+                                                <option value="{{$nationality->name()}}">{{$nationality->name()}}</option>
+                                            @empty
+                                                <option disabled>{{__('There is no nationalities in your company')}}</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
             <!--end: Search Form -->
         </div>
         <div class="kt-portlet__body kt-portlet__body--fit">

@@ -55,7 +55,7 @@ class LoginController extends Controller
                 $this->credentials($request), $request->has('remember')
             );
         }
-        Session::put('locale', setting('lang') ?? 'en');
+        Session::put(Auth::guard('employee')->user()->lang);
         return $employeeAttempt;
     }
 

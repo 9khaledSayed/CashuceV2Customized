@@ -164,28 +164,21 @@ var KTDatatableLocalSortDemo = function() {
 
             // columns definition
             columns: [
+                // {
+                //     field: 'id',
+                //     title: '#',
+                //     sortable: 'asc',
+                //     width: 30,
+                //     type: 'number',
+                //     selector: false,
+                //     textAlign: 'center',
+                // }
                 {
-                    field: 'id',
-                    title: '#',
-                    sortable: 'asc',
-                    width: 30,
-                    type: 'number',
-                    selector: false,
-                    textAlign: 'center',
-                }, {
-                    field: 'name_in_arabic',
+                    field: 'name',
                     title: locator.__('Full Name'),
                     textAlign: 'center',
                     template:function (row){
-                        return '\
-		                  \
-		                      \
-		                          \
-		                            <a href="/dashboard/employees/' + row.id + '">' + employeeName(row) + '</a>\
-		                          \
-		                      \
-		                  \
-                        ';
+                        return '<a href="/dashboard/employees/' + row.id + '">' + row.name + '</a>';
                     }
                 }, {
                     field: 'job_number',
@@ -197,15 +190,12 @@ var KTDatatableLocalSortDemo = function() {
                     textAlign: 'center',
                 }
                 , {
-                    field: 'roles',
+                    field: 'role',
                     title: locator.__('Role'),
                     textAlign: 'center',
-                    template:function (row){
-                        return row.role.name_arabic
-                    }
                 }
                 , {
-                    field: 'bar_code',
+                    field: 'barcode',
                     title: locator.__('Barcode'),
                     template: function(raw) {
                         return '<a class="h5 print-item" href="#"><i class="flaticon-reply"></i>Print ID</a>';
@@ -222,6 +212,20 @@ var KTDatatableLocalSortDemo = function() {
                         };
                         return '<span class="kt-badge ' + status.class + ' kt-badge--inline kt-badge--pill">' + status.title + '</span>';
                     },
+                },{
+                    field: 'nationality',
+                    title: locator.__('Nationality'),
+                    textAlign: 'center',
+
+                },{
+                    field: 'supervisor',
+                    title: locator.__('Supervisor'),
+                    textAlign: 'center',
+                    visible: false,
+                    template:function (row){
+                        return '<a href="/dashboard/employees/' + row.id + '">' + row.supervisor + '</a>';
+                    }
+
                 },{
                     field: 'created_at',
                     title: locator.__('Created'),
@@ -251,9 +255,18 @@ var KTDatatableLocalSortDemo = function() {
                 }],
         });
 
-        $('#kt_form_status').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'Status');
+        $('#kt_form_supervisor').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'supervisor');
         });
+
+        $('#kt_form_role').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'role');
+        });
+
+        $('#kt_form_nationality').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'nationality');
+        });
+
         $('#kt_form_status,#kt_form_type').selectpicker();
 
     };

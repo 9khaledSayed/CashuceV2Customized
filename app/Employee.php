@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Scopes\ParentScope;
+use App\Scopes\SupervisorScope;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -77,6 +78,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
     public static function booted()
     {
         static::addGlobalScope(new ParentScope());
+        static::addGlobalScope(new SupervisorScope());
 
         static::creating(function ($model){
              if(auth()->check()){
@@ -159,6 +161,12 @@ class Employee extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Attendance::class);
     }
 
+    public function nationality()
+    {
+        $nationality = Nationality::find($this->nationality_id);
+        return $nationality ? $nationality->name() : '';
+    }
+
     public function deductions()
     {
         return $this->employee_violations->map(function($employee_violations){
@@ -234,7 +242,15 @@ class Employee extends Authenticatable implements MustVerifyEmail
         return 0;
     }
 
+    public static function isSupervisor()
+    {
+        return ( auth()->guard('employee')->check() && auth()->user()->role->label == 'Supervisor');
+    }
 
+    public static function supervisorID()
+    {
+        return auth()->user()->id;
+    }
 
 
 

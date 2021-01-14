@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Company;
 use App\Employee;
 use App\Http\Controllers\Controller;
 use App\Payroll;
@@ -20,10 +21,10 @@ class PayrollController extends Controller
     public function index()
     {
         $this->authorize('view_payrolls');
-        $payrolls = Payroll::paginate(8);
-        $dates          = Payroll::distinct('date')->pluck('date');
-        $no_sal_report  = Payroll::all()->count();
-        return view('dashboard.payrolls.index', compact(['payrolls','dates','no_sal_report']));
+        return view('dashboard.payrolls.index', [
+            'payrolls' => Payroll::orderBy('year_month', 'asc')->paginate(12),
+            'supervisors' => Company::supervisors(),
+        ]);
     }
 
     public function pending(Request $request)
