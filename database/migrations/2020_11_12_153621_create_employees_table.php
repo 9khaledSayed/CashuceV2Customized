@@ -17,6 +17,8 @@ class CreateEmployeesTable extends Migration
             $table->id();
 
             $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('department_id')->nullable();
+            $table->unsignedBigInteger('section_id')->nullable();
             $table->unsignedBigInteger('supervisor_id')->nullable();
             $table->unsignedBigInteger('work_shift_id');
             $table->unsignedBigInteger('nationality_id');
@@ -74,6 +76,16 @@ class CreateEmployeesTable extends Migration
             $table->foreign('work_shift_id')
                 ->references('id')
                 ->on('work_shifts');
+
+            $table->foreign('department_id')
+                ->references('id')
+                ->on('departments')
+                ->onDelete('cascade');
+
+            $table->foreign('section_id')
+                ->references('id')
+                ->on('sections')
+                ->onDelete('cascade');
         });
     }
 

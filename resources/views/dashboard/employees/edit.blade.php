@@ -400,6 +400,20 @@
                                                                     @endforelse
                                                                 </select>
                                                             </div>
+                                                            <div class="col-lg-6">
+                                                                <label>{{__('Department')}}</label>
+                                                                <select name="department_id" id="department" class="form-control kt-selectpicker" title="Choose" value="">
+                                                                    @foreach($departments as $department)
+                                                                        <option value="{{$department->id}}" @if($employee->department_id == $department->id) selected @endif>{{ $department->name() }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <label>{{__('Section')}}</label>
+                                                                <select name="section_id" id="section" class="form-control" title="Choose">
+
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -596,4 +610,41 @@
 @push('scripts')
 
     <script src="{{asset('js/pages/employees.js')}}" type="text/javascript"></script>
+
+    <script type=text/javascript>
+        $(function(){
+            var sections = $("#section") ;
+            var department_id = $('#department').val();
+            console.log(department_id);
+            sectionAjax(department_id);
+
+            $('#department').change(function(){
+                department_id = $(this).val();
+                sectionAjax(department_id);
+            });
+            function sectionAjax(department_id) {
+                if(department_id){
+                    $.ajax({
+                        type:"GET",
+                        url:"/dashboard/departments/getSections/" + department_id,
+                        success:function(res){
+                            if(res){
+                                sections.empty();
+                                $.each(res,function(index,section){
+                                    sections.append('<option value="'+section.id+'">'+section.name_ar+'</option>');
+                                });
+                                sections.selectpicker('val', {{ $employee->section_id }}) ;
+                                sections.selectpicker('refresh');
+                            }else{
+                                sections.empty();
+                            }
+                        }
+                    });
+                }else{
+                    sections.empty();
+                }
+            }
+        });
+
+    </script>
 @endpush

@@ -37,6 +37,8 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'lname_en' => ['required', 'string'],
         'email' => 'sometimes|required|email|unique:employees',
         'supervisor_id' => 'nullable|numeric|exists:employees,id',
+        'department_id' => 'required|numeric|exists:departments,id',
+        'section_id' => 'required|numeric|exists:sections,id',
         'role_id' => 'required|numeric|exists:roles,id',
         'birthdate' => ['required', 'date'],
         'nationality_id' => 'required|numeric|exists:nationalities,id',
@@ -133,6 +135,16 @@ class Employee extends Authenticatable implements MustVerifyEmail
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function section()
+    {
+        return $this->belongsTo(Section::class);
     }
 
     public function dailySalary()

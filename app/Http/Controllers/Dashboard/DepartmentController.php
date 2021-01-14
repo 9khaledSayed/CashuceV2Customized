@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Department;
+use App\Section;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -67,5 +68,11 @@ class DepartmentController extends Controller
             'name_ar'    => 'required',
             'name_en'   => 'required',
         ]);
+    }
+
+    public function getSectionList(Department $department, Request $request)
+    {
+        $sections = $department->sections;
+        return response()->json($sections);
     }
 }

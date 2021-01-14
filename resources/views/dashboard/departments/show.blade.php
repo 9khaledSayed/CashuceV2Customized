@@ -33,7 +33,7 @@
         <form class="kt-form kt-form--label-right">
             <div class="kt-portlet__body">
                 <div class="form-group row">
-                    <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('name in arabic')}}</label>
+                    <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Arabic Name')}}</label>
                     <div class="col-lg-6 col-md-9 col-sm-12">
                         <input class="form-control"
                                type="text" value="{{ $department->name_ar }}"
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('name in english')}}</label>
+                    <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('English Name')}}</label>
                     <div class="col-lg-6 col-md-9 col-sm-12">
                         <input class="form-control"
                                type="text" value="{{ $department->name_en }}"

@@ -33,4 +33,9 @@ class Section extends Model
         return $this->belongsTo(Department::class);
     }
 
+    public function name()
+    {
+        return $this->{'name_' . app()->getLocale()};
+    }
+
 }

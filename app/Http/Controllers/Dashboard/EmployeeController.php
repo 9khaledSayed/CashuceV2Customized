@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Allowance;
 use App\Company;
+use App\Department;
 use App\Employee;
 use App\Http\Controllers\Controller;
 use App\Nationality;
 use App\Role;
 use App\Rules\UniqueJopNumber;
+use App\Section;
 use App\WorkShift;
 use Illuminate\Http\Request;
 
@@ -57,15 +59,17 @@ class EmployeeController extends Controller
     }
 
 
-    public function create()
+    public function create(Request $request)
     {
         $this->authorize('create_employees');
         $allowances = Allowance::all();
         $nationalities = Nationality::all();
+        $departments = Department::all();
 //        $roles = Role::whereNotIn('label', ['User', 'Super Admin'])->get();
         $roles = Role::get();
         $supervisors = Employee::whereNull('supervisor_id')->get();
         $workShifts = WorkShift::get();
+
 
         return view('dashboard.employees.create', [
             'nationalities' => $nationalities,
@@ -74,6 +78,7 @@ class EmployeeController extends Controller
             'allowances' =>$allowances,
             'supervisors' =>$supervisors,
             'workShifts' =>$workShifts,
+            'departments' => $departments,
         ]);
     }
 
@@ -119,6 +124,7 @@ class EmployeeController extends Controller
         $nationalities = Nationality::all();
         $workShifts = WorkShift::get();
         $roles = Role::get();
+        $departments = Department::get();
         $supervisors = Employee::whereNull('supervisor_id')->get();
 
         return view('dashboard.employees.edit', [
@@ -129,6 +135,7 @@ class EmployeeController extends Controller
             'allowances' =>$allowances,
             'supervisors' =>$supervisors,
             'workShifts' =>$workShifts,
+            'departments' => $departments,
         ]);
     }
 
@@ -163,7 +170,9 @@ class EmployeeController extends Controller
 
     public function validator(Request $request, $id = null)
     {
-        $request->validate(['role_id' => 'required|numeric|exists:roles,id']);
+        $request->validate([
+            'role_id' => 'required|numeric|exists:roles,id',
+            ]);
         $rules = Employee::$rules;
         array_push($rules['job_number'], new UniqueJopNumber($id));
         if($id){

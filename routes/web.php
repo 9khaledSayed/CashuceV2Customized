@@ -65,6 +65,7 @@ Route::namespace('Dashboard')
         Route::get('salaries/my_salaries', 'SalaryController@mySalaries')->name('salaries.my_salaries');
         Route::get('salaries/{salary}', 'SalaryController@show')->name('salaries.show');
         Route::any('settings/payrolls', 'SettingController@payrolls')->name('settings.payrolls');
+        Route::get('departments/getSections/{department}','DepartmentController@getSectionList');
 
 
 

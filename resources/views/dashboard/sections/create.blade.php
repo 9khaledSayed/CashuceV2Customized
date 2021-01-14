@@ -34,7 +34,7 @@
             @csrf
             <div class="kt-portlet__body">
                 <div class="form-group row">
-                    <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Name in Arabic')}}</label>
+                    <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Arabic Name')}}</label>
                     <div class="col-lg-6 col-md-9 col-sm-12">
                         <input class="form-control @error('name_ar') is-invalid @enderror"
                                type="text" value="{{ old('name_ar') }}"
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Name in English')}}</label>
+                    <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('English Name')}}</label>
                     <div class="col-lg-6 col-md-9 col-sm-12">
                         <input class="form-control @error('name_en') is-invalid @enderror"
                                type="text" value="{{ old('name_en') }}"
