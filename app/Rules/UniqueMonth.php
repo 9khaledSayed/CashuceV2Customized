@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\Employee;
 use App\Payroll;
 use Illuminate\Contracts\Validation\Rule;
 
@@ -26,12 +27,12 @@ class UniqueMonth implements Rule
      */
     public function passes($attribute, $value)
     {
+        if(Employee::isSupervisor()){
+            return Payroll::where([['year_month' , '=', $value], ['supervisor_id', '=', Employee::supervisorID()]])->doesntExist();
+        }else{
+            return Payroll::where('year_month' , $value, 'supervisor_id')->doesntExist();
+        }
 
-//        $monthsCreated = Payroll::get()->map(function ($payroll) {
-//            return $payroll->date->year . '-' . sprintf('%02d', $payroll->date->month);
-//        });
-//        return !in_array($value, $monthsCreated->toArray());
-        return Payroll::where('year_month' , $value)->doesntExist();
     }
 
     /**

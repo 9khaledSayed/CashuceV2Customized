@@ -31,6 +31,7 @@ var KTUserListDatatable = function() {
                         url: '/dashboard/attendances',
                     },
                 },
+                autoColumns:true,
                 pageSize: 10,
                 serverPaging: true,
                 serverFiltering: false,
@@ -63,9 +64,10 @@ var KTUserListDatatable = function() {
                     field: 'job_number',
                     title: locator.__('Job Number'),
                 },{
-                field: "employee.fname_arabic",
+                field: "employee",
                 title: locator.__("Employee Name"),
                 width: 200,
+                sortable:true,
                 // callback function support for column rendering
                 template: function(data) {
                     var output = '';
@@ -103,6 +105,14 @@ var KTUserListDatatable = function() {
                 field: 'total_working_hours',
                 title: locator.__('Total Working Hours'),
             }, {
+                field: 'supervisor',
+                title: locator.__('Supervisor'),
+                visible: false,
+            }, {
+                field: 'nationality',
+                title: locator.__('Nationality'),
+                visible: false,
+            }, {
                 field: 'date',
                 title: locator.__('Date'),
                 type: 'date',
@@ -113,54 +123,20 @@ var KTUserListDatatable = function() {
         });
     }
 
-    $('#kt_form_branch').on('change', function() {
-        var value = $(this).val();
-        datatable.search(value, 'employee.branch_id');
-    });
+
 
     $('#kt_form_date').on('change', function() {
-        var current_datetime = new Date()
-
-        var dd = current_datetime.getDate();
-        var mm = current_datetime.getMonth()+1;
-        var yyyy = current_datetime.getFullYear();
-
-        if(dd<10)
-        {
-            dd='0'+dd;
-        }
-
-        if(mm<10)
-        {
-            mm='0'+mm;
-        }
-
-        var value = $(this).val();
-
-        switch (value) {
-            case '1': // today
-                var currentDate = yyyy + '-' + mm + '-' + dd ;
-                datatable.search(currentDate, 'effective_date');
-
-                break;
-            case '2':
-                current_datetime.setDate(current_datetime.getDate() - 7);
-                datatable.search(current_datetime.toDateString(), 'effective_date');
-                break;
-            case '3':
-                current_datetime.setMonth(current_datetime.getMonth() - 1);
-                datatable.search(current_datetime.toLocaleString('default', { month: 'short' }), 'effective_date');
-                break;
-            case '4':
-                current_datetime.setFullYear(current_datetime.getFullYear() - 1);
-                datatable.search(current_datetime.toLocaleString('default', { month: 'short' }), 'effective_date');
-                break;
-            default:
-                datatable.search($(this).val().toLowerCase(), 'effective_date');
-        }
+        datatable.search($(this).val(), 'date');
     });
 
-    $('#kt_form_date , #kt_form_branch').selectpicker();
+    $('#kt_form_supervisor').on('change', function() {
+        datatable.search($(this).val().toLowerCase(), 'supervisor');
+    });
+    $('#kt_form_nationality').on('change', function() {
+        datatable.search($(this).val().toLowerCase(), 'nationality');
+    });
+
+
 
 
     // selection
@@ -334,11 +310,13 @@ var KTUserListDatatable = function() {
             selectedStatusUpdate();
             selectedDelete();
             updateTotal();
+
         },
     };
 }();
 
 // On document ready
 KTUtil.ready(function() {
+
     KTUserListDatatable.init();
 });

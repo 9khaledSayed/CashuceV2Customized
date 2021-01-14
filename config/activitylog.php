@@ -23,7 +23,7 @@ return [
      * You can specify an auth driver here that gets user models.
      * If this is null we'll use the default Laravel auth driver.
      */
-    'default_auth_driver' => 'employee',
+    'default_auth_driver' => null,
 
     /*
      * If set to true, the subject returns soft deleted models.

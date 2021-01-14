@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Attendance;
+use App\Company;
 use App\Employee;
 use App\Http\Controllers\Controller;
+use App\Nationality;
 use App\Notifications\AlarmForEmployee;
 use App\Notifications\EmployeesLate;
 use App\Notifications\LateWarning;
@@ -23,32 +25,42 @@ class AttendanceController extends Controller
     {
         $this->authorize('view_attendance_sheet');
         if ($request->ajax()) {
-            $attendance = Attendance::with('employee')
-                ->orderBy('created_at', 'desc')
+            $attendance = Attendance::orderBy('created_at', 'desc')
                 ->get()->map(function ($attendance){
-                    $ShiftType = $attendance->employee->workShift->type;
+                    $employee = $attendance->employee;
+                    $isIncludedInSupervised = (isset($employee));
+                    if($isIncludedInSupervised){
+                        $ShiftType = $attendance->employee->workShift->type;
 
-                    if(isset($attendance->time_out2) && $ShiftType == 'divided'){
-                        $timeOut = $attendance->time_out2->format('h:i') ?? null;
-                    }elseif(isset($attendance->time_out)){
-                        $timeOut = $attendance->time_out->format('h:i') ?? null;
-                    }else{
-                        $timeOut = null;
+                        if(isset($attendance->time_out2) && $ShiftType == 'divided'){
+                            $timeOut = $attendance->time_out2->format('h:i') ?? null;
+                        }elseif(isset($attendance->time_out)){
+                            $timeOut = $attendance->time_out->format('h:i') ?? null;
+                        }else{
+                            $timeOut = null;
+                        }
+                        $supervisor = $employee->supervisor? $employee->supervisor->name(): '';
+                        return [
+                            'employee' => $attendance->employee,
+                            'supervisor' => $supervisor,
+                            'nationality' => $employee->nationality(),
+                            'job_number' => $attendance->employee->job_number,
+                            'time_in' => $attendance->time_in->format('h:i'),
+                            'time_out' => $timeOut,
+                            'total_working_hours' => $attendance->total_working_hours,
+                            'date' => $attendance->date,
+                        ];
                     }
 
-                    return [
-                        'id' => $attendance->id,
-                        'employee' => $attendance->employee,
-                        'job_number' => $attendance->employee->job_number,
-                        'time_in' => $attendance->time_in->format('h:i'),
-                        'time_out' => $timeOut,
-                        'total_working_hours' => $attendance->total_working_hours,
-                        'date' => $attendance->date,
-                    ];
-                });
+                })->filter();
             return response()->json($attendance);
+        }else{
+            return view('dashboard.attendances.index', [
+                'supervisors' =>  Company::supervisors(),
+                'nationalities' => Nationality::get(),
+            ]);
         }
-        return view('dashboard.attendances.index');
+
     }
 
     public function create()
@@ -65,11 +77,14 @@ class AttendanceController extends Controller
         ]);
         $employee = Employee::where('barcode', $request->barcode)->first();
 
-        $workShift = $employee->workShift;
+        $workShift = $employee->workShift ?? null;
         $dateTime = Carbon::now();
-
-
-        if(!isset($workShift)){
+        if (!isset($employee)){
+            $response = [
+                "status" => true,
+                "message" => __("This employee is not under your supervision"),
+            ];
+        }elseif(!isset($workShift)){
             $response = [
                 "status" => true,
                 "message" => __("There is No Work shift for employee ") . $employee->name(),

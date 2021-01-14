@@ -29,10 +29,10 @@
                         <ul class="kt-menu__subnav">
                             <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Config</span></span></li>
                             @can('view_users')
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.companies.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('AlL Customers')}}</span></a></li>
+                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.companies.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('AlL Companies')}}</span></a></li>
                             @endcan
                             @can('create_users')
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.companies.create')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('New Customer')}}</span></a></li>
+                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.companies.create')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('New Company')}}</span></a></li>
                             @endcan
                         </ul>
                     </div>
@@ -182,7 +182,7 @@
                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
                             <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Config</span></span></li>
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.settings.language')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('General Settings')}}</span></a></li>
+                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.settings.payrolls')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('General Settings')}}</span></a></li>
                             <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.nationalities.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Nationalities')}}</span></a></li>
                             <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.allowances.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Allowances')}}</span></a></li>
                             <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.work_shifts.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Work Shifts')}}</span></a></li>

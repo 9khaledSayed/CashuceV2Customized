@@ -35,6 +35,7 @@ class Report extends Model
             $model->company_id = Company::companyID();
             $model->supervisor_id = auth()->user()->id; // for director
         });
+
         static::addGlobalScope(new ParentScope());
     }
 
