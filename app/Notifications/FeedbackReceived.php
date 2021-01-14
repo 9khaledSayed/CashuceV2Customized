@@ -11,15 +11,17 @@ class FeedbackReceived extends Notification
 {
     use Queueable;
     public $message;
+    public $feedbackId;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($message, $feedbackId)
     {
         $this->message = $message ;
+        $this->feedbackId = $feedbackId ;
     }
 
     /**
@@ -56,7 +58,7 @@ class FeedbackReceived extends Notification
     public function toArray($notifiable)
     {
         return [
-            'redirectURL' => '/dashboard/feedbacks/show',
+            'redirectURL' => '/dashboard/feedbacks/show/' . $this->feedbackId,
             'message'     => $this->message,
         ];
     }

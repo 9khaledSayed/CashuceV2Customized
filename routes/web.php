@@ -36,7 +36,7 @@ Route::namespace('Dashboard')
     ->prefix('dashboard')
     ->name('dashboard.')
     ->middleware('auth:employee,company')
-    ->middleware('verified')
+    //->middleware('verified')
     ->group(function(){
         Route::get('/', 'DashboardController@index')->name('index');
         Route::get('/abilities', 'AbilityController@index');
@@ -86,7 +86,9 @@ Route::namespace('Dashboard')
         'allowances' => 'AllowanceController',
         'work_shifts' => 'WorkShiftController',
         'vacation_types' => 'VacationTypeController',
-        'feedbacks' => 'FeedbackController',
+        'feedbacks' => 'ComblaintController',
+        'departments' => 'DepartmentController',
+        'sections' => 'SectionController',
     ]);
 
 });
