@@ -1,33 +1,33 @@
 <?php
 
-
 namespace App\Http\Controllers\Dashboard;
 
-
-use App\Feedback;
-use App\Http\Controllers\Controller;
+use App\Comblaint;
+use App\Company;
 use App\Notifications\FeedbackReceived;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-
-class FeedbackController extends Controller
+class ComblaintController extends Controller
 {
+
     public function create()
     {
         return view('dashboard.feedbacks.create');
     }
 
+
     public function store(Request $request)
     {
-        Feedback::create($this->validateFeedback());
+        $feedback = Comblaint::create($this->validateFeedback());
 
-        request()->user()->notify(new FeedbackReceived($request->message));
+        Company::find(1)->notify(new FeedbackReceived($request->message, $feedback->id));
 
         return redirect('/dashboard/feedbacks/create')
             ->with('message', 'Email Sent');
     }
 
-    public function show(Feedback $feedback)
+    public function show(Comblaint $feedback)
     {
         return view('dashboard.feedbacks.show', compact('feedback'));
     }

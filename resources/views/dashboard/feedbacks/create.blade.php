@@ -3,8 +3,8 @@
 @push('styles')
     <link href="{{asset('assets/css/pages/wizard/wizard-1' . (app()->isLocale('ar')?'.rtl':'') . '.css')}}" rel="stylesheet" type="text/css" />
 
-    <link href="/assets/css/pages/support-center/faq-3.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/css/pages/support-center/feedback.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/css/pages/support-center/faq-3.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/css/pages/support-center/feedback.css')}}" rel="stylesheet" type="text/css" />
 
 @endpush
 
