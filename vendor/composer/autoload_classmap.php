@@ -47,6 +47,7 @@ return array(
     'App\\Http\\Controllers\\Dashboard\\RequestController' => $baseDir . '/app/Http/Controllers/Dashboard/RequestController.php',
     'App\\Http\\Controllers\\Dashboard\\RoleController' => $baseDir . '/app/Http/Controllers/Dashboard/RoleController.php',
     'App\\Http\\Controllers\\Dashboard\\SalaryController' => $baseDir . '/app/Http/Controllers/Dashboard/SalaryController.php',
+    'App\\Http\\Controllers\\Dashboard\\SectionController' => $baseDir . '/app/Http/Controllers/Dashboard/SectionController.php',
     'App\\Http\\Controllers\\Dashboard\\SettingController' => $baseDir . '/app/Http/Controllers/Dashboard/SettingController.php',
     'App\\Http\\Controllers\\Dashboard\\UserController' => $baseDir . '/app/Http/Controllers/Dashboard/UserController.php',
     'App\\Http\\Controllers\\Dashboard\\VacationController' => $baseDir . '/app/Http/Controllers/Dashboard/VacationController.php',
