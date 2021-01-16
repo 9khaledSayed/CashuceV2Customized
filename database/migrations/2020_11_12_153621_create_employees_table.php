@@ -17,8 +17,8 @@ class CreateEmployeesTable extends Migration
             $table->id();
 
             $table->unsignedBigInteger('company_id');
-            $table->unsignedBigInteger('department_id')->nullable();
-            $table->unsignedBigInteger('section_id')->nullable();
+            $table->unsignedBigInteger('department_id');
+            $table->unsignedBigInteger('section_id');
             $table->unsignedBigInteger('supervisor_id')->nullable();
             $table->unsignedBigInteger('work_shift_id');
             $table->unsignedBigInteger('nationality_id');
@@ -50,7 +50,7 @@ class CreateEmployeesTable extends Migration
             $table->string('phone');
             $table->integer('vacations_balance');
             $table->string('barcode');
-            $table->string('lang')->default('ar');
+            $table->string('service_status')->default(true);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->decimal('salary')->default(0);

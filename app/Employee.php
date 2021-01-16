@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Scopes\ParentScope;
+use App\Scopes\ServiceStatusScope;
 use App\Scopes\SupervisorScope;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -81,6 +82,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
     {
         static::addGlobalScope(new ParentScope());
         static::addGlobalScope(new SupervisorScope());
+        static::addGlobalScope(new ServiceStatusScope());
 
         static::creating(function ($model){
              if(auth()->check()){

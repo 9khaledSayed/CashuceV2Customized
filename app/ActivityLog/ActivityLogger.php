@@ -13,6 +13,6 @@ class ActivityLogger extends SpatieActivityLogger
     {
         parent::__construct($auth, $config, $logStatus);
 
-        $this->authDriver = $auth->guard('company')->check() ? 'company' : 'employee'; // this can be customized to any logic you want/need
+        $this->authDriver = 'employee'; // this can be customized to any logic you want/need
     }
 }

@@ -12,6 +12,20 @@ class EmployeeSeeder extends Seeder
      */
     public function run()
     {
+        $department = new \App\Department([
+            'name_ar' => 'Dep1',
+            'name_en' => 'Dep1',
+            'company_id' => 1,
+        ]);
+
+        $section = new \App\Section([
+            'name_ar' => 'Sec1',
+            'name_en' => 'Sec1',
+            'department_id' => 1,
+            'company_id' => 1
+        ]);
+        $department->saveWithoutEvents(['creating']);
+        $section->saveWithoutEvents(['creating']);
 
         $supervisor = \App\Employee::create([
             'fname_ar'      => 'Supervisor',
@@ -21,6 +35,8 @@ class EmployeeSeeder extends Seeder
             'birthdate'      => '2020-08-01',
             'joined_date'      => '2020-08-01',
             'nationality_id'      => '0',
+            'department_id'      => 1,
+            'section_id'      => 1,
             'role_id'      => 4,
             'id_num'      => '54566546544',
             'contract_type'      => '1',
@@ -45,6 +61,8 @@ class EmployeeSeeder extends Seeder
             'birthdate'      => '2020-08-01',
             'joined_date'      => '2020-08-01',
             'nationality_id'      => '0',
+            'department_id'      => 1,
+            'section_id'      => 1,
             'role_id'      => 3,
             'id_num'      => '54566546544',
             'contract_type'      => '1',
@@ -69,6 +87,8 @@ class EmployeeSeeder extends Seeder
             'birthdate'      => '2020-08-01',
             'joined_date'      => '2020-08-01',
             'nationality_id'      => '0',
+            'department_id'      => 1,
+            'section_id'      => 1,
             'role_id'      => 5,
             'id_num'      => '54566546544',
             'contract_type'      => '1',
@@ -93,6 +113,8 @@ class EmployeeSeeder extends Seeder
             'birthdate'      => '2020-08-01',
             'joined_date'      => '2020-08-01',
             'nationality_id'      => '0',
+            'department_id'      => 1,
+            'section_id'      => 1,
             'role_id'      => 5,
             'id_num'      => '54566546544',
             'contract_type'      => '1',

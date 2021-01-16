@@ -160,9 +160,9 @@ class   RoleSeeder extends Seeder
             'company_id' => $this->companyID
         ]);
         $user = new \App\Role([
-            'name_english'  => 'User',
-            'name_arabic'  => 'عميل',
-            'label' => 'User',
+            'name_english'  => 'Company',
+            'name_arabic'  => 'شركة',
+            'label' => 'Company',
             'type' => 'System Role',
             'company_id' => $this->companyID
         ]);

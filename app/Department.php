@@ -15,6 +15,13 @@ class Department extends Model
         return "$baseName has been {$eventName}";
     }
 
+    public function saveWithoutEvents(array $options=[])
+    {
+        return static::withoutEvents(function() use ($options) {
+            return $this->save($options);
+        });
+    }
+
     public static function booted()
     {
         static::creating(function ($model){
@@ -36,5 +43,10 @@ class Department extends Model
     public function name()
     {
         return $this->{'name_' . app()->getLocale()};
+    }
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
     }
 }

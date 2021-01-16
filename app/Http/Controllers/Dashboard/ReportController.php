@@ -90,7 +90,7 @@ class ReportController extends Controller
         ]);
         $content = "<h4>" . __('You have a report from : ')
             .  $report->supervisor->name()
-            . " ( " .  $report->supervisor->roles->first()->name()
+            . " ( " .  $report->supervisor->role->name()
             . " )</h4>"
             . $report->description;
         $conversation->newMessage($senderId, $report->employee_id, $content);

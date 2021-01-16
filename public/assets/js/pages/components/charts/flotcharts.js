@@ -555,40 +555,6 @@ var KTFlotchartsDemo = function() {
 		}], options);
 	}
 
-	var demo7 = function() {
-		// horizontal bar chart:
-
-		var data1 = [
-			[10, 10],
-			[20, 20],
-			[30, 30],
-			[40, 40],
-			[50, 50]
-		];
-
-		var options = {
-			colors: [KTApp.getStateColor("brand")],
-			series: {
-				bars: {
-					show: true
-				}
-			},
-			bars: {
-				horizontal: true,
-				barWidth: 6,
-				lineWidth: 0, // in pixels
-				shadowSize: 0,
-				align: 'left'
-			},
-			grid: {
-				tickColor: "#eee",
-				borderColor: "#eee",
-				borderWidth: 1
-			}
-		};
-
-		$.plot($("#kt_flotcharts_7"), [data1], options);
-	}
 
 	var demo8 = function() {
 		var data = [

@@ -108,6 +108,11 @@ var KTUserListDatatable = function() {
                 field: 'supervisor',
                 title: locator.__('Supervisor'),
                 visible: false,
+            },{
+                field: 'department',
+                title: locator.__('Department'),
+                textAlign: 'center',
+                visible: false,
             }, {
                 field: 'nationality',
                 title: locator.__('Nationality'),
@@ -136,6 +141,9 @@ var KTUserListDatatable = function() {
         datatable.search($(this).val().toLowerCase(), 'nationality');
     });
 
+    $('#kt_form_department').on('change', function() {
+        datatable.search($(this).val().toLowerCase(), 'department');
+    });
 
 
 

@@ -24,12 +24,26 @@
                 @csrf
                 <div class="form-group row">
                     <div class="col-lg-12">
-                        <input name="name"
-                               class="form-control @error('name') is-invalid @enderror"
-                               value="{{old('name')}}"
-                               placeholder="{{__('Name')}}"
+                        <input name="name_ar"
+                               class="form-control @error('name_ar') is-invalid @enderror"
+                               value="{{old('name_ar')}}"
+                               placeholder="{{__('Arabic Name')}}"
                                type="text">
-                        @error('name')
+                        @error('name_ar')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12">
+                        <input name="name_en"
+                               class="form-control @error('name_en') is-invalid @enderror"
+                               value="{{old('name_en')}}"
+                               placeholder="{{__('English Name')}}"
+                               type="text">
+                        @error('name_en')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

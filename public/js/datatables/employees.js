@@ -62,7 +62,7 @@ var KTDatatableLocalSortDemo = function() {
             },
 
             // column sorting
-            sortable: true,
+            sortable: false,
 
             pagination: true,
 
@@ -71,14 +71,14 @@ var KTDatatableLocalSortDemo = function() {
                 delay: 400,
             }, rows: {
                 afterTemplate: function (row, data, index) {
-                    row.find('.delete-item').on('click', function () {
+                    row.find('.end-service').on('click', function () {
                         swal.fire({
                             buttonsStyling: false,
 
-                            html: locator.__("Are you sure to delete this item?"),
+                            html: locator.__("Are you sure to end service for this employee?"),
                             type: "info",
 
-                            confirmButtonText: locator.__("Yes, Delete!"),
+                            confirmButtonText: locator.__("Yes!"),
                             confirmButtonClass: "btn btn-sm btn-bold btn-brand",
 
                             showCancelButton: true,
@@ -93,9 +93,9 @@ var KTDatatableLocalSortDemo = function() {
                                     }
                                 });
                                 $.ajax({
-                                    method: 'DELETE',
+                                    method: 'get',
                                     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                                    url: '/dashboard/employees/' + data.id,
+                                    url: '/dashboard/employees/end_service/' + data.id,
                                     error: function (err) {
                                         if (err.hasOwnProperty('responseJSON')) {
                                             if (err.responseJSON.hasOwnProperty('message')) {
@@ -110,7 +110,58 @@ var KTDatatableLocalSortDemo = function() {
                                     }
                                 }).done(function (res) {
                                     swal.fire({
-                                        title: locator.__('Deleted!'),
+                                        title: locator.__('Service has been ended!'),
+                                        text: locator.__(res.message),
+                                        type: 'success',
+                                        buttonsStyling: false,
+                                        confirmButtonText: locator.__("OK"),
+                                        confirmButtonClass: "btn btn-sm btn-bold btn-brand",
+                                    });
+                                    datatable.reload();
+                                });
+                            }
+                        });
+                    });
+                    row.find('.back-to-service').on('click', function () {
+                        swal.fire({
+                            buttonsStyling: false,
+
+                            html: locator.__("Are you sure to return this employee to the service ?"),
+                            type: "info",
+
+                            confirmButtonText: locator.__("Yes!"),
+                            confirmButtonClass: "btn btn-sm btn-bold btn-brand",
+
+                            showCancelButton: true,
+                            cancelButtonText: locator.__("No, cancel"),
+                            cancelButtonClass: "btn btn-sm btn-bold btn-default"
+                        }).then(function (result) {
+                            if (result.value) {
+                                swal.fire({
+                                    title: locator.__('Loading...'),
+                                    onOpen: function () {
+                                        swal.showLoading();
+                                    }
+                                });
+                                $.ajax({
+                                    method: 'get',
+                                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                                    url: '/dashboard/employees/back_to_service/' + data.id,
+                                    error: function (err) {
+                                        if (err.hasOwnProperty('responseJSON')) {
+                                            if (err.responseJSON.hasOwnProperty('message')) {
+                                                swal.fire({
+                                                    title: locator.__('Error!'),
+                                                    text: locator.__(err.responseJSON.message),
+                                                    type: 'error'
+                                                });
+                                            }
+                                        }
+                                        console.log(err);
+                                    }
+                                }).done(function (res) {
+                                    swal.fire({
+                                        title: locator.__('Employee has been returned to the service!'),
                                         text: locator.__(res.message),
                                         type: 'success',
                                         buttonsStyling: false,
@@ -166,7 +217,7 @@ var KTDatatableLocalSortDemo = function() {
             // columns definition
             columns: [
                 {
-                    field: 'ID',
+                    field: 'id',
                     title: '#',
                     sortable: 'asc',
                     width: 30,
@@ -202,11 +253,22 @@ var KTDatatableLocalSortDemo = function() {
                     template: function(raw) {
                         return '<a class="h5 print-item" href="#"><i class="flaticon-reply"></i>Print ID</a>';
                     },
-                }
-                , {
+                } ,{
+                    field: 'service_status',
+                    title: locator.__('Service Status'),
+                    textAlign: 'center',
+                    template: function(row) {
+                        var status = {
+                            'title': (row.service_status === '0') ? locator.__('Service Ended') : locator.__('Activated'),
+                            'class':(row.service_status === '0') ? locator.__(' kt-badge--danger') : locator.__(' kt-badge--success')
+                        };
+                        return '<span class="kt-badge ' + status.class + ' kt-badge--inline kt-badge--pill">' + status.title + '</span>';
+                    },
+                }, {
                     field: 'email_verified_at',
                     title: locator.__('Account Status'),
                     textAlign: 'center',
+                    visible: false,
                     template: function(row) {
                         var status = {
                             'title': (!row.email_verified_at)?locator.__('Not Activated'):locator.__('Activated'),
@@ -220,6 +282,11 @@ var KTDatatableLocalSortDemo = function() {
                     textAlign: 'center',
                     visible: false,
                 },{
+                    field: 'department',
+                    title: locator.__('Department'),
+                    textAlign: 'center',
+                    visible: false,
+                },{
                     field: 'supervisor',
                     title: locator.__('Supervisor'),
                     textAlign: 'center',
@@ -230,7 +297,7 @@ var KTDatatableLocalSortDemo = function() {
 
                 },{
                     field: 'joined_date',
-                    title: locator.__('Created'),
+                    title: locator.__('Joined Date'),
                     textAlign: 'center',
                     autoHide: false,
                 }, {
@@ -250,6 +317,8 @@ var KTDatatableLocalSortDemo = function() {
 		                      <div class="dropdown-menu dropdown-menu-right">\
 		                          <a class="dropdown-item" href="/dashboard/employees/' + row.id + '/edit"><i class="la la-pencil-square-o"></i>' + locator.__('Edit Info') + '</a>\
 		                          <a class="dropdown-item" href="/dashboard/employees/' + row.id + '"><i class="la la-eye"></i>' + locator.__('Show Info') + '</a>\
+		                          <a class="dropdown-item end-service" href="#"><i class="fa fa-door-open"></i>' + locator.__('End Service') + '</a>\
+		                          <a class="dropdown-item back-to-service" href="#"><i class="la la-forward"></i>' + locator.__('Back To service') + '</a>\
 		                      </div>\
 		                  </div>\
                         ';
@@ -267,6 +336,9 @@ var KTDatatableLocalSortDemo = function() {
 
         $('#kt_form_nationality').on('change', function() {
             datatable.search($(this).val().toLowerCase(), 'nationality');
+        });
+        $('#kt_form_department').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'department');
         });
 
         $('#kt_form_status,#kt_form_type').selectpicker();

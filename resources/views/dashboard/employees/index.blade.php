@@ -125,11 +125,11 @@
                                     <div class="kt-form__control">
                                         <select class="form-control selectpicker" id="kt_form_department">
                                             <option value="">{{__('All')}}</option>
-                                            {{--                                            @forelse($nationalities as $nationality)--}}
-                                            {{--                                                <option value="{{$nationality->name()}}">{{$nationality->name()}}</option>--}}
-                                            {{--                                            @empty--}}
-                                            {{--                                                <option disabled>{{__('There is no nationalities in your company')}}</option>--}}
-                                            {{--                                            @endforelse--}}
+                                                @forelse($departments as $department)
+                                                    <option value="{{$department->name()}}">{{$department->name()}}</option>
+                                                @empty
+                                                    <option disabled>{{__('There is no departments in your company')}}</option>
+                                                @endforelse
                                         </select>
                                     </div>
                                 </div>

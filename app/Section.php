@@ -15,6 +15,13 @@ class Section extends Model
         return "$baseName has been {$eventName}";
     }
 
+    public function saveWithoutEvents(array $options=[])
+    {
+        return static::withoutEvents(function() use ($options) {
+            return $this->save($options);
+        });
+    }
+
     public static function booted()
     {
         static::creating(function ($model){

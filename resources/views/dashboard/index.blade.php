@@ -118,6 +118,28 @@
 
     <!--Begin::Row-->
     <div class="row">
+        <div class="col-lg-12">
+            <!--begin::Portlet-->
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+												<span class="kt-portlet__head-icon kt-hidden">
+													<i class="la la-gear"></i>
+												</span>
+                        <h3 class="kt-portlet__head-title">
+                            {{__('Employees In Departments')}}
+                        </h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div id="kt_flotcharts_11" style="height: 300px;"></div>
+                </div>
+            </div>
+            <!--End::Dashboard 6-->
+        </div>
+    </div>
+    <!--Begin::Row-->
+    <div class="row">
         <div class="col-xl-6">
 
             <!--begin:: Widgets/Sale Reports-->
@@ -125,7 +147,7 @@
                 <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">
                         <h3 class="kt-portlet__head-title">
-                            {{__('Employees')}}
+                            {{__('Ended Employees')}}
                         </h3>
                     </div>
                 </div>
@@ -145,7 +167,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($employees as $employee)
+                                @foreach($endedEmployees as $employee)
                                     <tr>
                                         <td>
                                             <a href="{{route('dashboard.employees.show', $employee)}}" class="kt-widget11__title">{{$employee->name()}}</a>
@@ -180,14 +202,14 @@
 
     <!--end:: Widgets/Sale Reports-->
         </div>
-        <div class="col-xl-6 col-lg-6 order-lg-1 order-xl-1">
+        <div class="col-xl-6">
 
             <!--begin:: Widgets/Audit Log-->
             <div class="kt-portlet kt-portlet--height-fluid">
                 <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">
                         <h3 class="kt-portlet__head-title">
-                            Recent Activities
+                            {{__('Employees Activities')}}
                         </h3>
                     </div>
                 </div>
@@ -200,7 +222,7 @@
                                         @forelse($activities as $activity)
                                             <div class="kt-list-timeline__item">
                                                 <span class="kt-list-timeline__badge kt-list-timeline__badge--{{$activity->statusColor()}}"></span>
-                                                <span class="kt-list-timeline__text">{{$activity->description}}</span>
+                                                <span class="kt-list-timeline__text">{{$activity->description . " by ( " . $activity->causer->name() . " )"}}</span>
                                                 <span class="kt-list-timeline__time">{{$activity->created_at->diffForHumans()}}</span>
                                             </div>
                                         @empty
@@ -223,8 +245,54 @@
 
             <!--end:: Widgets/Audit Log-->
         </div>
+
+
     </div>
 
     <!--End::Row-->
-    <!--End::Dashboard 6-->
+
+
 @endsection
+
+@push('scripts')
+    <script src="{{asset('assets/plugins/custom/flot/flot.bundle.js')}}" type="text/javascript"></script>
+
+    <!--end::Page Vendors -->
+
+    <script>
+        $(function () {
+            var demo11 = function() {
+                var data = [
+                    @foreach($departments as $department)
+                    {label: "{{$department['label']}}", data: {{$department['percentage']}}, color:  KTApp.getStateColor("{{$department['color']}}")},
+                    @endforeach
+                ];
+
+
+
+                $.plot($("#kt_flotcharts_11"), data, {
+                    series: {
+                        pie: {
+                            show: true,
+                            radius: 1,
+                            label: {
+                                show: true,
+                                radius: 1,
+                                formatter: function(label, series, ) {
+                                    return '<div style="font-size:12pt;font-weight:900;text-align:center;padding:2px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
+                                },
+                                background: {
+                                    opacity: 0.8
+                                }
+                            }
+                        }
+                    },
+                    legend: {
+                        show: false
+                    }
+                });
+            }
+            demo11();
+        })
+    </script>
+@endpush

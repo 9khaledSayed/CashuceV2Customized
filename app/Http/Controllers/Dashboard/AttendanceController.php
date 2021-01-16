@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Attendance;
 use App\Company;
+use App\Department;
 use App\Employee;
 use App\Http\Controllers\Controller;
 use App\Nationality;
@@ -40,10 +41,12 @@ class AttendanceController extends Controller
                             $timeOut = null;
                         }
                         $supervisor = $employee->supervisor? $employee->supervisor->name(): '';
+                        $department = $employee->department? $employee->department->name(): '';
                         return [
                             'employee' => $attendance->employee,
                             'supervisor' => $supervisor,
                             'nationality' => $employee->nationality(),
+                            'department' => $department,
                             'job_number' => $attendance->employee->job_number,
                             'time_in' => $attendance->time_in->format('h:i'),
                             'time_out' => $timeOut,
@@ -58,6 +61,7 @@ class AttendanceController extends Controller
             return view('dashboard.attendances.index', [
                 'supervisors' =>  Company::supervisors(),
                 'nationalities' => Nationality::get(),
+                'departments' => Department::get(),
             ]);
         }
 

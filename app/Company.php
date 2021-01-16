@@ -3,6 +3,7 @@
 namespace App;
 
 
+use App\Scopes\ParentScope;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -89,7 +90,7 @@ class Company extends Authenticatable
 
     public function role()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(Role::class)->withoutGlobalScope(new ParentScope());
     }
 
     public function abilities()

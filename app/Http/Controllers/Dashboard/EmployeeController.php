@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Nationality;
 use App\Role;
 use App\Rules\UniqueJopNumber;
+use App\Scopes\ServiceStatusScope;
 use App\Section;
 use App\WorkShift;
 use Illuminate\Http\Request;
@@ -30,31 +31,26 @@ class EmployeeController extends Controller
     {
         $this->authorize('view_employees');
         if ($request->ajax()){
-            $employees = Employee::get()->map(function($employee){
+            $employees = Employee::withoutGlobalScope(new ServiceStatusScope())->get()->map(function($employee){
                 $supervisor = $employee->supervisor? $employee->supervisor->name(): '';
+                $department = $employee->department? $employee->department->name(): '';
                 return [
-                    'ID' => $employee->id,
+                    'id' => $employee->id,
                     'role' => $employee->role->name(),
                     'supervisor' => $supervisor,
                     'nationality' => $employee->nationality(),
                     'name' => $employee->name(),
+                    'department' => $department,
                     'job_number' => $employee->job_number,
                     'salary' => $employee->salary,
                     'barcode' => $employee->barcode,
+                    'service_status' => $employee->service_status,
                     'email_verified_at' => $employee->email_verified_at,
                     'joined_date' => $employee->joined_date,
                 ];
             });
-//            $response['meta'] = [
-//                "page" => 1,
-//                "pages" => 35,
-//                "perpage" => 10,
-//                "total" => $employees->count(),
-//                "sort" => "desc",
-//                "field" => "job_number"
-//            ];
-            $response['data'] = $employees;
-            return response()->json($response);
+
+            return response()->json($employees);
         }else{
 
             return view('dashboard.employees.index', [
@@ -62,6 +58,7 @@ class EmployeeController extends Controller
                 'supervisors' =>  Company::supervisors(),
                 'nationalities' => Nationality::get(),
                 'roles' => Role::get(),
+                'departments' => Department::get(),
                 ]);
         }
 
@@ -174,6 +171,22 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         //
+    }
+
+    public function endService(Employee $employee, Request $request)
+    {
+        if($request->ajax()){
+            $employee->service_status = 0;
+            $employee->save();
+        }
+    }
+    public function backToService($id, Request $request)
+    {
+        $employee = Employee::withoutGlobalScope(new ServiceStatusScope())->find($id);
+        if($request->ajax()){
+            $employee->service_status = 1;
+            $employee->save();
+        }
     }
 
 

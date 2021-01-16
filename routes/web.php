@@ -31,7 +31,10 @@ Route::get('/log', function(){
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
-    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    'middleware' => [
+        'localeCookieRedirect',
+        'localizationRedirect',
+        'localeViewPath' ]
     ], function() {
 
     Auth::routes(['verify' => false]);
@@ -71,6 +74,8 @@ Route::group([
             Route::get('salaries/{salary}', 'SalaryController@show')->name('salaries.show');
             Route::any('settings/payrolls', 'SettingController@payrolls')->name('settings.payrolls');
             Route::get('departments/getSections/{department}', 'DepartmentController@getSectionList');
+            Route::get('employees/end_service/{employee}', 'EmployeeController@endService');
+            Route::get('employees/back_to_service/{employee}', 'EmployeeController@backToService');
 
 
             Route::resources([
@@ -101,9 +106,14 @@ Route::group([
 });
 
 
-//Route::get('/drop', function (){
-//    Artisan::call('migrate:fresh', ['--force' => true]);
-//});
+Route::get('/test', function (){
+    return view('test');
+});
+
+
+//Route::get('/data', 'TestApi@getData');
+
+
 
 Route::get('/migrate', function (){
 
