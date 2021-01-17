@@ -55,6 +55,7 @@ return array(
     'App\\Http\\Controllers\\Dashboard\\ViolationController' => $baseDir . '/app/Http/Controllers/Dashboard/ViolationController.php',
     'App\\Http\\Controllers\\Dashboard\\WorkShiftController' => $baseDir . '/app/Http/Controllers/Dashboard/WorkShiftController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
+    'App\\Http\\Controllers\\TestApi' => $baseDir . '/app/Http/Controllers/TestApi.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\CheckForMaintenanceMode' => $baseDir . '/app/Http/Middleware/CheckForMaintenanceMode.php',
@@ -90,6 +91,7 @@ return array(
     'App\\Rules\\UniqueMonth' => $baseDir . '/app/Rules/UniqueMonth.php',
     'App\\Salary' => $baseDir . '/app/Salary.php',
     'App\\Scopes\\ParentScope' => $baseDir . '/app/Scopes/ParentScope.php',
+    'App\\Scopes\\ServiceStatusScope' => $baseDir . '/app/Scopes/ServiceStatusScope.php',
     'App\\Scopes\\SupervisorScope' => $baseDir . '/app/Scopes/SupervisorScope.php',
     'App\\Section' => $baseDir . '/app/Section.php',
     'App\\User' => $baseDir . '/app/User.php',
@@ -3737,6 +3739,7 @@ return array(
     'SebastianBergmann\\Type\\UnknownType' => $vendorDir . '/sebastian/type/src/UnknownType.php',
     'SebastianBergmann\\Type\\VoidType' => $vendorDir . '/sebastian/type/src/VoidType.php',
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
+    'SectionSeeder' => $baseDir . '/database/seeds/SectionSeeder.php',
     'Spatie\\Activitylog\\ActivityLogStatus' => $vendorDir . '/spatie/laravel-activitylog/src/ActivityLogStatus.php',
     'Spatie\\Activitylog\\ActivityLogger' => $vendorDir . '/spatie/laravel-activitylog/src/ActivityLogger.php',
     'Spatie\\Activitylog\\ActivitylogServiceProvider' => $vendorDir . '/spatie/laravel-activitylog/src/ActivitylogServiceProvider.php',
@@ -4622,6 +4625,4 @@ return array(
     'phpDocumentor\\Reflection\\Types\\Void_' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/Void_.php',
     'phpDocumentor\\Reflection\\Utils' => $vendorDir . '/phpdocumentor/reflection-docblock/src/Utils.php',
     'voku\\helper\\ASCII' => $vendorDir . '/voku/portable-ascii/src/voku/helper/ASCII.php',
-);
-' => $vendorDir . '/voku/portable-ascii/src/voku/helper/ASCII.php',
 );
