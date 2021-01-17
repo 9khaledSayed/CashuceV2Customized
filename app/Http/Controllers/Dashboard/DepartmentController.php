@@ -47,7 +47,9 @@ class DepartmentController extends Controller
     {
         $department->update($this->validateDepartment());
 
-        return redirect('/dashboard/departments/' . $department->id);
+        //dd($department);
+
+        return redirect(route('dashboard.departments.index'));
     }
 
     public function destroy(Request $request,Department $department)

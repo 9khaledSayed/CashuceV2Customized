@@ -54,7 +54,7 @@ class SectionController extends Controller
     {
         $section->update($this->validateSection());
 
-        return redirect('/dashboard/sections/' . $section->id);
+        return redirect(route('dashboard.sections.index'));
     }
 
 
