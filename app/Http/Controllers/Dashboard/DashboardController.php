@@ -39,7 +39,7 @@ class DashboardController extends Controller
                 'info'
             ];
             $depEmployees = $department->employees;
-            if(isset($depEmployees)){
+            if(isset($depEmployees) && $totalEmployees > 0){
                 $percentage = ($department->employees->count() / $totalEmployees) * 100;
             }else{
                 $percentage = 0;
