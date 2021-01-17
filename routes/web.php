@@ -117,8 +117,8 @@ Route::get('/test', function (){
 
 
 
-Route::get('/migrate', function (){
+Route::get('/key', function (){
 
-    Artisan::call('migrate:fresh');
+    Artisan::call('storage:key');
 
 });
