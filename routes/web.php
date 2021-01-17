@@ -59,6 +59,8 @@ Route::group([
             Route::get('attendances/check/{employee:barcode}', 'AttendanceController@attendanceCheck');
             Route::get('attendances/myAttendance', 'AttendanceController@myAttendance')->name('attendances.my_attendances');
             Route::get('attendances/lateNotification', 'AttendanceController@lateNotification');
+            Route::get('attendances/create_manually', 'AttendanceController@createManually')->name('attendances.create_manually');
+            Route::post('attendances/store_manually', 'AttendanceController@storeManually')->name('attendances.store_manually');
             Route::get('notifications', 'NotificationController@index')->name('notifications.index');
             Route::get('notifications/mark_as_read/{id}', 'NotificationController@markAsRead')->name('notifications.mark_as_read');
             Route::get('unReadNotificationsNumber', 'NotificationController@unReadNotificationsNumber')->name('notifications.unReadNotificationsNumber');

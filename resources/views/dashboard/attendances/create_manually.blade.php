@@ -26,7 +26,7 @@
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
                 <h3 class="kt-portlet__head-title">
-                    {{__('Attendance Record')}}
+                    {{__('Attendance Record Manually')}}
                 </h3>
             </div>
         </div>
@@ -34,7 +34,7 @@
                 <div class="kt-grid  kt-wizard-v1 kt-wizard-v1--white droid_font" id="kt_contacts_add" data-ktwizard-state="step-first">
                 <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
                     <!--begin: Form Wizard Form-->
-                    <form action="{{route('dashboard.attendances.store')}}" method="post" class="kt-form" style="width: 80%" id="kt_contacts_add_form">
+                    <form action="{{route('dashboard.attendances.store_manually')}}" method="post" class="kt-form" style="width: 80%" id="kt_contacts_add_form">
                         @csrf
                         <!--begin: Form Wizard Step 1-->
                         <div class="kt-wizard-v1__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
@@ -45,15 +45,42 @@
                                             <div class="kt-section__body">
                                                 <div class="kt-section">
                                                     <div class="kt-section__body">
+
                                                         <div class="form-group row">
                                                             <div class="col-lg-6" id="doctors">
-                                                                <label>{{__('Barcode')}} *</label>
-                                                                <input name="barcode" autofocus  class="form-control" type="text">
+                                                                <label>{{__('Employee')}} *</label>
+                                                                <select class="form-control @error('employee_id') is-invalid @enderror kt-selectpicker"
+                                                                        id="employee_id"
+                                                                        data-size="7"
+                                                                        data-live-search="true"
+                                                                        data-show-subtext="true" name="employee_id" title="{{__('Select')}}">
+                                                                    @forelse($employees ?? [] as $employee)
+                                                                        <option
+                                                                                value="{{$employee->id}}"
+                                                                                @if(old('employee_id') == $employee->id) selected @endif
+                                                                        >{{$employee->name()}}</option>
+                                                                    @empty
+                                                                        <option disabled>{{__('There is no employees under your supervision')}}</option>
+                                                                    @endforelse
+                                                                </select>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <label>{{__('Date And Time')}}</label>
-                                                                <input name="date_time" class="form-control border-0" style="font-size: 1.2rem;font-weight: 600; " readonly type="text" id="time">
+                                                                <div class="input-group date">
+                                                                    <input type="text"
+                                                                           class="form-control"
+                                                                           name="date_time"
+                                                                           value="{{old('date_time')}}"
+                                                                           placeholder="Select date and time"
+                                                                           id="kt_datetimepicker_5" />
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text">
+                                                                            <i class="la la-calendar glyphicon-th"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
+
                                                         </div>
                                                         <div class="form-group row">
                                                             <div class="col-lg-12">
@@ -71,11 +98,11 @@
                         </div>
                         <!--end: Form Wizard Step 1-->
                         <!--begin: Form Actions -->
-{{--                        <div class="kt-form__actions">--}}
-{{--                            <div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u mx-auto" style="display: block" data-ktwizard-type="action-submit">--}}
-{{--                                {{__('confirm')}}--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                        <div class="kt-form__actions">
+                            <div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u mx-auto" style="display: block" data-ktwizard-type="action-submit">
+                                {{__('confirm')}}
+                            </div>
+                        </div>
 
                         <!--end: Form Actions -->
                     </form>
@@ -88,5 +115,16 @@
 @endsection
 
 @push('scripts')
-    <script src="{{asset('js/pages/attendances.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/pages/attendances_manually.js')}}" type="text/javascript"></script>
+    <script>
+        $(function () {
+            $('#kt_datetimepicker_5').datetimepicker({
+                format: "dd/m/yyyy - HH:ii:ss P",
+                showMeridian: true,
+                todayHighlight: true,
+                autoclose: true,
+                pickerPosition: 'bottom-left'
+            });
+        })
+    </script>
 @endpush
