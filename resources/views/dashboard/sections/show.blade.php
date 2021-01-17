@@ -56,7 +56,7 @@
                     <label for="example-text-input" class="col-form-label col-lg-3 col-sm-12">{{__('Department')}}</label>
                     <div class="col-lg-6 col-md-9 col-sm-12">
                         <input class="form-control"
-                               type="text" value="{{ $section->department_id }}"
+                               type="text" value="{{ $section->department->name() }}"
                                id="example-text-input"
                                disabled="disabled"
                                name="name_en">

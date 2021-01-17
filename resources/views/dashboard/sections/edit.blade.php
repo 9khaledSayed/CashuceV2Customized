@@ -30,7 +30,7 @@
         </div>
     @include('layouts.dashboard.parts.errorSection')
     <!--begin::Form-->
-        <form class="kt-form kt-form--label-right" method="POST" action="/dashboard/sections/{{ $section->id }}">
+        <form class="kt-form kt-form--label-right" method="POST" action="{{route('dashboard.sections.update', $section)}}">
             @csrf
             @method('PUT')
             <div class="kt-portlet__body">

@@ -5,8 +5,8 @@ var KTDatatableLocalSortDemo = function() {
     // Private functions
     var messages = {
         'ar': {
-            "name_ar":"الاسم بالعربية",
-            "name_en":"الاسم بالانجليزية",
+            "Arabic Name":"الاسم بالعربية",
+            "English Name":"الاسم بالانجليزية",
             "Created": "تاريخ اﻹنشاء",
             "Actions": "الاجراءات",
             'Are you sure to delete this item?': "هل انت متأكد أنك تريد مسح هذا العنصر؟",
@@ -130,11 +130,11 @@ var KTDatatableLocalSortDemo = function() {
                     textAlign: 'center',
                 }, {
                     field: 'name_ar',
-                    title: locator.__('name_ar'),
+                    title: locator.__('Arabic Name'),
                     textAlign: 'center',
                 }, {
                     field: 'name_en',
-                    title: locator.__('name_en'),
+                    title: locator.__('English Name'),
                     textAlign: 'center',
                 },{
                     field: 'created_at',
