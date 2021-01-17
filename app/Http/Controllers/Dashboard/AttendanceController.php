@@ -11,6 +11,7 @@ use App\Nationality;
 use App\Notifications\AlarmForEmployee;
 use App\Notifications\EmployeesLate;
 use App\Notifications\LateWarning;
+use App\Scopes\SupervisorScope;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
@@ -73,16 +74,97 @@ class AttendanceController extends Controller
         return view('dashboard.attendances.create');
     }
 
+    public function createManually()
+    {
+        $this->authorize('view_attendance_record_page');
+        $employees = Employee::get();
+        return view('dashboard.attendances.create_manually', compact('employees'));
+    }
+
     public function store(Request $request)
     {
+
         $this->authorize('view_attendance_record_page');
         $request->validate([
            'barcode' => 'required|numeric|min:8|exists:employees,barcode',
         ]);
         $employee = Employee::where('barcode', $request->barcode)->first();
-
-        $workShift = $employee->workShift ?? null;
         $dateTime = Carbon::now();
+
+        $response =  $this->storeAttendance($dateTime, $employee);
+
+        return response()->json($response);
+    }
+
+    public function storeManually(Request $request)
+    {
+        $this->authorize('view_attendance_record_page');
+        $request->validate([
+           'employee_id' => 'required|numeric|exists:employees,id',
+           'date_time' => 'required',
+        ]);
+        $employee = Employee::find($request->employee_id);
+
+        $dateTime = Carbon::createFromFormat('d/m/Y - g:i:s A', $request->date_time);
+
+        $response = $this->storeAttendance($dateTime, $employee);
+
+        return response()->json($response);
+    }
+
+    public function getOperation(Employee $employee)
+    {
+        $this->authorize('view_attendance_record_page');
+        $attendance = $employee->attendances()->whereDate('created_at', Carbon::today())->first();
+        $checked_in = isset($attendance->time_in);
+        $checked_out = isset($attendance->time_out);
+
+
+        if(!$checked_in){
+            $status = 'Check in';
+        } elseif (!$checked_out){
+            $status = 'Check out';
+        }else{
+            $status = 'Attendance and leave have been recorded';
+        }
+
+        return $status;
+    }
+
+    public function myAttendance()
+    {
+        $this->authorize('view_my_attendance_history');
+        return view('dashboard.attendances.my_attendances', [
+            'my_attendances' => auth()->user()->attendances()->get()
+        ]);
+    }
+
+    public function lateNotification()
+    {
+
+        $HrAndSupervisorCollection = Employee::get()->map(function ($employee){
+           $roleLabel = $employee->role->label;
+           if($roleLabel == 'HR' || $roleLabel == 'Supervisor')
+               return $employee;
+        })->filter(function ($employee){return !is_null($employee);});
+
+        $lateEmployees = Employee::get()->map(function ($employee){
+            if($employee->attendances()->whereDate('created_at', Carbon::today())->doesntExist())
+                return $employee;
+        })->filter(function ($employee){ return !is_null($employee);});
+
+        if($lateEmployees->count() > 0){
+            Notification::send($lateEmployees, new AlarmForEmployee());
+            Notification::send($HrAndSupervisorCollection, new EmployeesLate($lateEmployees->pluck('id')->toArray())    );
+        }
+
+        dd('done');
+    }
+
+    public function storeAttendance(Carbon $dateTime, $employee)
+    {
+        $workShift = $employee->workShift ?? null;
+        $response  = [];
         if (!isset($employee)){
             $response = [
                 "status" => true,
@@ -218,59 +300,7 @@ class AttendanceController extends Controller
             }
         }
 
-
-
-
-        return response()->json($response);
-    }
-
-    public function getOperation(Employee $employee)
-    {
-        $this->authorize('view_attendance_record_page');
-        $attendance = $employee->attendances()->whereDate('created_at', Carbon::today())->first();
-        $checked_in = isset($attendance->time_in);
-        $checked_out = isset($attendance->time_out);
-
-
-        if(!$checked_in){
-            $status = 'Check in';
-        } elseif (!$checked_out){
-            $status = 'Check out';
-        }else{
-            $status = 'Attendance and leave have been recorded';
-        }
-
-        return $status;
-    }
-
-    public function myAttendance()
-    {
-        $this->authorize('view_my_attendance_history');
-        return view('dashboard.attendances.my_attendances', [
-            'my_attendances' => auth()->user()->attendances()->get()
-        ]);
-    }
-
-    public function lateNotification()
-    {
-
-        $HrAndSupervisorCollection = Employee::get()->map(function ($employee){
-           $roleLabel = $employee->role->label;
-           if($roleLabel == 'HR' || $roleLabel == 'Supervisor')
-               return $employee;
-        })->filter(function ($employee){return !is_null($employee);});
-
-        $lateEmployees = Employee::get()->map(function ($employee){
-            if($employee->attendances()->whereDate('created_at', Carbon::today())->doesntExist())
-                return $employee;
-        })->filter(function ($employee){ return !is_null($employee);});
-
-        if($lateEmployees->count() > 0){
-            Notification::send($lateEmployees, new AlarmForEmployee());
-            Notification::send($HrAndSupervisorCollection, new EmployeesLate($lateEmployees->pluck('id')->toArray())    );
-        }
-
-        dd('done');
+        return $response;
     }
 
 }

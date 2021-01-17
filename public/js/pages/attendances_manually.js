@@ -41,6 +41,7 @@ var KTContactsAdd = function () {
         });
     }
 
+
     var initValidation = function() {
         validator = formEl.validate({
             // Validate only visible fields
@@ -48,9 +49,12 @@ var KTContactsAdd = function () {
 
             // Validation rules
             rules: {
-                barcode: {
-
-                }
+                employee_id: {
+                    required: true
+                },
+                date_time: {
+                    required: true
+                },
             },
 
             // Display error
@@ -74,76 +78,57 @@ var KTContactsAdd = function () {
     }
 
     var initSubmit = function() {
-        let barcodeInput = $("input[name='barcode']");
+        var btn = formEl.find('[data-ktwizard-type="action-submit"]');
         let operation_show = $("textarea[name='operation_show']");
 
+        btn.on('click', function(e) {
+            e.preventDefault();
 
-        var delay = (function(){
-            var timer = 0;
-            return function(callback, ms){
-                clearTimeout (timer);
-                timer = setTimeout(callback, ms);
-            };
-        })();
+            if (validator.form()) {
+                // See: src\js\framework\base\app.js
+                KTApp.progress(btn);
+                //KTApp.block(formEl);
 
-        barcodeInput.on("input", function() {
-            delay(function(){
-                if (barcodeInput.val().length < 8) {
-                    $("#txtInput").val("");
-                }else{
-                    formEl.ajaxSubmit({
-                        success: function(response) {
-                            //KTApp.unblock(formEl);
-                            if(response.status === false){
-                                swal.fire({
-                                    "title": "",
-                                    "text": locator.__(response.message),
-                                    "type": "error",
-                                    timer: 1000,
-                                });
-                            }else {
-                                swal.fire({
-                                    "title": "",
-                                    "text": locator.__(response.message),
-                                    "type": "success",
-                                    timer: 1000,
-                                });
-
-                            }
-
-                            barcodeInput.val("")
-                            operation_show.val(locator.__(locator.__(response.message)));
-
-                        },
-                        error:function (err){
-                            let response = err.responseJSON;
-                            let errors = '';
-                            $.each(response.errors, function( index, value ) {
-                                errors += value + '\n';
-                            });
+                // See: http://malsup.com/jquery/form/#ajaxSubmit
+                formEl.ajaxSubmit({
+                    success: function(response) {
+                        KTApp.unprogress(btn);
+                        //KTApp.unblock(formEl);
+                        if(response.status === false){
                             swal.fire({
-                                title: locator.__(response.message),
-                                text: errors,
-                                type: 'error',
+                                "title": "",
+                                "text": locator.__(response.message),
+                                "type": "error",
                                 timer: 1000,
                             });
-                            barcodeInput.val("");
+                        }else {
+                            swal.fire({
+                                "title": "",
+                                "text": locator.__(response.message),
+                                "type": "success",
+                                timer: 1000,
+                            });
+
                         }
-                    });
-                }
-            }, 20 );
+                        operation_show.val(locator.__(locator.__(response.message)));
+
+                    }
+                    ,error:function (err){
+                        KTApp.unprogress(btn);
+                        let response = err.responseJSON;
+                        let errors = '';
+                        $.each(response.errors, function( index, value ) {
+                            errors += value + '\n';
+                        });
+                        swal.fire({
+                            title: locator.__(response.message),
+                            text: errors,
+                            type: 'error'
+                        });
+                    }
+                });
+            }
         });
-
-
-        // barcodeInput.keydown(function() {
-        //     if(barcodeInput.val().length === 8){
-        //         console.log('done')
-        //
-        //     }
-        //
-        // });
-
-
     }
 
     var initAvatar = function() {

@@ -193,6 +193,9 @@
                             @can('view_attendance_record_page')
                                 <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.attendances.create')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Attendance Record')}}</span></a></li>
                             @endcan
+                            @can('view_attendance_record_page')
+                                <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.attendances.create_manually')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Attendance Record Manually')}}</span></a></li>
+                            @endcan
                             @can('view_attendance_sheet')
                                 <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.attendances.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Attendance Sheet')}}</span></a></li>
                             @endcan
