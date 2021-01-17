@@ -199,6 +199,7 @@ class EmployeeController extends Controller
         array_push($rules['job_number'], new UniqueJopNumber($id));
         if($id){
             $rules['email'] = ($rules['email'] . ',email,' . $id);
+            unset($rules['password']);
         }
         return $request->validate($rules);
     }

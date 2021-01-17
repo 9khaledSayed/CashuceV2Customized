@@ -311,16 +311,6 @@
                                                                 <input name="email" class="form-control" type="text"  value="{{$employee->email}}">
                                                             </div>
                                                         </div>
-                                                        <div class="form-group row">
-                                                            <div class="col-lg-6">
-                                                                <label>{{__('Password')}} *</label>
-                                                                <input name="password" class="form-control" type="password" autocomplete="new-password">
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <label>{{__('Confirm Password')}} *</label>
-                                                                <input name="password_confirmation" class="form-control" type="password" autocomplete="new-password">
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
