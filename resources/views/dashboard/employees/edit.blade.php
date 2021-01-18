@@ -376,7 +376,7 @@
                                                                     @forelse($supervisors as $supervisor)
                                                                         <option
                                                                                 value="{{$supervisor->id}}"
-                                                                                @if($supervisor->id == old('supervisor_id')) selected @endif
+                                                                                @if($supervisor->id == (old('supervisor_id') ?? $employee->supervisor_id)) selected @endif
                                                                         >{{$supervisor->name()  . '( ' . $supervisor->job_number . ' )'}}</option>
                                                                     @empty
                                                                         <option disabled>{{__('There is no supervisors')}}</option>
