@@ -48,10 +48,16 @@ var KTContactsAdd = function () {
                 fname_arabic: {
                     required: true
                 },
+                sname_arabic: {
+                    required: true
+                },
                 lname_arabic: {
                     required: true,
                 },
                 fname_english: {
+                    required: true
+                },
+                sname_english: {
                     required: true
                 },
                 lname_english: {
@@ -60,6 +66,16 @@ var KTContactsAdd = function () {
                 birthdate: {
                     required: true,
                     date:true
+                },
+                test_period: {
+                    required: true,
+                    number: true
+                },
+                cityName_ar: {
+                    required: true,
+                },
+                cityName_en: {
+                    required: true,
                 },
                 nationality_id: {
                     required: true
@@ -214,5 +230,41 @@ jQuery(document).ready(function() {
             $('#period').show()
         }
     })
+
+    $("input[name='contract_start_date']").on('focusout', function () {
+        calcEndDate();
+    })
+
+    $("select[name='contract_period']").on('change', function () {
+        calcEndDate();
+    })
+
+
+
+    function add_years(dt,n)
+    {
+        return new Date(dt.setMonth(dt.getMonth() + n));
+    }
+
+    function subtract_aDay(dt)
+    {
+        return new Date(dt.setDate(dt.getDate() - 1));
+    }
+
+    function calcEndDate() {
+        var contractStartDate = $("input[name='contract_start_date']").val();
+        var contractPeriod = $("select[name='contract_period']").val();
+        var startDate = new Date(contractStartDate);
+        //console.log(add_years(value, 12).toString());
+
+        if(contractPeriod != '' && contractStartDate != ''){
+            var endDate = add_years(startDate, contractPeriod);
+            endDate = subtract_aDay(endDate);
+            $("input[name='contract_end_date']").val(endDate.toISOString());
+            //console.log(endDate);
+        }
+    }
+
     KTContactsAdd.init();
+
 });
