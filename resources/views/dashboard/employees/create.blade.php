@@ -326,7 +326,7 @@
                                                         <div class="form-group row">
                                                             <div class="col-lg-6">
                                                                 <label>{{__('Employee Number')}} *</label>
-                                                                <input name="job_number" class="form-control"  value="{{$employee->job_number}}" type="text">
+                                                                <input name="job_number" class="form-control"  value="{{$employee->job_number}}" type="text" readonly>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <label>{{__('Joined Date')}} *</label>

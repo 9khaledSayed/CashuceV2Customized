@@ -376,7 +376,7 @@
                                                             <div class="col-lg-4">
                                                                 <label>{{__('Job Title')}} *</label>
                                                                 <select name="job_title" class="form-control kt-selectpicker" title="Choose" disabled="disabled">
-                                                                    <option value="{{ $employee->job_title }}">{{ $employee->job_title }}</option>
+                                                                    <option value="{{ $employee->job_title }}" selected>{{ $employee->job_title }}</option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-lg-4">
