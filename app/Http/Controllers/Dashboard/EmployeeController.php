@@ -175,8 +175,12 @@ class EmployeeController extends Controller
 
     public function endService(Employee $employee, Request $request)
     {
+
         if($request->ajax()){
-            $employee->service_status = 0;
+            $request->validate([
+                'contract_end_date' => 'required|date'
+            ]);
+            $employee->contract_end_date = $request->contract_end_date;
             $employee->save();
         }
     }
@@ -184,7 +188,12 @@ class EmployeeController extends Controller
     {
         $employee = Employee::withoutGlobalScope(new ServiceStatusScope())->find($id);
         if($request->ajax()){
-            $employee->service_status = 1;
+            $request->validate([
+                'contract_start_date' => 'required|date',
+                'contract_end_date' => 'required|date',
+            ]);
+            $employee->contract_start_date = $request->contract_start_date;
+            $employee->contract_end_date = $request->contract_end_date;
             $employee->save();
         }
     }

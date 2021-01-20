@@ -173,6 +173,13 @@ class   RoleSeeder extends Seeder
             'type' => 'System Role',
             'company_id' => $this->companyID
         ]);
+        $provider = new \App\Role([
+            'name_english'  => 'Provider',
+            'name_arabic'  => 'شركة مشغلة',
+            'label' => 'provider',
+            'type' => 'System Role',
+            'company_id' => $this->companyID
+        ]);
         $supervisor = new \App\Role([
             'name_english'  => 'Supervisor',
             'name_arabic'  => 'المدير المباشر',
@@ -191,10 +198,12 @@ class   RoleSeeder extends Seeder
         $superAdmin->saveWithoutEvents(['creating']);
         $user->saveWithoutEvents(['creating']);
         $Hr->saveWithoutEvents(['creating']);
+        $provider->saveWithoutEvents(['creating']);
         $supervisor->saveWithoutEvents(['creating']);
         $employee->saveWithoutEvents(['creating']);
 
         $abilities = \App\Ability::get();
+
         foreach($abilities as $ability){
             $superAdmin->allowTo($ability);
         }
@@ -232,6 +241,10 @@ class   RoleSeeder extends Seeder
             'attendances'
         ]) as $ability){
             $supervisor->allowTo($ability);
+        }
+
+        foreach($abilities->whereIn('category',['payroll', 'attendances']) as $ability){
+            $provider->allowTo($ability);
         }
 
         foreach($abilities->whereIn('category',['conversations','payrolls',

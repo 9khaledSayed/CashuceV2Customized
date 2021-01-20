@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Attendance;
+use App\Company;
 use App\Employee;
 use App\Notifications\AlarmForEmployee;
 use App\Notifications\EmployeesLate;
@@ -50,19 +51,19 @@ class LateEmployeesNotification extends Command
         // send notifications to supervisor to inform him about the late employees under his supervising
         // send notifications to hr to inform him about the late employees
 
-        $companies = Employee::withoutGlobalScope(ParentScope::class)->whereNull('manager_id')->get();
+        $companies = Company::get();
         foreach ($companies as $company) {
             $employees = $company->employees;
             $HrAndSupervisorCollection = $employees->map(function ($employee){
                 $roleLabel = $employee->role->label;
                 if($roleLabel == 'HR' || $roleLabel == 'Supervisor')
                     return $employee;
-            })->filter(function ($employee){return !is_null($employee);});
+            })->filter();
 
             $lateEmployees = $employees->map(function ($employee){
                 if($employee->attendances()->whereDate('created_at', Carbon::today())->doesntExist())
                     return $employee;
-            })->filter(function ($employee){ return !is_null($employee);});
+            })->filter();
 
             if($lateEmployees->count() > 0){
                 Notification::send($lateEmployees, new AlarmForEmployee());

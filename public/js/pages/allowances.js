@@ -148,4 +148,5 @@ var KTContactsAdd = function () {
 
 jQuery(document).ready(function() {
     KTContactsAdd.init();
+
 });

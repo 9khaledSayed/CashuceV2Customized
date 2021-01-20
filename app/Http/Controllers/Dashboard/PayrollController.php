@@ -6,6 +6,7 @@ use App\Company;
 use App\Employee;
 use App\Http\Controllers\Controller;
 use App\Payroll;
+use App\Provider;
 use App\Rules\UniqueMonth;
 use App\Salary;
 use Carbon\Carbon;
@@ -41,7 +42,8 @@ class PayrollController extends Controller
     public function create()
     {
         $this->authorize('create_payrolls');
-        return view('dashboard.payrolls.create');
+        $providers = Provider::get();
+        return view('dashboard.payrolls.create', compact('providers'));
     }
 
 
@@ -50,12 +52,13 @@ class PayrollController extends Controller
         $this->authorize('create_payrolls');
         $request->validate(['year_month' => new UniqueMonth()]);
         $payrollDay = setting('payroll_day') ?? 30;
-        $employees = Employee::get();
+        $employees = isset($payroll->provider_id) ? Employee::where('provider_id', $payroll->provider_id)->get() : Employee::get();
 
         $total_deductions = $employees->map(function($employee){
            return $employee->deductions() + $employee->gosiDeduction();
         })->sum();
         $payroll = Payroll::create([
+            'provider_id'        => $request->provider_id,
             'year_month'         => $request->year_month,
             'date'               => $request->year_month . '-' . $payrollDay,
             'issue_date'         => Carbon::now()->toDateTimeString(),
@@ -95,7 +98,7 @@ class PayrollController extends Controller
     {
         $this->authorize('proceed_payrolls');
         $payroll->salaries()->delete();
-        $employees = Employee::get();
+        $employees = isset($payroll->provider_id) ? Employee::where('provider_id', $payroll->provider_id)->get() : Employee::get();
         $payrollDay = setting('payroll_day') ?? 30;
         $totalDeductions = $employees->map(function($employee){
             return $employee->deductions() + $employee->gosiDeduction();

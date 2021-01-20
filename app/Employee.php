@@ -43,7 +43,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'role_id' => 'required|numeric|exists:roles,id',
         'birthdate' => ['required', 'date'],
         'nationality_id' => 'required|numeric|exists:nationalities,id',
-        'marital_status' => ['nullable'],
+        'marital_status' => ['required'],
         'gender' => ['required'],
         'identity_type' => ['required'],
         'id_num' => ['required_if:identity_type,0'],
@@ -68,6 +68,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
         'contract_start_date' => 'datetime',
+        'contract_end_date' => 'datetime',
         'created_at'  => 'date:D M d Y',
     ];
 

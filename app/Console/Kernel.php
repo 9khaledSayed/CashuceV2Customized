@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\EndService;
 use App\Console\Commands\LateEmployeesNotification;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -14,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        LateEmployeesNotification::class
+        LateEmployeesNotification::class,
+        EndService::class
     ];
 
     /**
@@ -28,6 +30,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
 //        $schedule->command('lateEmployees:notify')->everyMinute();
         $schedule->command('lateEmployees:notify')->dailyAt('20:00')->timezone('Asia/Riyadh');
+        $schedule->command('service:check')->dailyAt('20:00')->timezone('Asia/Riyadh');
     }
 
     /**

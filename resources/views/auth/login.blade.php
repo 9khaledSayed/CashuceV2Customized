@@ -25,11 +25,16 @@
     <!--begin::Signin-->
     <div class="kt-login__form">
         <div class="kt-login__title">
-            <h3>{{ __('Login') }}</h3>
+            <h3>{{ __('Login') }} {{isset($url)? ucwords($url) : ''}}</h3>
         </div>
-
+        @include('layouts.dashboard.parts.errorSection')
         <!--begin::Form-->
-        <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+        @isset($url)
+            <form method="POST" action="{{ url("login/$url") }}" aria-label="{{ __('Login') }}">
+        @else
+            <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+        @endisset
+
         @csrf
             <div class="form-group">
                 <input class="form-control @error('email') is-invalid @enderror"

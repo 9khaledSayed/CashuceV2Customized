@@ -33,10 +33,6 @@ class Payroll extends Model
 
         static::creating(static function ($model){
             $model->company_id = Company::companyID();
-            if(auth()->user()->role->label == 'Supervisor'){
-                $model->supervisor_id = auth()->user()->id;
-            }
-
         });
 
         static::created(function ($payroll){

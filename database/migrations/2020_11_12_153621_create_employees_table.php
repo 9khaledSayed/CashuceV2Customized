@@ -17,6 +17,7 @@ class CreateEmployeesTable extends Migration
             $table->id();
 
             $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('provider_id')->nullable();
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('section_id');
             $table->unsignedBigInteger('supervisor_id')->nullable();
@@ -32,7 +33,7 @@ class CreateEmployeesTable extends Migration
             $table->string('lname_en');
             $table->string('job_number');
             $table->date('birthdate');
-            $table->integer('marital_status')->nullable();
+            $table->integer('marital_status')->default(0);
             $table->integer('gender')->nullable();
             $table->integer('identity_type')->nullable();
             $table->string('id_num');
@@ -50,7 +51,7 @@ class CreateEmployeesTable extends Migration
             $table->string('phone');
             $table->integer('vacations_balance');
             $table->string('barcode');
-            $table->string('service_status')->default(true);
+            $table->boolean('service_status')->default(true);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->decimal('salary')->default(0);
@@ -85,6 +86,11 @@ class CreateEmployeesTable extends Migration
             $table->foreign('section_id')
                 ->references('id')
                 ->on('sections')
+                ->onDelete('cascade');
+
+            $table->foreign('provider_id')
+                ->references('id')
+                ->on('providers')
                 ->onDelete('cascade');
         });
     }
