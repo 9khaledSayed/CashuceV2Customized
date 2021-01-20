@@ -321,8 +321,8 @@
                                                             <input type="file" name="logo" accept=".png, .jpg, .jpeg">
                                                         </label>
                                                         <span class="kt-avatar__cancel" data-toggle="kt-tooltip" title="" data-original-title="Cancel avatar">
-                                            <i class="fa fa-times"></i>
-                                        </span>
+                                                            <i class="fa fa-times"></i>
+                                                        </span>
                                                     </div>
                                                     <span class="form-text text-muted">Allowed file types: png, jpg, jpeg.</span>
                                                 </div>

@@ -5,7 +5,7 @@
     <div class="kt-header__brand kt-grid__item  " id="kt_header_brand">
         <div class="kt-header__brand-logo">
             <a href="#">
-                <img alt="Logo" src="{{asset('assets/media/logos/logo-6.png')}}" />
+                <img alt="Logo" width="100" height="80" src="{{asset('storage/companies/logos/' . (App\Company::find(App\Company::companyID())->logo ?? 'logo-6.png'))}}" />
             </a>
         </div>
     </div>

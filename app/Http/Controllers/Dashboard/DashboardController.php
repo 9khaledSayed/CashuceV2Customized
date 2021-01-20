@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Company;
 use App\Department;
 use App\Employee;
+use App\Nationality;
 use App\Http\Controllers\Controller;
 use App\Scopes\ServiceStatusScope;
 use Illuminate\Http\Request;
@@ -28,7 +29,6 @@ class DashboardController extends Controller
         }else{
             $activities = [];
         }
-
         $totalEmployees = Company::find(Company::companyID())->employees->count();
         $departments = Department::get()->map(function ($department) use ($totalEmployees){
             $colors = [
@@ -39,17 +39,34 @@ class DashboardController extends Controller
                 'info'
             ];
             $depEmployees = $department->employees;
-            if(isset($depEmployees)){
+            if(isset($depEmployees) && $totalEmployees > 0){
                 $percentage = ($department->employees->count() / $totalEmployees) * 100;
             }else{
                 $percentage = 0;
             }
+
+            $allDepartmentEmployees = Employee::withoutGlobalScope(new ServiceStatusScope())->where('department_id', $department->id)->get();
+            $saudiNo = $allDepartmentEmployees->map(function ($employee){
+                if ($employee->nationality() == __('Saudi')){
+                    return $employee;
+                }
+            })->filter()->count();
+            $nonSaudiNo = $allDepartmentEmployees->map(function ($employee){
+                if ($employee->nationality() != __('Saudi')){
+                    return $employee;
+                }
+            })->filter()->count();
            return[
-             'label' => $department->name(),
+             'name' => $department->name(),
+             'in_service' => $allDepartmentEmployees->where('service_status' , 1)->count(),
+             'out_service' => $allDepartmentEmployees->where('service_status' , 0)->count(),
+             'saudi_no' => $saudiNo,
+             'non_saudi_no' => $nonSaudiNo,
              'percentage' => $percentage,
              'color' => array_rand($colors),
            ];
         });
+
         return view('dashboard.index', compact('endedEmployees', 'activities', 'departments'));
     }
 }
