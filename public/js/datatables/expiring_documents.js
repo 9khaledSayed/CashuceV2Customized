@@ -1,7 +1,7 @@
 "use strict";
 // Class definition
 
-var KTDatatableLocalSortDemo = function() {
+var expireDocs = function() {
     // Private functions
     var messages = {
         'ar': {
@@ -20,14 +20,14 @@ var KTDatatableLocalSortDemo = function() {
     // basic demo
     var demo = function() {
 
-        var datatable = $('#attendance_summary').KTDatatable({
+        var datatable = $('#expiring_documents_table').KTDatatable({
             // datasource definition
             data: {
                 type: 'remote',
                 source: {
                     read: {
                         method: 'GET',
-                        url: '/dashboard',
+                        // url: '/dashboard',
                     },
                 },
                 pageSize: 10,
@@ -90,11 +90,11 @@ var KTDatatableLocalSortDemo = function() {
                         return output;
                     }
                 }, {
-                    field: 'status',
-                    title: locator.__('Status'),
-                    template:function(row){
-                        return '<span class="kt-font-danger">' + row.status + '</span>';
-                    }
+                    field: 'expire_date',
+                    title: locator.__('Expire Date'),
+                }, {
+                    field: 'days_left',
+                    title: locator.__('Days Left'),
                 }]
         });
 
@@ -111,5 +111,5 @@ var KTDatatableLocalSortDemo = function() {
 }();
 
 jQuery(document).ready(function() {
-    KTDatatableLocalSortDemo.init();
+    expireDocs.init();
 });

@@ -22,9 +22,10 @@ class PayrollController extends Controller
     public function index()
     {
         $this->authorize('view_payrolls');
+        $providers = Provider::get();
         return view('dashboard.payrolls.index', [
             'payrolls' => Payroll::orderBy('year_month', 'asc')->paginate(12),
-            'supervisors' => Company::supervisors(),
+            'providers' => $providers
         ]);
     }
 
@@ -50,7 +51,7 @@ class PayrollController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create_payrolls');
-        $request->validate(['year_month' => new UniqueMonth()]);
+        $request->validate(['year_month' => new UniqueMonth($request->provider_id)]);
         $payrollDay = setting('payroll_day') ?? 30;
         $employees = isset($payroll->provider_id) ? Employee::where('provider_id', $payroll->provider_id)->get() : Employee::get();
 

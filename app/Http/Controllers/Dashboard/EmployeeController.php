@@ -8,6 +8,7 @@ use App\Department;
 use App\Employee;
 use App\Http\Controllers\Controller;
 use App\Nationality;
+use App\Provider;
 use App\Role;
 use App\Rules\UniqueJopNumber;
 use App\Scopes\ServiceStatusScope;
@@ -77,7 +78,7 @@ class EmployeeController extends Controller
         $allowances = Allowance::all();
         $nationalities = Nationality::all();
         $departments = Department::all();
-//        $roles = Role::whereNotIn('label', ['User', 'Super Admin'])->get();
+        $providers = Provider::get();
         $roles = Role::get();
         $supervisors = Employee::whereNull('supervisor_id')->get();
         $workShifts = WorkShift::get();
@@ -98,6 +99,7 @@ class EmployeeController extends Controller
             'workShifts' =>$workShifts,
             'departments' => $departments,
             'employee' => $employee,
+            'providers' => $providers,
         ]);
     }
 
@@ -143,6 +145,7 @@ class EmployeeController extends Controller
         $nationalities = Nationality::all();
         $workShifts = WorkShift::get();
         $roles = Role::get();
+        $providers = Provider::get();
         $departments = Department::get();
         $supervisors = Employee::whereNull('supervisor_id')->get();
 
@@ -155,6 +158,7 @@ class EmployeeController extends Controller
             'supervisors' =>$supervisors,
             'workShifts' =>$workShifts,
             'departments' => $departments,
+            'providers' => $providers,
         ]);
     }
 

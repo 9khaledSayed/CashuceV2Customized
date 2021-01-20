@@ -374,15 +374,27 @@
                                                                     @endforelse
                                                                 </select>
                                                             </div>
-                                                            <div class="col-lg-6">
+                                                        </div>
+
+                                                        <div class="form-group row">
+                                                            <div class="col-lg-4">
+                                                                <label>{{__('Provider')}} *</label>
+                                                                <select name="provider_id" class="form-control kt-selectpicker" title="Choose">
+                                                                    @foreach($providers as $provider)
+                                                                        <option value="{{$provider->id}}">{{$provider->name()}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-lg-4">
                                                                 <label>{{__('Department')}}</label>
                                                                 <select name="department_id" id="department" class="form-control kt-selectpicker" title="Choose">
+                                                                    <option value="">{{__('Choose')}}</option>
                                                                     @foreach($departments as $department)
                                                                         <option value="{{$department->id}}">{{ $department->name() }}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                            <div class="col-lg-6">
+                                                            <div class="col-lg-4">
                                                                 <label>{{__('Section')}}</label>
                                                                 <select name="section_id" id="section" class="form-control" title="Choose">
 

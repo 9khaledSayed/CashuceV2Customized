@@ -316,6 +316,30 @@
     </div>
 
     <!--End::Row-->
+
+    <div class="row">
+        <div class="col-xl-12">
+
+            <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
+                <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            {{__('Expiring Documents')}}
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="kt-portlet__body kt-portlet__body--fit">
+
+                    <!--begin: Datatable -->
+                    <div class="kt-datatable" id="expiring_documents_table"></div>
+
+                    <!--end: Datatable -->
+                </div>
+            </div>
+        </div>
+
+    </div>
     <!--Begin::Section-->
     <div class="row">
         <div class="col-xl-12">
@@ -401,7 +425,7 @@
                         </div>
                     </div>
                     <!--begin: Datatable -->
-                    <div class="kt-datatable" id="ajax_data"></div>
+                    <div class="kt-datatable" id="attendance_summary"></div>
 
                     <!--end: Datatable -->
                 </div>
@@ -417,6 +441,7 @@
 
 @push('scripts')
     <script src="{{asset('js/datatables/attendance_summary.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/datatables/expiring_documents.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/plugins/custom/flot/flot.bundle.js')}}" type="text/javascript"></script>
 
     <!--end::Page Vendors -->

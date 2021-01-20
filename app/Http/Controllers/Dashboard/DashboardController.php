@@ -23,6 +23,7 @@ class DashboardController extends Controller
     {
         $attendanceSummary = $this->attendanceSummary();
         if($request->ajax()){
+            dd('asdf');
             return response()->json($attendanceSummary['employees_attendance']);
         }
         $employeesStatistics = $this->employeesStatistics();

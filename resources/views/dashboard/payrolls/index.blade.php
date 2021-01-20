@@ -67,15 +67,15 @@
                             <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">
                                     <div class="kt-form__label">
-                                        <label>{{__('Supervisor')}}:</label>
+                                        <label>{{__('Provider')}}:</label>
                                     </div>
                                     <div class="kt-form__control">
                                         <select class="form-control selectpicker" id="kt_form_supervisor">
                                             <option value="">{{__('All')}}</option>
-                                            @forelse($supervisors as $supervisor)
-                                                <option value="{{$supervisor->name()}}">{{$supervisor->name()}}</option>
+                                            @forelse($providers as $provider)
+                                                <option value="{{$provider->name()}}">{{$provider->name()}}</option>
                                             @empty
-                                                <option disabled>{{__('There is no supervisors in your company')}}</option>
+                                                <option disabled>{{__('There is no providers in your company')}}</option>
                                             @endforelse
                                         </select>
                                     </div>
