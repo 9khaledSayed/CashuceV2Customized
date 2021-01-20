@@ -375,8 +375,13 @@
                                                             <div class="col-lg-4">
                                                                 <label>{{__('Job Title')}} *</label>
                                                                 <select name="job_title" class="form-control kt-selectpicker" title="Choose">
-                                                                    <option value="hr">HR</option>
-                                                                    <option value="manager">Manager</option>
+                                                                    @if($employee->job_title == 'hr')
+                                                                        <option value="hr" selected>HR</option>
+                                                                        <option value="manager">Manager</option>
+                                                                    @else
+                                                                        <option value="manager" selected>Manager</option>
+                                                                        <option value="hr">HR</option>
+                                                                    @endif
                                                                 </select>
                                                             </div>
                                                             <div class="col-lg-4">
@@ -428,7 +433,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <div class="col-lg-6">
+                                                            <div class="col-lg-4">
                                                                 <label>{{__('Contract Start Date')}} *</label>
                                                                 <div class="input-group date">
                                                                     <input name="contract_start_date" type="text" class="form-control datepicker" readonly value="{{$employee->contract_start_date->format('Y-m-d')}}"/>
@@ -439,9 +444,21 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-6" id="period">
-                                                                <label>{{__('Contract period in months')}} *</label>
-                                                                <input name="contract_period" class="form-control" type="text"  value="{{$employee->contract_period}}">
+                                                            <div class="col-lg-3" id="period">
+                                                                <label>{{__('Contract period')}} *</label>
+                                                                <select name="contract_period" id="period" class="form-control" title="Choose">
+                                                                    @if($employee->contract_period == 12)
+                                                                        <option value="12" selected>{{ __('1 year') }}</option>
+                                                                        <option value="24">{{ __('2 years') }}</option>
+                                                                    @elseif($employee->contract_period == 24)
+                                                                        <option value="24" selected>{{ __('2 years') }}</option>
+                                                                        <option value="12">{{ __('1 year') }}</option>
+                                                                    @endif
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-lg-5">
+                                                                <label>{{__('Contract End Date')}} *</label>
+                                                                <input name="contract_end_date" class="form-control" value="{{ $employee->contract_end_date }}" type="text" readonly>
                                                             </div>
                                                         </div>
                                                     </div>

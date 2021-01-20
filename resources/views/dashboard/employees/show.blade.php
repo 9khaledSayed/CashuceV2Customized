@@ -365,15 +365,21 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <div class="col-lg-6">
-                                                                <label>{{__('Job Title')}} *</label>
+                                                            <div class="col-lg-4">
+                                                                <label>{{__('Role')}} *</label>
                                                                 <select name="role_id" class="form-control kt-selectpicker" title="Choose" disabled="disabled">
                                                                     @foreach($roles as $role)
                                                                         <option value="{{$role->id}}" @if($employee->role->id == $role->id) selected @endif>{{$role->Name()}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                            <div class="col-lg-6">
+                                                            <div class="col-lg-4">
+                                                                <label>{{__('Job Title')}} *</label>
+                                                                <select name="job_title" class="form-control kt-selectpicker" title="Choose" disabled="disabled">
+                                                                    <option value="{{ $employee->job_title }}">{{ $employee->job_title }}</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-lg-4">
                                                                 <label for="supervisor_id">{{__('Supervisor')}}</label>
                                                                 <select disabled="disabled" class="form-control @error('supervisor_id') is-invalid @enderror kt-selectpicker"
                                                                         id="supervisor_id"
@@ -408,10 +414,10 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <div class="col-lg-6">
+                                                            <div class="col-lg-4">
                                                                 <label>{{__('Contract Start Date')}} *</label>
                                                                 <div class="input-group date">
-                                                                    <input name="contract_start_date" disabled="disabled" type="text" class="form-control datepicker" value="{{$employee->contract_start_date->format('Y-m-d')}}"/>
+                                                                    <input name="contract_start_date" type="text" class="form-control datepicker" disabled="disabled" value="{{$employee->contract_start_date->format('Y-m-d')}}"/>
                                                                     <div class="input-group-append">
                                                                     <span class="input-group-text">
                                                                         <i class="la la-calendar"></i>
@@ -419,9 +425,19 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-6" id="period">
-                                                                <label>{{__('Contract period in months')}} *</label>
-                                                                <input name="contract_period" class="form-control" disabled="disabled" type="text"  value="{{$employee->contract_period}}">
+                                                            <div class="col-lg-3" id="period">
+                                                                <label>{{__('Contract period')}} *</label>
+                                                                <select name="contract_period" id="period" class="form-control" title="Choose">
+                                                                    @if($employee->contract_period == 12)
+                                                                        <option value="12" selected disabled="disabled">{{ __('1 year') }}</option>
+                                                                    @elseif($employee->contract_period == 24)
+                                                                        <option value="24" selected disabled="disabled">{{ __('2 years') }}</option>
+                                                                    @endif
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-lg-5">
+                                                                <label>{{__('Contract End Date')}} *</label>
+                                                                <input name="contract_end_date" class="form-control" disabled="disabled" value="{{ $employee->contract_end_date }}" type="text">
                                                             </div>
                                                         </div>
                                                     </div>
