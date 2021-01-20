@@ -233,11 +233,11 @@
                                                         <div class="form-group row">
                                                             <div class="col-lg-6">
                                                                 <label>{{__('City Name In Arabic')}}</label>
-                                                                <input name="cityName_ar" class="form-control" type="text">
+                                                                <input name="city_name_ar" class="form-control" type="text">
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <label>{{__('City Name In English')}}</label>
-                                                                <input name="cityName_en" class="form-control" type="text">
+                                                                <input name="city_name_en" class="form-control" type="text">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -326,7 +326,7 @@
                                                         <div class="form-group row">
                                                             <div class="col-lg-6">
                                                                 <label>{{__('Employee Number')}} *</label>
-                                                                <input name="job_number" class="form-control"  value="{{$employee->job_number}}" type="text">
+                                                                <input name="job_number" class="form-control"  value="{{$employee->job_number}}" type="text" readonly>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <label>{{__('Joined Date')}} *</label>

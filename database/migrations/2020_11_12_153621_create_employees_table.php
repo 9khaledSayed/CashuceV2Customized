@@ -33,8 +33,8 @@ class CreateEmployeesTable extends Migration
             $table->string('sname_en')->nullable();
             $table->string('tname_en')->nullable();
             $table->string('lname_en');
-            $table->string('cityName_ar')->nullable();
-            $table->string('cityName_en')->nullable();
+            $table->string('city_name_ar')->nullable();
+            $table->string('city_name_en')->nullable();
             $table->string('job_number');
             $table->string('job_title')->nullable();
             $table->date('birthdate');

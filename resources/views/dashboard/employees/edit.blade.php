@@ -249,11 +249,11 @@
                                                         <div class="form-group row">
                                                             <div class="col-lg-6">
                                                                 <label>{{__('City Name In Arabic')}}</label>
-                                                                <input name="cityName_ar" class="form-control" type="text" value="{{$employee->cityName_ar}}">
+                                                                <input name="city_name_ar" class="form-control" type="text" value="{{$employee->city_name_ar}}">
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <label>{{__('City Name In English')}}</label>
-                                                                <input name="cityName_en" class="form-control" type="text" value="{{$employee->cityName_en}}">
+                                                                <input name="city_name_en" class="form-control" type="text" value="{{$employee->city_name_en}}">
                                                             </div>
                                                         </div>
                                                     </div>

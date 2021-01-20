@@ -249,11 +249,11 @@
                                                         <div class="form-group row">
                                                             <div class="col-lg-6">
                                                                 <label>{{__('City Name In Arabic')}}</label>
-                                                                <input name="cityName_ar" class="form-control" disabled="disabled" type="text" value="{{$employee->cityName_ar}}">
+                                                                <input name="city_name_ar" class="form-control" disabled="disabled" type="text" value="{{$employee->city_name_ar}}">
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <label>{{__('City Name In English')}}</label>
-                                                                <input name="cityName_en" class="form-control" disabled="disabled" type="text" value="{{$employee->cityName_en}}">
+                                                                <input name="city_name_en" class="form-control" disabled="disabled" type="text" value="{{$employee->city_name_en}}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -376,7 +376,7 @@
                                                             <div class="col-lg-4">
                                                                 <label>{{__('Job Title')}} *</label>
                                                                 <select name="job_title" class="form-control kt-selectpicker" title="Choose" disabled="disabled">
-                                                                    <option value="{{ $employee->job_title }}">{{ $employee->job_title }}</option>
+                                                                    <option value="{{ $employee->job_title }}" selected>{{ $employee->job_title }}</option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-lg-4">
@@ -427,11 +427,11 @@
                                                             </div>
                                                             <div class="col-lg-3" id="period">
                                                                 <label>{{__('Contract period')}} *</label>
-                                                                <select name="contract_period" id="period" class="form-control" title="Choose">
+                                                                <select name="contract_period" id="period" class="form-control" title="Choose" disabled="disabled">
                                                                     @if($employee->contract_period == 12)
-                                                                        <option value="12" selected disabled="disabled">{{ __('1 year') }}</option>
+                                                                        <option value="12" selected >{{ __('1 year') }}</option>
                                                                     @elseif($employee->contract_period == 24)
-                                                                        <option value="24" selected disabled="disabled">{{ __('2 years') }}</option>
+                                                                        <option value="24" selected>{{ __('2 years') }}</option>
                                                                     @endif
                                                                 </select>
                                                             </div>
