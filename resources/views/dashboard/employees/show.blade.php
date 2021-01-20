@@ -101,31 +101,45 @@
                                                     <div class="kt-section__body">
                                                         <h3 class="kt-section__title kt-section__title-lg">{{__('Basic Information')}}:</h3>
                                                         <div class="form-group row">
-                                                            <div class="col-lg-4">
+                                                            <div class="col-lg-3">
                                                                 <label>{{__('First Name Arabic')}} *</label>
                                                                 <input name="fname_ar" class="form-control" disabled="disabled" type="text"  value="{{$employee->fname_ar}}">
                                                             </div>
-                                                            <div class="col-lg-4">
-                                                                <label>{{__('Middle Name Arabic')}}</label>
-                                                                <input name="mname_ar" class="form-control" disabled="disabled" type="text"  value="{{$employee->mname_ar}}">
+                                                            <div class="col-lg-3">
+                                                                <label>{{__('Second Name Arabic')}}</label>
+                                                                <input name="sname_ar" class="form-control" disabled="disabled" type="text"  value="{{$employee->sname_ar}}">
                                                             </div>
-                                                            <div class="col-lg-4">
-                                                                <label>{{__('Last Name Arabic')}} *</label>
+                                                            <div class="col-lg-3">
+                                                                <label>{{__('Third Name Arabic')}}</label>
+                                                                <input name="tname_ar" class="form-control" disabled="disabled" type="text"  value="{{$employee->tname_ar}}">
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                <label>{{__('Fourth Name Arabic')}} *</label>
                                                                 <input name="lname_ar" class="form-control" disabled="disabled" type="text"  value="{{$employee->lname_ar}}">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <div class="col-lg-4">
+                                                            <div class="col-lg-3">
                                                                 <label>{{__('First Name English')}} *</label>
                                                                 <input name="fname_en" class="form-control" disabled="disabled" type="text"  value="{{$employee->fname_en}}">
                                                             </div>
-                                                            <div class="col-lg-4">
-                                                                <label>{{__('Middle Name English')}}</label>
-                                                                <input name="mname_en" class="form-control" disabled="disabled" type="text"  value="{{$employee->mname_en}}">
+                                                            <div class="col-lg-3">
+                                                                <label>{{__('Second Name English')}}</label>
+                                                                <input name="sname_en" class="form-control" disabled="disabled" type="text"  value="{{$employee->sname_en}}">
                                                             </div>
-                                                            <div class="col-lg-4">
-                                                                <label>{{__('Last Name English')}} *</label>
+                                                            <div class="col-lg-3">
+                                                                <label>{{__('Third Name English')}}</label>
+                                                                <input name="tname_en" class="form-control" disabled="disabled" type="text"  value="{{$employee->tname_en}}">
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                <label>{{__('Fourth Name English')}} *</label>
                                                                 <input name="lname_en" class="form-control" disabled="disabled" type="text"  value="{{$employee->lname_en}}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="col-lg-12">
+                                                                <label>{{__('Trial Period')}}</label>
+                                                                <input name="test_period" class="form-control" disabled="disabled" type="text" value="{{$employee->test_period}}">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
@@ -197,23 +211,6 @@
                                                     <div class="kt-section__body">
                                                         <h3 class="kt-section__title kt-section__title-lg">{{__('Address Details')}}:</h3>
                                                         <div class="form-group row">
-                                                            <div class="col-lg-12">
-                                                                <label>{{__('Identity Type')}}</label>
-                                                                <div class="kt-radio-list text-center">
-                                                                    <label class="kt-radio kt-radio--bold kt-radio--brand">
-                                                                        <input type="radio" name="identity_type" disabled="disabled" value="0"   @if($employee->identity_type == 0) checked @endif>
-                                                                        {{__('National ID')}}
-                                                                        <span></span>
-                                                                    </label>
-                                                                    <label class="kt-radio kt-radio--bold kt-radio--brand">
-                                                                        <input type="radio" name="identity_type" disabled="disabled" value="1"   @if($employee->identity_type == 1) checked @endif>
-                                                                        {{__('Iqama')}}
-                                                                        <span></span>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
                                                             <div class="col-lg-4">
                                                                 <label>{{__('ID Number')}} *</label>
                                                                 <input name="id_num" class="form-control" disabled="disabled" type="text"  value="{{$employee->id_num}}">
@@ -247,6 +244,16 @@
                                                                         </span>
                                                                     </div>
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="col-lg-6">
+                                                                <label>{{__('City Name In Arabic')}}</label>
+                                                                <input name="cityName_ar" class="form-control" disabled="disabled" type="text" value="{{$employee->cityName_ar}}">
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <label>{{__('City Name In English')}}</label>
+                                                                <input name="cityName_en" class="form-control" disabled="disabled" type="text" value="{{$employee->cityName_en}}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -358,15 +365,21 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <div class="col-lg-6">
-                                                                <label>{{__('Job Title')}} *</label>
+                                                            <div class="col-lg-4">
+                                                                <label>{{__('Role')}} *</label>
                                                                 <select name="role_id" class="form-control kt-selectpicker" title="Choose" disabled="disabled">
                                                                     @foreach($roles as $role)
                                                                         <option value="{{$role->id}}" @if($employee->role->id == $role->id) selected @endif>{{$role->Name()}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                            <div class="col-lg-6">
+                                                            <div class="col-lg-4">
+                                                                <label>{{__('Job Title')}} *</label>
+                                                                <select name="job_title" class="form-control kt-selectpicker" title="Choose" disabled="disabled">
+                                                                    <option value="{{ $employee->job_title }}">{{ $employee->job_title }}</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-lg-4">
                                                                 <label for="supervisor_id">{{__('Supervisor')}}</label>
                                                                 <select disabled="disabled" class="form-control @error('supervisor_id') is-invalid @enderror kt-selectpicker"
                                                                         id="supervisor_id"
@@ -401,10 +414,10 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <div class="col-lg-6">
+                                                            <div class="col-lg-4">
                                                                 <label>{{__('Contract Start Date')}} *</label>
                                                                 <div class="input-group date">
-                                                                    <input name="contract_start_date" disabled="disabled" type="text" class="form-control datepicker" value="{{$employee->contract_start_date->format('Y-m-d')}}"/>
+                                                                    <input name="contract_start_date" type="text" class="form-control datepicker" disabled="disabled" value="{{$employee->contract_start_date->format('Y-m-d')}}"/>
                                                                     <div class="input-group-append">
                                                                     <span class="input-group-text">
                                                                         <i class="la la-calendar"></i>
@@ -412,9 +425,19 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-6" id="period">
-                                                                <label>{{__('Contract period in months')}} *</label>
-                                                                <input name="contract_period" class="form-control" disabled="disabled" type="text"  value="{{$employee->contract_period}}">
+                                                            <div class="col-lg-3" id="period">
+                                                                <label>{{__('Contract period')}} *</label>
+                                                                <select name="contract_period" id="period" class="form-control" title="Choose">
+                                                                    @if($employee->contract_period == 12)
+                                                                        <option value="12" selected disabled="disabled">{{ __('1 year') }}</option>
+                                                                    @elseif($employee->contract_period == 24)
+                                                                        <option value="24" selected disabled="disabled">{{ __('2 years') }}</option>
+                                                                    @endif
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-lg-5">
+                                                                <label>{{__('Contract End Date')}} *</label>
+                                                                <input name="contract_end_date" class="form-control" disabled="disabled" value="{{ $employee->contract_end_date }}" type="text">
                                                             </div>
                                                         </div>
                                                     </div>

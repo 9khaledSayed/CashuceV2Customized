@@ -20,6 +20,12 @@ class EmployeeController extends Controller
     public $contract_type = [
         'limited',
         'unlimited',
+        'seasonal employment',
+        'in order to do a specific work',
+        'part time',
+        'full time',
+        'temporary',
+        'maritime work',
     ];
 
     public function __construct()
@@ -75,7 +81,13 @@ class EmployeeController extends Controller
         $roles = Role::get();
         $supervisors = Employee::whereNull('supervisor_id')->get();
         $workShifts = WorkShift::get();
-
+        $employee = Employee::get()->last();
+        //dd($employee->job_number);
+        if(isset($employee)){
+            $employee->job_number = $employee->job_number + 1;
+        }else{
+            $employee->job_number = 1000;
+        }
 
         return view('dashboard.employees.create', [
             'nationalities' => $nationalities,
@@ -85,6 +97,7 @@ class EmployeeController extends Controller
             'supervisors' =>$supervisors,
             'workShifts' =>$workShifts,
             'departments' => $departments,
+            'employee' => $employee,
         ]);
     }
 
