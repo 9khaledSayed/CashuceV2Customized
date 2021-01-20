@@ -71,7 +71,7 @@ var KTContactsAdd = function () {
                     required: true,
                     number: true
                 },
-                cityName_ar: {
+                city_name_ar: {
                     required: true,
                 },
                 cityName_en: {
