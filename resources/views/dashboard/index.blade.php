@@ -153,7 +153,8 @@
                 <div class="kt-portlet__body">
                     <!--begin::Widget 11-->
                     <div class="kt-widget11">
-                        <div class="table-responsive">
+                        <div class="kt-scroll" data-scroll="true" data-height="400" style="height: 400px;">
+                            <div class="table-responsive">
                             <table class="table" style="text-align: center">
                                 <thead>
                                 <tr>
@@ -177,6 +178,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        </div>
                     </div>
                     <!--end::Widget 11-->
                 </div>
@@ -189,9 +191,9 @@
             <div class="kt-portlet">
                 <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">
-												<span class="kt-portlet__head-icon kt-hidden">
-													<i class="la la-gear"></i>
-												</span>
+                        <span class="kt-portlet__head-icon kt-hidden">
+                            <i class="la la-gear"></i>
+                        </span>
                         <h3 class="kt-portlet__head-title">
                             {{__('Employees In Departments')}}
                         </h3>
@@ -357,7 +359,8 @@
                 <div class="kt-portlet__body">
                     <!--begin::Widget 11-->
                     <div class="kt-widget11">
-                        <div class="table-responsive">
+                        <div class="kt-scroll" data-scroll="true" data-height="400" style="height: 400px;">
+                            <div class="table-responsive">
                             <table class="table" style="text-align: center">
                                 <thead>
                                 <tr>
@@ -397,6 +400,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                        </div>
                         </div>
                     </div>
                     <!--end::Widget 11-->

@@ -42,7 +42,8 @@ var KTDatatableLocalSortDemo = function() {
 
             // layout definition
             layout: {
-                scroll: false, // enable/disable datatable scroll both horizontal and vertical when needed.
+                scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+                height: 400,
                 footer: false, // display/hide footer
             },
 
@@ -53,6 +54,9 @@ var KTDatatableLocalSortDemo = function() {
 
             search: {
                 input: $('#generalSearch'),
+            },
+            rows: {
+                autoHide: false,
             },
 
             // columns definition
