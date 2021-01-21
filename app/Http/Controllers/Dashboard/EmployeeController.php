@@ -7,6 +7,7 @@ use App\Company;
 use App\Department;
 use App\Employee;
 use App\Http\Controllers\Controller;
+use App\JobTitle;
 use App\Nationality;
 use App\Provider;
 use App\Role;
@@ -77,6 +78,7 @@ class EmployeeController extends Controller
         $this->authorize('create_employees');
         $allowances = Allowance::all();
         $nationalities = Nationality::all();
+        $job_titles = JobTitle::all();
         $departments = Department::all();
         $providers = Provider::get();
         $roles = Role::get();
@@ -90,8 +92,11 @@ class EmployeeController extends Controller
             $employee->job_number = 1000;
         }
 
+        //dd($job_titles);
+
         return view('dashboard.employees.create', [
             'nationalities' => $nationalities,
+            'job_titles' => $job_titles,
             'roles' => $roles,
             'contract_type' => $this->contract_type,
             'allowances' =>$allowances,
@@ -123,12 +128,14 @@ class EmployeeController extends Controller
     {
         $allowances = Allowance::all();
         $nationalities = Nationality::all();
+        $job_titles = JobTitle::all();
         $workShifts = WorkShift::get();
         $roles = Role::get();
         $supervisors = Employee::whereNull('supervisor_id')->get();
         return view('dashboard.employees.show', [
             'employee' => $employee,
             'nationalities' => $nationalities,
+            'job_titles' => $job_titles,
             'roles' => $roles,
             'contract_type' => $this->contract_type,
             'allowances' =>$allowances,
@@ -143,6 +150,7 @@ class EmployeeController extends Controller
         $this->authorize('update_employees');
         $allowances = Allowance::all();
         $nationalities = Nationality::all();
+        $job_titles = JobTitle::all();
         $workShifts = WorkShift::get();
         $roles = Role::get();
         $providers = Provider::get();
@@ -152,6 +160,7 @@ class EmployeeController extends Controller
         return view('dashboard.employees.edit', [
             'employee' => $employee,
             'nationalities' => $nationalities,
+            'job_titles' => $job_titles,
             'roles' => $roles,
             'contract_type' => $this->contract_type,
             'allowances' =>$allowances,

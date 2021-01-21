@@ -375,8 +375,13 @@
                                                             </div>
                                                             <div class="col-lg-4">
                                                                 <label>{{__('Job Title')}} *</label>
-                                                                <select name="job_title" class="form-control kt-selectpicker" title="Choose" disabled="disabled">
-                                                                    <option value="{{ $employee->job_title }}" selected>{{ $employee->job_title }}</option>
+                                                                <select name="job_title_id"  disabled="disabled" class="form-control kt-selectpicker" title="Choose">
+                                                                    <option value="">{{__('Choose')}}</option>
+                                                                    @foreach($job_titles as $job_title)
+                                                                        <option value="{{$job_title->id}}"
+                                                                                @if($employee->job_title_id == $job_title->id)selected @endif
+                                                                        >{{$job_title->name()}}</option>
+                                                                    @endforeach
                                                                 </select>
                                                             </div>
                                                             <div class="col-lg-4">

@@ -567,6 +567,7 @@ class ComposerStaticInitf6d57cfbea0541c8e8483fe876a82800
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\JobTitle' => __DIR__ . '/../..' . '/app/JobTitle.php',
         'App\\Message' => __DIR__ . '/../..' . '/app/Message.php',
         'App\\Nationality' => __DIR__ . '/../..' . '/app/Nationality.php',
         'App\\Notifications\\AlarmForEmployee' => __DIR__ . '/../..' . '/app/Notifications/AlarmForEmployee.php',

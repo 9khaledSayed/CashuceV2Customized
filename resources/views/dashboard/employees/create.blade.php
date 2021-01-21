@@ -351,9 +351,11 @@
                                                             </div>
                                                             <div class="col-lg-4">
                                                                 <label>{{__('Job Title')}} *</label>
-                                                                <select name="job_title" class="form-control kt-selectpicker" title="Choose">
-                                                                        <option value="HR">HR</option>
-                                                                        <option value="Manager">Manager</option>
+                                                                <select name="job_title_id" class="form-control kt-selectpicker" title="Choose">
+                                                                    <option value="">{{__('Choose')}}</option>
+                                                                    @foreach($job_titles as $job_title)
+                                                                        <option value="{{$job_title->id}}">{{$job_title->name()}}</option>
+                                                                    @endforeach
                                                                 </select>
                                                             </div>
                                                             <div class="col-lg-4">
