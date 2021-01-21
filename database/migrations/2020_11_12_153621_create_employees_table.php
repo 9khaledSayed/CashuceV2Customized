@@ -18,8 +18,8 @@ class CreateEmployeesTable extends Migration
 
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('provider_id')->nullable();
-            $table->unsignedBigInteger('department_id');
-            $table->unsignedBigInteger('section_id');
+            $table->unsignedBigInteger('department_id')->nullable();
+            $table->unsignedBigInteger('section_id')->nullable();
             $table->unsignedBigInteger('supervisor_id')->nullable();
             $table->unsignedBigInteger('work_shift_id');
             $table->unsignedBigInteger('nationality_id');
