@@ -12,9 +12,11 @@ use App\Notifications\AlarmForEmployee;
 use App\Notifications\EmployeesLate;
 use App\Notifications\LateWarning;
 use App\Scopes\SupervisorScope;
+use Box\Spout\Writer\Style\StyleBuilder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class AttendanceController extends Controller
 {
@@ -284,6 +286,44 @@ class AttendanceController extends Controller
     function roundToQuarterHour($time) {
         $minutes = $time->minute;
         return $minutes - ($minutes % 15);
+    }
+
+    public function extractExcel()
+    {
+        $attendances = Attendance::get()->map(function($attendance){
+            $employee = $attendance->employee ;
+            $time_in = $attendance->time_in->format('h:iA');
+            $work_shift = $employee->workShift;
+            $time_out = $work_shift->type == 'divided' ? $attendance->time_out2 : $attendance->time_out;
+            $shift_start_time = $work_shift->shift_start_time;
+            $shift_work_hours = $work_shift->work_hours;
+            $total_working_hours = $attendance->total_working_hours;
+            return [
+                __('Job Number') => $employee->job_number,
+                __('employee_name') => $employee->name(),
+                __('shift_start_time') => isset($shift_start_time) ? $shift_start_time->format('h:iA') : '',
+                __('time_in') => $time_in,
+                __('time_out') => isset($time_out) ? $time_out->format('h:iA') : '',
+                __('shift_work_hours') => $shift_work_hours,
+                __('total_working_hours') => $total_working_hours,
+            ];
+        });
+
+        //dd($attendances);
+        $header_style = (new StyleBuilder())
+            ->setFontSize(8)
+            ->setFontBold()
+            ->build();
+
+        $rows_style = (new StyleBuilder())
+            ->setFontSize(8)
+            ->setBackgroundColor("EDEDED")
+            ->build();
+
+        return (new FastExcel($attendances))
+            ->headerStyle($header_style)
+            ->rowsStyle($rows_style)
+            ->download('file.xlsx');
     }
 
 }

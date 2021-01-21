@@ -25,6 +25,11 @@
                     {{__('Attendance Sheet')}}
                 </h3>
             </div>
+            <div class="kt-portlet__head-label">
+                <a href="/dashboard/attendances/excel" class="btn btn-danger btn-icon-sm ml-2 mr-2">
+                    <i class="la la-file-excel-o"></i> {{__('Export')}}
+                </a>
+            </div>
         </div>
         <!-- end:: Content Head -->
         <div class="kt-portlet__body">

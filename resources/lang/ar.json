@@ -302,5 +302,11 @@
     "City Name In English": "اسم المدينة بالانجليزية",
     "1 year": "عام",
     "2 years": "عامين",
-    "Job Titles": "المسميات الوظيفية"
+    "Job Titles": "المسميات الوظيفية",
+    "employee_name": "اسم الموظف",
+    "shift_start_time": "الوقت الافتراضي",
+    "time_in": "وقت الدخول الفعلي",
+    "time_out": "وقت الخروج الفعلي",
+    "shift_work_hours": "مدة العمل الافتراضية",
+    "total_working_hours": "مدة العمل الفعلية"
 }
