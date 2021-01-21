@@ -23,21 +23,6 @@
                 </li>
                 @endcanany
 
-{{--                @canany(['view_users','create_users'])--}}
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon-profile-1"></i><span class="kt-menu__link-text">{{__('Providers')}}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
-                    <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
-                        <ul class="kt-menu__subnav">
-                            <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Config</span></span></li>
-{{--                            @can('view_users')--}}
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.providers.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('AlL Providers')}}</span></a></li>
-{{--                            @endcan--}}
-{{--                            @can('create_users')--}}
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.providers.create')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('New Provider')}}</span></a></li>
-{{--                            @endcan--}}
-                        </ul>
-                    </div>
-                </li>
-{{--                @endcanany--}}
 
                 @canany(['view_violations','create_violations'])
                 <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-open-box"></i><span class="kt-menu__link-text">{{__('Violations Panel')}}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
@@ -200,6 +185,7 @@
                             <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.vacation_types.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Vacations Types')}}</span></a></li>
                             <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.departments.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Departments')}}</span></a></li>
                             <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.sections.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Sections')}}</span></a></li>
+                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard.providers.index')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{__('Providers')}}</span></a></li>
                         </ul>
                     </div>
                 </li>
