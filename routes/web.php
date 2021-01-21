@@ -107,7 +107,19 @@ Route::group([
 
 
 Route::get('/test', function (){
-    return view('test');
+    $provider = new \App\Role([
+        'name_english'  => 'Provider',
+        'name_arabic'  => 'شركة مشغلة',
+        'label' => 'provider',
+        'type' => 'System Role',
+        'company_id' => 1
+    ]);
+    $provider->saveWithoutEvents(['creating']);
+    $abilities = \App\Ability::get();
+
+    foreach($abilities->whereIn('category',['payroll', 'attendances']) as $ability){
+        $provider->allowTo($ability);
+    }
 });
 
 

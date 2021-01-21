@@ -153,7 +153,7 @@
                 <div class="kt-portlet__body">
                     <!--begin::Widget 11-->
                     <div class="kt-widget11">
-                        <div class="kt-scroll" data-scroll="true" data-height="400" style="height: 400px;">
+                        <div class="kt-scroll" data-scroll="true" data-height="300">
                             <div class="table-responsive">
                             <table class="table" style="text-align: center">
                                 <thead>
