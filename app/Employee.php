@@ -139,6 +139,53 @@ class Employee extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Allowance::class);
     }
 
+    public function hra()
+    {
+        $add = 0;
+        $hra = $this->allowances()->where('label', 'hra')->first();
+        if(!isset($hra))
+            return 0;
+        if($hra->type == 1){ // addition
+            if(isset($hra->percentage)){
+                $add = $this->salary * ($hra->percentage/100);
+            }else{
+                $add = $hra->value;
+            }
+        }
+        return $add;
+    }
+    public function transfer()
+    {
+        $add = 0;
+        $transfer = $this->allowances()->where('label', 'transfer')->first();
+        if(!isset($transfer))
+            return 0;
+        if($transfer->type == 1){ // addition
+            if(isset($transfer->percentage)){
+                $add = $this->salary * ($transfer->percentage/100);
+            }else{
+                $add = $transfer->value;
+            }
+        }
+        return $add;
+    }
+
+    public function otherAllowances()
+    {
+        return $this->allowances()->whereNotIn('label', ['transfer', 'hra'])
+            ->get()
+            ->map(function ($allowance){
+                if($allowance->type == 1){ // addition
+                    if(isset($allowance->percentage)){
+                        return $this->salary * ($allowance->percentage/100);
+                    }else{
+                        return $allowance->value;
+                    }
+                }
+        })->sum();
+
+    }
+
     public function workShift()
     {
         return $this->belongsTo(WorkShift::class);
@@ -244,6 +291,20 @@ class Employee extends Authenticatable implements MustVerifyEmail
             }
         }
         return $this->salary + $add - $deduc;
+    }
+    public function totalAdditionAllowances()
+    {
+        $add = 0;
+        foreach ($this->allowances as $allowance) {
+            if($allowance->type == 1){ // addition
+                if(isset($allowance->percentage)){
+                    $add += $this->salary * ($allowance->percentage/100);
+                }else{
+                    $add += $allowance->value;
+                }
+            }
+        }
+        return $add;
     }
 
 

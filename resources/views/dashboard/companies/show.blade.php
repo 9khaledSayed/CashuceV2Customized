@@ -46,7 +46,7 @@
                                         {{$customer->name()}}
                                     </a>
                                     <span class="kt-widget__subtitle">
-                               {{$customer->roles->first()->name()}}
+                               {{$customer->role->name()}}
                             </span>
                                     <span class="kt-widget__subtitle">
                                 {{$customer->created_at->format('Y-m-d')}}

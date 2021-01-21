@@ -229,7 +229,7 @@
             <div class="kt-portlet__body kt-portlet__body--fit">
 
                 <!--begin: Datatable -->
-                <div class="kt-datatable" id="ajax_data"></div>
+                <div class="kt-datatable" id="scrolling_horizontal"></div>
 
                 <!--end: Datatable -->
             </div>

@@ -79,12 +79,23 @@ class PayrollController extends Controller
         $this->authorize('show_payrolls');
         if($request->ajax()){
             $salaries = Salary::where('payroll_id', $payroll->id)->get()->map(function ($salary){
+                $employee = $salary->employee;
+                $deductions = $employee->deductions();
+                $gosiDeduction = $employee->gosiDeduction();
                     return [
-                        'id' => $salary->id,
-                        'employee' => $salary->employee,
-                        'total_package' => $salary->employee->totalPackage(),
-                        'gosi_deduction' => $salary->employee->gosiDeduction(),
-                        'violations_deduction' => $salary->employee->deductions(),
+                        'job_number' => $employee->job_number,
+                        'employee_name' => $employee->name(),
+                        'employee_id' => $employee->id,
+                        'nationality' => $employee->nationality(),
+                        'salary' => $employee->salary,
+                        'hra' => $employee->hra(),
+                        'transfer' => $employee->transfer(),
+                        'other_allowances' => $employee->otherAllowances(),
+                        'total_allowances' => $employee->totalAdditionAllowances(),
+                        'total_package' => $employee->totalPackage(),
+                        'violations_deduction' => $deductions,
+                        'gosi_deduction' => $gosiDeduction,
+                        'total_deduction' => $gosiDeduction + $deductions,
                         'net_pay' => $salary->net_salary,
                         'work_days' => $salary->work_days,
                     ];

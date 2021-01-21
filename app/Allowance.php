@@ -48,7 +48,7 @@ class Allowance extends Model
         return $this->{'name_' . app()->getLocale()};
     }
 
-    public static function generateDefaultAllowances($managerID)
+    public static function generateDefaultAllowances($companyID)
     {
         $hra = new Allowance([
             'name_en'  => 'HRA',
@@ -57,7 +57,16 @@ class Allowance extends Model
             'percentage' => 25,
             'label' => 'hra',
             'is_basic' => true,
-            'company_id' => $managerID
+            'company_id' => $companyID
+        ]);
+        $hra = new Allowance([
+            'name_en'  => 'Transfer',
+            'name_ar'  => 'مواصلات',
+            'type' => 1,
+            'percentage' => 25,
+            'label' => 'transfer',
+            'is_basic' => true,
+            'company_id' => $companyID
         ]);
         $gosi = new Allowance([
             'name_en'  => 'GOSI Subscription',
@@ -66,7 +75,7 @@ class Allowance extends Model
             'percentage' => 10,
             'label' => 'gosi',
             'is_basic' => true,
-            'company_id' => $managerID
+            'company_id' => $companyID
         ]);
 
         $hra->saveWithoutEvents(['creating']);
