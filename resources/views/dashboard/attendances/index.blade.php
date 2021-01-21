@@ -26,7 +26,7 @@
                 </h3>
             </div>
             <div class="kt-portlet__head-label">
-                <a href="/dashboard/attendances/excel" class="btn btn-danger btn-icon-sm ml-2 mr-2">
+                <a href="#" id="excelBtn" class="btn btn-danger btn-icon-sm ml-2 mr-2">
                     <i class="la la-file-excel-o"></i> {{__('Export')}}
                 </a>
             </div>
@@ -41,9 +41,27 @@
                             <div class="kt-input-icon kt-input-icon--left">
                                 <input type="text" class="form-control" placeholder="{{__('Search')}}..." id="generalSearch">
                                 <span class="kt-input-icon__icon kt-input-icon__icon--left">
-                                            <span><i class="la la-search"></i></span>
-                                        </span>
+                                    <span><i class="la la-search"></i></span>
+                                </span>
                             </div>
+                        </div>
+                        <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                            <div class="kt-form__group kt-form__group--inline">
+                                <div class="kt-form__label">
+                                    <label>{{__('Full Date')}}:</label>
+                                </div>
+                                <div class="kt-form__control">
+                                    <div class="input-group date">
+                                        <input name="full_date" type="text" class="form-control full-date" readonly/>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="la la-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
@@ -56,7 +74,7 @@
                         <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
                             <div class="kt-form__group kt-form__group--inline">
                                 <div class="kt-form__label">
-                                    <label>{{__('Date')}}:</label>
+                                    <label>{{__('Month')}}:</label>
                                 </div>
                                 <div class="kt-form__control">
                                     <div class="input-group date">
@@ -155,6 +173,25 @@
             minViewMode: "months",
             clearBtn: true,
         });
+
+        $('.full-date').datepicker({
+            rtl: true,
+            language: appLang,
+            orientation: "bottom",
+            format: "yyyy-mm-dd",
+            // viewMode: "months",
+            // minViewMode: "months",
+            clearBtn: true,
+            lang: 'ar'
+        });
+
+        $("#excelBtn").click(function () {
+            //
+            var month = $('#kt_form_date').val();
+            var fullDate = $('.full-date').val();
+            window.location.replace("/dashboard/attendances/excel?month=" + month + "&full_date=" + fullDate);
+        })
+
     })
 </script>
 @endpush

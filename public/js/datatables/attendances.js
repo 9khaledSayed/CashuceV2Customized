@@ -130,6 +130,9 @@ var KTUserListDatatable = function() {
 
 
 
+    $('.full-date').on('change', function() {
+        datatable.search($(this).val(), 'date');
+    });
     $('#kt_form_date').on('change', function() {
         datatable.search($(this).val(), 'date');
     });
