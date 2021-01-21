@@ -90,7 +90,7 @@ class AttendanceController extends Controller
         ]);
         $employee = Employee::where('barcode', $request->barcode)->first();
         $dateTime = Carbon::now();
-
+        $dateTime->minute = $this->roundToQuarterHour($dateTime);
         $response =  $this->storeAttendance($dateTime, $employee);
 
         return response()->json($response);
@@ -137,28 +137,6 @@ class AttendanceController extends Controller
         return view('dashboard.attendances.my_attendances', [
             'my_attendances' => auth()->user()->attendances()->get()
         ]);
-    }
-
-    public function lateNotification()
-    {
-
-        $HrAndSupervisorCollection = Employee::get()->map(function ($employee){
-           $roleLabel = $employee->role->label;
-           if($roleLabel == 'HR' || $roleLabel == 'Supervisor')
-               return $employee;
-        })->filter(function ($employee){return !is_null($employee);});
-
-        $lateEmployees = Employee::get()->map(function ($employee){
-            if($employee->attendances()->whereDate('created_at', Carbon::today())->doesntExist())
-                return $employee;
-        })->filter(function ($employee){ return !is_null($employee);});
-
-        if($lateEmployees->count() > 0){
-            Notification::send($lateEmployees, new AlarmForEmployee());
-            Notification::send($HrAndSupervisorCollection, new EmployeesLate($lateEmployees->pluck('id')->toArray())    );
-        }
-
-        dd('done');
     }
 
     public function storeAttendance(Carbon $dateTime, $employee)
@@ -301,6 +279,11 @@ class AttendanceController extends Controller
         }
 
         return $response;
+    }
+
+    function roundToQuarterHour($time) {
+        $minutes = $time->minute;
+        return $minutes - ($minutes % 15);
     }
 
 }

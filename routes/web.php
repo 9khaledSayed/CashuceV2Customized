@@ -71,6 +71,8 @@ Route::group([
             Route::get('departments/getSections/{department}', 'DepartmentController@getSectionList');
             Route::get('employees/end_service/{employee}', 'EmployeeController@endService');
             Route::get('employees/back_to_service/{employee}', 'EmployeeController@backToService');
+            Route::get('expire_docs', 'DashboardController@expiringDocs');
+            Route::get('attendance_summery', 'DashboardController@attendanceSummary');
 
 
             Route::resources([

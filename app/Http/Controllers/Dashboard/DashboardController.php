@@ -21,17 +21,21 @@ class DashboardController extends Controller
 
     public function index(Request $request)
     {
-        $attendanceSummary = $this->attendanceSummary();
-        if($request->ajax()){
-            dd('asdf');
-            return response()->json($attendanceSummary['employees_attendance']);
-        }
+        $employeesInTrail = $this->expiringDocs($request);
+        $attendanceSummary = $this->attendanceSummary($request);
         $employeesStatistics = $this->employeesStatistics();
         $departments = $this->departmentsSection();
         $endedEmployees = $this->endedEmployees();
         $activities = $this->employeesActivities();
 
-        return view('dashboard.index', compact('employeesStatistics','endedEmployees', 'activities', 'departments', 'attendanceSummary'));
+        return view('dashboard.index', compact([
+            'employeesStatistics',
+            'endedEmployees',
+            'activities',
+            'departments',
+            'employeesInTrail',
+            'attendanceSummary'
+        ]));
     }
 
     public function employeesStatistics()
@@ -47,7 +51,7 @@ class DashboardController extends Controller
                     return $employee;
                 }
             })->filter()->count(),
-            "total_trail" => '??',
+            "total_trail" => $ActiveEmployeesInCompany->whereNotNull('contract_period')->count(),
         ];
         return $employeesStatistics;
     }
@@ -115,7 +119,7 @@ class DashboardController extends Controller
         })->filter()->count();
     }
 
-    public function attendanceSummary()
+    public function attendanceSummary(Request $request)
     {
         $activeEmployees = Company::find(Company::companyID())->employees;
         $totalActiveEmployees = $activeEmployees->count();
@@ -134,10 +138,10 @@ class DashboardController extends Controller
                 $delayAllowedTime = $employeeWorkShift->is_delay_allowed? $employeeWorkShift->time_delay_allowed : Carbon::createFromTime(0,0,0);
                 $shiftStartTime->addMinutes($delayAllowedTime->minute);
                 $shiftStartTime->addHours($delayAllowedTime->hour);
-                $employeeTimeOut = isset($todayAttendance->time_out) ? $todayAttendance->time_out->format('h:i') : '';
+                $employeeTimeOut = isset($todayAttendance->time_out) ? $todayAttendance->time_out->format('h:iA') : '';
 
                 if($employeeWorkShift->type == 'divided'){
-                    $employeeTimeOut = isset($todayAttendance->time_out2) ? $todayAttendance->time_out2->format('h:i') : '';
+                    $employeeTimeOut = isset($todayAttendance->time_out2) ? $todayAttendance->time_out2->format('h:iA') : '';
                 }
                 if($employeeTimeIn->gt($shiftStartTime)){
                     $delay++;
@@ -145,23 +149,51 @@ class DashboardController extends Controller
                     $early++;
                 }
 
-
-
                 array_push($employeesAttendance, [
                     'id' => $employee->id,
                     'job_number' => $employee->job_number,
                     'name' => $employee->name(),
-                    'status' => $employeeTimeIn->format('h:i') . ' -- ' . $employeeTimeOut,
+                    'status' => $employeeTimeIn->format('h:iA') . ' -- ' . $employeeTimeOut,
                 ]);
             }
         }
 
+        if($request->ajax()){
+            return response()->json($employeesAttendance);
+        }
         return [
             'totalActiveEmployees' => $totalActiveEmployees,
             'absent' => $absent,
             'delay' => $delay,
             'early' => $early,
-            'employees_attendance' => $employeesAttendance
         ];
+    }
+
+    public function expiringDocs(Request $request)
+    {
+        $employeesInTrail = Employee::whereNotNull('contract_period')->get()->count();
+        $activeEmployees = Company::find(Company::companyID())->employees;
+
+        if($request->ajax()){
+            $expiringDocs = $activeEmployees->map(function ($employee){
+                $now = Carbon::now();
+                $contractEndDate = $employee->contract_end_date;
+                if(isset($contractEndDate)){
+                    $leftDays = $contractEndDate->diff($now)->days;
+                    if($leftDays < 50 && $leftDays > 0){
+                        return[
+                            'id' => $employee->id,
+                            'job_number' => $employee->job_number,
+                            'name' => $employee->name(),
+                            'expire_date' => $employee->contract_end_date->format('Y-m-d'),
+                            'days_left' => $leftDays . __(' Days Left'),
+                        ];
+                    }
+                }
+            })->filter();
+
+            return response()->json($expiringDocs);
+        }
+        return $employeesInTrail;
     }
 }

@@ -27,7 +27,7 @@ var expireDocs = function() {
                 source: {
                     read: {
                         method: 'GET',
-                        // url: '/dashboard',
+                        url: '/dashboard/expire_docs',
                     },
                 },
                 pageSize: 10,

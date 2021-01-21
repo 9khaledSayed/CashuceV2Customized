@@ -204,6 +204,143 @@
             <!--End::Dashboard 6-->
         </div>
     </div>
+    <!--End::Row-->
+
+    <div class="row">
+        <div class="col-xl-12">
+
+            <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
+                <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            {{__('Expiring Documents')}}
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="kt-portlet__body kt-portlet__body--fit">
+                    <div class="row row-no-padding row-col-separator-lg">
+                        <div class="col-md-6 col-lg-2 col-xl-3 mx-auto">
+                            <!--begin::Total Profit-->
+                            <div class="kt-widget24">
+                                <div class="kt-widget24__details">
+                                    <div class="kt-widget24__info mx-auto">
+                                        <h4 class="kt-widget24__title">
+                                            {{__('Employees In Trail')}}
+                                        </h4>
+                                        <span class="kt-widget24__stats kt-font-brand" style="display:flex;margin: auto;width: fit-content">
+                                            {{$employeesInTrail}}
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--end::Total Profit-->
+                        </div>
+                    </div>
+                    <!--begin: Datatable -->
+                    <div class="kt-datatable" id="expiring_documents_table"></div>
+
+                    <!--end: Datatable -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--Begin::Section-->
+    <div class="row">
+        <div class="col-xl-12">
+
+            <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
+                <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            {{__('Attendance Summary')}}
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="kt-portlet__body kt-portlet__body--fit">
+                    <div class="row row-no-padding row-col-separator-lg">
+                        <div class="col-md-6 col-lg-2 col-xl-3">
+                            <!--begin::Total Profit-->
+                            <div class="kt-widget24">
+                                <div class="kt-widget24__details">
+                                    <div class="kt-widget24__info">
+                                        <h4 class="kt-widget24__title">
+                                            {{__('Employees')}}
+                                        </h4>
+                                    </div>
+                                    <span class="kt-widget24__stats kt-font-brand">
+                                        {{$attendanceSummary['totalActiveEmployees']}}
+                                    </span>
+                                </div>
+                            </div>
+                            <!--end::Total Profit-->
+                        </div>
+                        <div class="col-md-6 col-lg-2 col-xl-3">
+
+                            <!--begin::New Feedbacks-->
+                            <div class="kt-widget24">
+                                <div class="kt-widget24__details">
+                                    <div class="kt-widget24__info">
+                                        <h4 class="kt-widget24__title">
+                                            {{__('Absent')}}
+                                        </h4>
+                                    </div>
+                                    <span class="kt-widget24__stats kt-font-brand">
+                                {{$attendanceSummary['absent']}}
+                            </span>
+                                </div>
+                            </div>
+
+                            <!--end::New Feedbacks-->
+                        </div>
+                        <div class="col-md-6 col-lg-2 col-xl-3">
+
+                            <!--begin::New Orders-->
+                            <div class="kt-widget24">
+                                <div class="kt-widget24__details">
+                                    <div class="kt-widget24__info">
+                                        <h4 class="kt-widget24__title">
+                                            {{__('Delay')}}
+                                        </h4>
+                                    </div>
+                                    <span class="kt-widget24__stats kt-font-brand">
+                                {{$attendanceSummary['delay']}}
+                            </span>
+                                </div>
+                            </div>
+
+                            <!--end::New Orders-->
+                        </div>
+                        <div class="col-md-6 col-lg-2 col-xl-3">
+                            <!--begin::Total Profit-->
+                            <div class="kt-widget24">
+                                <div class="kt-widget24__details">
+                                    <div class="kt-widget24__info">
+                                        <h4 class="kt-widget24__title">
+                                            {{__('Early')}}
+                                        </h4>
+                                    </div>
+                                    <span class="kt-widget24__stats kt-font-brand">
+                                {{$attendanceSummary['early']}}
+                            </span>
+                                </div>
+                            </div>
+                            <!--end::Total Profit-->
+                        </div>
+                    </div>
+                    <!--begin: Datatable -->
+                    <div class="kt-datatable" id="attendance_summary"></div>
+
+                    <!--end: Datatable -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--End::Section-->
     <!--Begin::Row-->
     <div class="row">
         <div class="col-lg-6">
@@ -315,125 +452,7 @@
 
     </div>
 
-    <!--End::Row-->
 
-    <div class="row">
-        <div class="col-xl-12">
-
-            <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
-                <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm">
-                    <div class="kt-portlet__head-label">
-                        <h3 class="kt-portlet__head-title">
-                            {{__('Expiring Documents')}}
-                        </h3>
-                    </div>
-                </div>
-
-                <div class="kt-portlet__body kt-portlet__body--fit">
-
-                    <!--begin: Datatable -->
-                    <div class="kt-datatable" id="expiring_documents_table"></div>
-
-                    <!--end: Datatable -->
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <!--Begin::Section-->
-    <div class="row">
-        <div class="col-xl-12">
-
-            <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
-                <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm">
-                    <div class="kt-portlet__head-label">
-                        <h3 class="kt-portlet__head-title">
-                            {{__('Attendance Summary')}}
-                        </h3>
-                    </div>
-                </div>
-
-                <div class="kt-portlet__body kt-portlet__body--fit">
-                    <div class="row row-no-padding row-col-separator-lg">
-                        <div class="col-md-6 col-lg-2 col-xl-3">
-                            <!--begin::Total Profit-->
-                            <div class="kt-widget24">
-                                <div class="kt-widget24__details">
-                                    <div class="kt-widget24__info">
-                                        <h4 class="kt-widget24__title">
-                                            {{__('Employees')}}
-                                        </h4>
-                                    </div>
-                                    <span class="kt-widget24__stats kt-font-brand">
-                                        {{$attendanceSummary['totalActiveEmployees']}}
-                                    </span>
-                                </div>
-                            </div>
-                            <!--end::Total Profit-->
-                        </div>
-                        <div class="col-md-6 col-lg-2 col-xl-3">
-
-                            <!--begin::New Feedbacks-->
-                            <div class="kt-widget24">
-                                <div class="kt-widget24__details">
-                                    <div class="kt-widget24__info">
-                                        <h4 class="kt-widget24__title">
-                                            {{__('Absent')}}
-                                        </h4>
-                                    </div>
-                                    <span class="kt-widget24__stats kt-font-brand">
-                                {{$attendanceSummary['absent']}}
-                            </span>
-                                </div>
-                            </div>
-
-                            <!--end::New Feedbacks-->
-                        </div>
-                        <div class="col-md-6 col-lg-2 col-xl-3">
-
-                            <!--begin::New Orders-->
-                            <div class="kt-widget24">
-                                <div class="kt-widget24__details">
-                                    <div class="kt-widget24__info">
-                                        <h4 class="kt-widget24__title">
-                                            {{__('Delay')}}
-                                        </h4>
-                                    </div>
-                                    <span class="kt-widget24__stats kt-font-brand">
-                                {{$attendanceSummary['delay']}}
-                            </span>
-                                </div>
-                            </div>
-
-                            <!--end::New Orders-->
-                        </div>
-                        <div class="col-md-6 col-lg-2 col-xl-3">
-                            <!--begin::Total Profit-->
-                            <div class="kt-widget24">
-                                <div class="kt-widget24__details">
-                                    <div class="kt-widget24__info">
-                                        <h4 class="kt-widget24__title">
-                                            {{__('Early')}}
-                                        </h4>
-                                    </div>
-                                    <span class="kt-widget24__stats kt-font-brand">
-                                {{$attendanceSummary['early']}}
-                            </span>
-                                </div>
-                            </div>
-                            <!--end::Total Profit-->
-                        </div>
-                    </div>
-                    <!--begin: Datatable -->
-                    <div class="kt-datatable" id="attendance_summary"></div>
-
-                    <!--end: Datatable -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--End::Section-->
 
 
 

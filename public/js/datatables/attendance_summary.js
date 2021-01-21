@@ -27,7 +27,7 @@ var KTDatatableLocalSortDemo = function() {
                 source: {
                     read: {
                         method: 'GET',
-                        url: '/dashboard',
+                        url: '/dashboard/attendance_summery',
                     },
                 },
                 pageSize: 10,

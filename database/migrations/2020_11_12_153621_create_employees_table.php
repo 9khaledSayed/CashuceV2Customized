@@ -51,7 +51,7 @@ class CreateEmployeesTable extends Migration
             $table->date('joined_date');
             $table->string('contract_type');
             $table->date('contract_start_date');
-            $table->string('contract_end_date')->nullable();
+            $table->date('contract_end_date')->nullable();
             $table->integer('contract_period')->nullable();
             $table->string('allowance', 1000)->nullable();
             $table->string('phone');
