@@ -42,79 +42,33 @@ var KTDatatableLocalSortDemo = function() {
 
             // layout definition
             layout: {
-                scroll: false, // enable/disable datatable scroll both horizontal and vertical when needed.
+                scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+                height: 550,
                 footer: false, // display/hide footer
             },
 
             // column sorting
-            sortable: true,
+            sortable: false,
 
             pagination: true,
 
             search: {
                 input: $('#generalSearch'),
-            }, rows: {
-                afterTemplate: function (row, data, index) {
-                    row.find('.delete-item').on('click', function () {
-                        swal.fire({
-                            buttonsStyling: false,
-
-                            html: locator.__("Are you sure to delete this item?"),
-                            type: "info",
-
-                            confirmButtonText: locator.__("Yes, Delete!"),
-                            confirmButtonClass: "btn btn-sm btn-bold btn-brand",
-
-                            showCancelButton: true,
-                            cancelButtonText: locator.__("No, cancel"),
-                            cancelButtonClass: "btn btn-sm btn-bold btn-default"
-                        }).then(function (result) {
-                            if (result.value) {
-                                swal.fire({
-                                    title: locator.__('Loading...'),
-                                    onOpen: function () {
-                                        swal.showLoading();
-                                    }
-                                });
-                                $.ajax({
-                                    method: 'DELETE',
-                                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                                    url: '/dashboard/home_visits/' + data.id,
-                                    error: function (err) {
-                                        if (err.hasOwnProperty('responseJSON')) {
-                                            if (err.responseJSON.hasOwnProperty('message')) {
-                                                swal.fire({
-                                                    title: locator.__('Error!'),
-                                                    text: locator.__(err.responseJSON.message),
-                                                    type: 'error'
-                                                });
-                                            }
-                                        }
-                                        console.log(err);
-                                    }
-                                }).done(function (res) {
-                                    swal.fire({
-                                        title: locator.__('Deleted!'),
-                                        text: locator.__(res.message),
-                                        type: 'success',
-                                        buttonsStyling: false,
-                                        confirmButtonText: locator.__("OK"),
-                                        confirmButtonClass: "btn btn-sm btn-bold btn-brand",
-                                    });
-                                    datatable.reload();
-                                });
-                            }
-                        });
-                    });
-                }
             },
-
+            rows: {
+                autoHide: false,
+            },
             // columns definition
             columns: [
-                {
+                 {
+                    field: 'job_number',
+                    title: locator.__('Job Number'),
+                     autoHide: false,
+                },{
                     field: "employee",
                     title: locator.__("Employee"),
                     width: 200,
+                    autoHide: false,
                     // callback function support for column rendering
                     template: function(data) {
                         var output = '';
@@ -129,43 +83,75 @@ var KTDatatableLocalSortDemo = function() {
                             'info'
                         ];
                         var state = states[stateNo];
-                        let employee = data.employee
-                        let name = employeeName(employee);
+
                         output = '<div class="kt-user-card-v2">\
 								<div class="kt-user-card-v2__pic">\
-									<div class="kt-badge kt-badge--xl kt-badge--' + state + '">' + name.substring(0, 2) + '</div>\
+									<div class="kt-badge kt-badge--xl kt-badge--' + state + '">' + data.employee_name.substring(0, 2) + '</div>\
 								</div>\
 								<div class="kt-user-card-v2__details">\
-									<a href="/dashboard/employees/' + employee.id + '" class="kt-user-card-v2__name">' + name + '</a>\
+									<a href="/dashboard/employees/' + data.employee_id + '" class="kt-user-card-v2__name">' + data.employee_name + '</a>\
 								</div>\
 							</div>';
 
                         return output;
                     }
                 }, {
+                    field: 'nationality',
+                    title: locator.__('Nationality'),
+                    autoHide: false,
+                }, {
+                    field: 'salary',
+                    title: locator.__('Salary'),
+                    autoHide: false,
+                }, {
+                    field: 'hra',
+                    title: locator.__('HRA'),
+                    autoHide: false,
+                }, {
+                    field: 'transfer',
+                    title: locator.__('Transfer'),
+                    autoHide: false,
+                }, {
+                    field: 'other_allowances',
+                    title: locator.__('Other Allowances'),
+                    autoHide: false,
+                }, {
+                    field: 'total_allowances',
+                    title: locator.__('Total Allowances'),
+                    autoHide: false,
+                }, {
                     field: 'total_package',
                     title: locator.__('Total Package'),
+                    autoHide: false,
+                }, {
+                    field: 'violations_deduction',
+                    title: locator.__('Violations Deduction'),
+                    autoHide: false,
                 }, {
                     field: 'gosi_deduction',
                     title: locator.__('GOSI Deduction'),
+                    autoHide: false,
                     template:function(row){
                         return '<span class="kt-font-danger">' + row.gosi_deduction + '</span>';
                     }
                 }, {
-                    field: 'violations_deduction',
-                    title: locator.__('Violations Deduction'),
+                    field: 'total_deduction',
+                    title: locator.__('Total Deductions'),
+                    autoHide: false,
                     template:function(row){
-                        return '<span class="kt-font-danger">' + row.violations_deduction + '</span>';
+                        return '<span class="kt-font-danger">' + row.total_deduction + '</span>';
                     }
                 }, {
                     field: 'net_pay',
                     title: locator.__('Net Pay'),
+                    autoHide: false,
                     template:function(row){
                         return '<span class="kt-font-primary">' + row.net_pay + '</span>';
                     }
                 }, {
                     field: 'work_days',
                     title: locator.__('Work Days'),
+                    autoHide: false,
                 }, {
                     field: "Actions",
                     title: locator.__("Actions"),
