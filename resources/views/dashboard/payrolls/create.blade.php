@@ -49,8 +49,8 @@
                                                 <div class="kt-section">
                                                     <div class="kt-section__body">
                                                         <div class="form-group row">
-                                                            <label class="col-form-label col-lg-1 col-sm-12">{{__('Date')}} *</label>
-                                                            <div class="col-lg-6 col-md-9 col-sm-12 mx-auto">
+                                                            <label class="col-form-label col-lg-3 col-sm-12">{{__('Date')}} *</label>
+                                                            <div class="col-lg-6 col-md-9 col-sm-12">
                                                                 <div class="input-group date">
                                                                     <input name="year_month" value="{{old('year_month')}}" type="text" class="form-control datepic" readonly/>
                                                                     <div class="input-group-append">
@@ -59,6 +59,26 @@
                                                                         </span>
                                                                     </div>
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-form-label col-lg-3 col-sm-12">{{__('Providers')}} *</label>
+                                                            <div class="col-lg-6 col-md-9 col-sm-12">
+                                                                <select class="form-control @error('provider_id') is-invalid @enderror kt-selectpicker"
+                                                                        id="provider_id"
+                                                                        data-size="7"
+                                                                        data-live-search="true"
+                                                                        data-show-subtext="true" name="provider_id" title="{{__('search with name')}}">
+                                                                    <option value="" selected>{{__('For Company')}}</option>
+                                                                    @forelse($providers as $provider)
+                                                                        <option
+                                                                                value="{{$provider->id}}"
+                                                                                @if($provider->id == old('provider_id')) selected @endif
+                                                                        >{{$provider->job_number . ' ( ' . $provider->name() . ' )'}}</option>
+                                                                    @empty
+                                                                        <option disabled>{{__('There is no providers')}}</option>
+                                                                    @endforelse
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -124,7 +124,6 @@
                             type="password"
                             name="password_confirmation"
                             placeholder="{{__('Enter password')}}"
-                            value="{{old('password_confirmation')}}"
                             id="example-email-input">
                     </div>
                 </div>

@@ -26,5 +26,8 @@ $(function (){
 });
 
 function employeeName(employee) {
+    if(employee == null){
+        return 'From Company'
+    }
     return (appLang === 'ar') ? employee.fname_ar + ' ' + employee.lname_ar: employee.fname_en + ' ' + employee.lname_en;
 }

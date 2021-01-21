@@ -9,6 +9,7 @@ use App\Employee;
 use App\Http\Controllers\Controller;
 use App\JobTitle;
 use App\Nationality;
+use App\Provider;
 use App\Role;
 use App\Rules\UniqueJopNumber;
 use App\Scopes\ServiceStatusScope;
@@ -79,7 +80,7 @@ class EmployeeController extends Controller
         $nationalities = Nationality::all();
         $job_titles = JobTitle::all();
         $departments = Department::all();
-//        $roles = Role::whereNotIn('label', ['User', 'Super Admin'])->get();
+        $providers = Provider::get();
         $roles = Role::get();
         $supervisors = Employee::whereNull('supervisor_id')->get();
         $workShifts = WorkShift::get();
@@ -103,6 +104,7 @@ class EmployeeController extends Controller
             'workShifts' =>$workShifts,
             'departments' => $departments,
             'employee' => $employee,
+            'providers' => $providers,
         ]);
     }
 
@@ -151,6 +153,7 @@ class EmployeeController extends Controller
         $job_titles = JobTitle::all();
         $workShifts = WorkShift::get();
         $roles = Role::get();
+        $providers = Provider::get();
         $departments = Department::get();
         $supervisors = Employee::whereNull('supervisor_id')->get();
 
@@ -164,6 +167,7 @@ class EmployeeController extends Controller
             'supervisors' =>$supervisors,
             'workShifts' =>$workShifts,
             'departments' => $departments,
+            'providers' => $providers,
         ]);
     }
 
@@ -197,8 +201,12 @@ class EmployeeController extends Controller
 
     public function endService(Employee $employee, Request $request)
     {
+
         if($request->ajax()){
-            $employee->service_status = 0;
+            $request->validate([
+                'contract_end_date' => 'required|date'
+            ]);
+            $employee->contract_end_date = $request->contract_end_date;
             $employee->save();
         }
     }
@@ -206,7 +214,12 @@ class EmployeeController extends Controller
     {
         $employee = Employee::withoutGlobalScope(new ServiceStatusScope())->find($id);
         if($request->ajax()){
-            $employee->service_status = 1;
+            $request->validate([
+                'contract_start_date' => 'required|date',
+                'contract_end_date' => 'required|date',
+            ]);
+            $employee->contract_start_date = $request->contract_start_date;
+            $employee->contract_end_date = $request->contract_end_date;
             $employee->save();
         }
     }

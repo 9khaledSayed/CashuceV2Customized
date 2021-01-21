@@ -48,6 +48,10 @@ return [
             'driver' => 'session',
             'provider' => 'employees',
         ],
+        'provider' => [
+            'driver' => 'session',
+            'provider' => 'providers',
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -87,6 +91,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Company::class,
         ],
+        'providers' => [
+            'driver' => 'eloquent',
+            'model' => App\Provider::class,
+        ],
     ],
 
     /*
@@ -119,6 +127,12 @@ return [
         ],
         'companies' => [
             'provider' => 'companies',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'providers' => [
+            'provider' => 'providers',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

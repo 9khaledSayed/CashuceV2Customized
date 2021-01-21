@@ -8,14 +8,15 @@ use Illuminate\Contracts\Validation\Rule;
 
 class UniqueMonth implements Rule
 {
+    public $providerID;
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($providerID)
     {
-        //
+        $this->providerID = $providerID;
     }
 
     /**
@@ -27,11 +28,7 @@ class UniqueMonth implements Rule
      */
     public function passes($attribute, $value)
     {
-        if(Employee::isSupervisor()){
-            return Payroll::where([['year_month' , '=', $value], ['supervisor_id', '=', Employee::supervisorID()]])->doesntExist();
-        }else{
-            return Payroll::where('year_month' , $value, 'supervisor_id')->doesntExist();
-        }
+        return Payroll::where([['year_month' , '=', $value], ['provider_id', '=', $this->providerID]])->doesntExist();
 
     }
 

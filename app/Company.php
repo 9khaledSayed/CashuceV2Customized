@@ -4,13 +4,14 @@ namespace App;
 
 
 use App\Scopes\ParentScope;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Company extends Authenticatable
+class Company extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     use LogsActivity;

@@ -15,20 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-Route::get('language/{lang}', function ($lang) {
-    Session::put('locale', $lang);
-    return back();
-})->name('change_language');
-
-Route::get('/log', function(){
-    $employee = Employee::find(1);
-    $employee->fname_ar = 'kok';
-    $employee->save();
-
-    dd(\Spatie\Activitylog\Models\Activity::all()->last());
-});
-
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => [
@@ -38,13 +24,20 @@ Route::group([
     ], function() {
 
     Auth::routes(['verify' => false]);
-    Route::redirect('/', 'login');
+    Route::redirect('/', 'login/company');
+    Route::get('login/company', 'Auth\LoginController@loginCompanyForm');
+    Route::get('login/employee', 'Auth\LoginController@loginEmployeeForm');
+    Route::get('login/provider', 'Auth\LoginController@loginProviderForm');
+
+    Route::post('/login/company', 'Auth\LoginController@loginCompany');
+    Route::post('/login/employee', 'Auth\LoginController@loginEmployee');
+    Route::post('/login/provider', 'Auth\LoginController@loginProvider');
 
     Route::namespace('Dashboard')
         ->prefix('dashboard')
         ->name('dashboard.')
-        ->middleware('auth:employee,company')
-        //->middleware('verified')
+        ->middleware('auth:employee,company,provider')
+//        ->middleware('verified')
         ->group(function () {
             Route::get('/', 'DashboardController@index')->name('index');
             Route::get('/abilities', 'AbilityController@index');
@@ -102,6 +95,7 @@ Route::group([
                 'feedbacks' => 'ComblaintController',
                 'departments' => 'DepartmentController',
                 'sections' => 'SectionController',
+                'providers' => 'ProviderController',
             ]);
 
         });

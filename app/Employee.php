@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Scopes\ParentScope;
+use App\Scopes\ProviderScope;
 use App\Scopes\ServiceStatusScope;
 use App\Scopes\SupervisorScope;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -39,6 +40,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'tname_en' => ['nullable', 'string'],
         'lname_en' => ['required', 'string'],
         'email' => 'sometimes|required|email|unique:employees',
+        'provider_id' => 'nullable|numeric|exists:providers,id',
         'supervisor_id' => 'nullable|numeric|exists:employees,id',
         'department_id' => 'required|numeric|exists:departments,id',
         'section_id' => 'required|numeric|exists:sections,id',
@@ -46,7 +48,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'birthdate' => ['required', 'date'],
         'nationality_id' => 'required|numeric|exists:nationalities,id',
         'job_title_id' => 'required|numeric|exists:job_titles,id',
-        'marital_status' => ['nullable'],
+        'marital_status' => ['required'],
         'gender' => ['required'],
         'test_period' => ['required'],
         'city_name_ar' => ['required'],
@@ -90,6 +92,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
         static::addGlobalScope(new ParentScope());
         static::addGlobalScope(new SupervisorScope());
         static::addGlobalScope(new ServiceStatusScope());
+        static::addGlobalScope(new ProviderScope());
 
         static::creating(function ($model){
              if(auth()->check()){
