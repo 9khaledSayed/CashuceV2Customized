@@ -65,6 +65,7 @@ return array(
     'App\\Http\\Middleware\\TrimStrings' => $baseDir . '/app/Http/Middleware/TrimStrings.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+    'App\\JobTitle' => $baseDir . '/app/JobTitle.php',
     'App\\Message' => $baseDir . '/app/Message.php',
     'App\\Nationality' => $baseDir . '/app/Nationality.php',
     'App\\Notifications\\AlarmForEmployee' => $baseDir . '/app/Notifications/AlarmForEmployee.php',

@@ -45,6 +45,7 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'role_id' => 'required|numeric|exists:roles,id',
         'birthdate' => ['required', 'date'],
         'nationality_id' => 'required|numeric|exists:nationalities,id',
+        'job_title_id' => 'required|numeric|exists:job_titles,id',
         'marital_status' => ['nullable'],
         'gender' => ['required'],
         'test_period' => ['required'],
@@ -58,7 +59,6 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'passport_expire_date' => ['nullable'],
         'issue_place' => ['nullable'],
         'job_number' =>['required'],
-        'job_title' =>['nullable'],
         'joined_date' => ['required'],
         'work_shift_id' => ['required', 'exists:work_shifts,id'],
         'contract_type' => ['required'],
@@ -186,6 +186,12 @@ class Employee extends Authenticatable implements MustVerifyEmail
     {
         $nationality = Nationality::find($this->nationality_id);
         return $nationality ? $nationality->name() : '';
+    }
+
+    public function job_title()
+    {
+        $job_title = JobTitle::find($this->job_title_id);
+        return $job_title ? $job_title ->name() : '';
     }
 
     public function deductions()

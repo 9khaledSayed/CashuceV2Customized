@@ -95,6 +95,7 @@ Route::group([
                 'requests' => 'RequestController',
                 'payrolls' => 'PayrollController',
                 'nationalities' => 'NationalityController',
+                'job_titles' => 'JobTitleController',
                 'allowances' => 'AllowanceController',
                 'work_shifts' => 'WorkShiftController',
                 'vacation_types' => 'VacationTypeController',

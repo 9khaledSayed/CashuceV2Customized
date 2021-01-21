@@ -22,6 +22,7 @@ class CreateEmployeesTable extends Migration
             $table->unsignedBigInteger('supervisor_id')->nullable();
             $table->unsignedBigInteger('work_shift_id');
             $table->unsignedBigInteger('nationality_id');
+            $table->unsignedBigInteger('job_title_id')->nullable();
             $table->unsignedBigInteger('role_id');
             $table->unique(['company_id', 'job_number']);
             $table->string('fname_ar');
@@ -35,7 +36,6 @@ class CreateEmployeesTable extends Migration
             $table->string('city_name_ar')->nullable();
             $table->string('city_name_en')->nullable();
             $table->string('job_number');
-            $table->string('job_title')->nullable();
             $table->date('birthdate');
             $table->integer('marital_status')->nullable();
             $table->integer('gender')->nullable();
